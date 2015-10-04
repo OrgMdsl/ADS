@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package Business.Entity;
 
 import org.springframework.stereotype.Component;
 
@@ -13,14 +13,17 @@ import org.springframework.stereotype.Component;
  */
 
 public class Exemplo {
-    int id;
+    Integer id;
     String nome;
 
-    public int getId() {
+    public Exemplo() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

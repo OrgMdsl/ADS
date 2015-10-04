@@ -6,6 +6,7 @@
 package Business.Interceptors;
 
 import Business.Common.Const.AccessControlConst;
+import Business.Common.Const.ActionsConst;
 import Business.Common.Const.AttributesConst;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
 
                 request.getSession().setAttribute("endereco", uri);
 
-                RequestDispatcher dispacher = request.getRequestDispatcher("exibe-login");
+                RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.EXIBE_LOGIN);
                 dispacher.forward(request, response);
                 return false;
             }

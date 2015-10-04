@@ -3,17 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Interface;
-
-import Business.Entity.Exemplo;
-import java.util.List;
+package Business.Common.Const;
 
 /**
  *
  * @author matheusdsl
  */
-public interface IExemploDal {
-    
-    public Exemplo Buscar(int id);
-    
+public class ActionsConst {
+     public static final String 
+            EXIBE_LOGIN = "exibe_login";
 }

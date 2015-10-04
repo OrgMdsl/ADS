@@ -6,7 +6,7 @@
 package DataAccess;
 
 import DataAccess.Interface.IExemploDal;
-import Entity.Exemplo;
+import Business.Entity.Exemplo;
 import java.util.List;
 
 /**
@@ -16,9 +16,9 @@ import java.util.List;
 public class ExemploDal implements IExemploDal {
 
     @Override
-    public Exemplo Buscar() {
+    public Exemplo Buscar(int id) {
        Exemplo e = new Exemplo();
-       e.setId(1);
+       e.setId(id);
        e.setNome("Nome Exemplo Teste");
        return e;
     }

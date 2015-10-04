@@ -8,7 +8,7 @@ package Business;
 import Business.Interface.IExemploBll;
 import DataAccess.ExemploDal;
 import DataAccess.Interface.IExemploDal;
-import Entity.Exemplo;
+import Business.Entity.Exemplo;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,8 +31,8 @@ public class ExemploBll implements IExemploBll {
     }
 
     @Override
-    public Exemplo Buscar() {
-        return this.ExemploDal.Buscar();
+    public Exemplo Buscar(int id) {
+        return this.ExemploDal.Buscar(id);
     }
 
     

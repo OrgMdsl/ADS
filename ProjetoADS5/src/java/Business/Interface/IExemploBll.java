@@ -6,12 +6,12 @@
 package Business.Interface;
 
 import DataAccess.Interface.IExemploDal;
-import Entity.Exemplo;
+import Business.Entity.Exemplo;
 
 /**
  *
  * @author matheusdsl
  */
 public interface IExemploBll {
-    public Exemplo Buscar();
+    public Exemplo Buscar(int id);
 }

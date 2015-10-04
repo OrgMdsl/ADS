@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Interface;
+package Business.Common.Utils;
 
-import Business.Entity.Exemplo;
-import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author matheusdsl
  */
-public interface IExemploDal {
-    
-    public Exemplo Buscar(int id);
-    
+public class Util {
+
+    public static String DecimalDuasCasas(double valor)    
+    {     
+         return String.format("%.2f", valor);      
+    }
 }

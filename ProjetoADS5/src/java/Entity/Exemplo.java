@@ -5,10 +5,13 @@
  */
 package Entity;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author matheusdsl
  */
+
 public class Exemplo {
     int id;
     String nome;

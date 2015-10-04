@@ -16,16 +16,17 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
    
-    <context:component-scan base-package="Controller"/>
+    <context:component-scan base-package="Web.Controller"/>
     <mvc:resources mapping="/Content/**" location="/WEB-INF/Content/"/> 
     <mvc:resources mapping="/Temp/**" location="/WEB-INF/Temp/"/> 
     <mvc:resources mapping="/Views/**" location="/WEB-INF/Views/"/> 
+    <mvc:resources mapping="/RootPath/**" location="http://localhost:8080/ProjetoADS5/" />
     <mvc:annotation-driven />
     <context:annotation-config />     
 
      
       <mvc:interceptors>
-            <bean class="Controller.AccessControl" />
+            <bean class="Business.Interceptors.AccessControl" />
       </mvc:interceptors>
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"

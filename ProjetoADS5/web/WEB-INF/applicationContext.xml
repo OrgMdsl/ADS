@@ -18,6 +18,10 @@
    
     <context:component-scan base-package="Web.Controller"/>
     <mvc:resources mapping="/Content/**" location="/WEB-INF/Content/"/> 
+    <mvc:resources mapping="/js/**" location="/WEB-INF/Content/js/"/>
+    <mvc:resources mapping="/additional/**" location="/WEB-INF/Content/js/additional/"/>  
+    <mvc:resources mapping="/css/**" location="/WEB-INF/Content/css/"/> 
+    <mvc:resources mapping="/images/**" location="/WEB-INF/Content/images/"/> 
     <mvc:resources mapping="/Temp/**" location="/WEB-INF/Temp/"/> 
     <mvc:resources mapping="/Views/**" location="/WEB-INF/Views/"/> 
     <mvc:resources mapping="/RootPath/**" location="http://localhost:8080/ProjetoADS5/" />

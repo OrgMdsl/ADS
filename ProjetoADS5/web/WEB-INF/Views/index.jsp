@@ -3,21 +3,28 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
-        <script src="Content/js/jquery-2.1.4.min.js" type="text/javascript"></script>
-        <script src="Content/js/additional/Main.js" type="text/javascript"></script>
-        <script src="Content/js/additional/Exemplo.js" type="text/javascript"></script>
-        
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="additional/Main.js" type="text/javascript"></script>
+        <script src="additional/Exemplo.js" type="text/javascript"></script>
+
     </head>
 
     <body>
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
-        <p><i>To display a different welcome page for this project, modify</i>
-            <tt>index.jsp</tt> <i>, or create your own welcome page then change
-                the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
-                welcome page and also update the welcome-file setting in</i>
-            <tt>web.xml</tt>.</p>
+        <!-- Button trigger modal 
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Launch demo modal
+        </button> -->
+
+        <!-- Modal -->
+        
     </body>
 </html>

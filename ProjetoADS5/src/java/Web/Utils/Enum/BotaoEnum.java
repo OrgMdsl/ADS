@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Common.Const;
+package Web.Utils.Enum;
 
 /**
  *
  * @author matheusdsl
  */
-public class AccessControlConst {
-    public static final String 
-            RESTRITO = "_AC_R";
-    
+public enum BotaoEnum {
+    Ok,
+    Cancelar,
+    Sim,
+    Nao,
+    Salvar,
+    Fechar
 }

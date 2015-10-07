@@ -1,23 +1,6 @@
 
-function ajax(url, sucesso, erro)
-{
-
-    $.ajax({
-        url: url,
-        dataType: "json",
-        success: function (item) {
-            debugger;
-            sucesso(item);
-        },
-        error: function (er) {
-            erro(er);
-        }
-    });
-}
-
 function modal(data)
 {
-    debugger;
     var html = "<div class=\"modal fade\" id=\"modalMsg\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">" +
             "    <div class=\"modal-dialog\" role=\"document\">" +
             "        <div class=\"modal-content\">" +

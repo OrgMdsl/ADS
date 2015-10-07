@@ -13,6 +13,10 @@
         <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="libs/Constantes.js" type="text/javascript"></script>
+        <script src="libs/Util.js" type="text/javascript"></script>
+        <script src="libs/Ajax.js" type="text/javascript"></script>
+
         <script src="additional/Main.js" type="text/javascript"></script>
         <script src="additional/Exemplo.js" type="text/javascript"></script>
 
@@ -25,6 +29,6 @@
         </button> -->
 
         <!-- Modal -->
-        
+
     </body>
 </html>

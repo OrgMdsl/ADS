@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Web.Model;
+package Web.Utils.Class;
 
 import Web.Utils.Enum.BotaoEnum;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author matheusdsl
  */
-public class ModalModel {
+public class ModalClass {
     String titulo;
     String corpo;
     BotaoEnum btns[];

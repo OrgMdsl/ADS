@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -27,7 +28,8 @@ public class ModalController {
         model = new ModalClass();
     }
 
-    @RequestMapping("ModalAtencao")
+    @RequestMapping(value="ModalAtencao", produces = "text/html; charset=UTF8")
+    @ResponseBody
     public ResponseEntity<String> ModalAtencao(String corpo) {
         model.setTitulo("Atenção");
         model.setCorpo(corpo);

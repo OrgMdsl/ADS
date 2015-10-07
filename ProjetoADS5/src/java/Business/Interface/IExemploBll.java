@@ -5,7 +5,6 @@
  */
 package Business.Interface;
 
-import DataAccess.Interface.IExemploDal;
 import Business.Entity.Exemplo;
 
 /**

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import Web.Controller.Helpers.JsonHelper;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -27,7 +28,8 @@ public class ExemploController {
         this.ExemploBll = new ExemploBll();
     }
 
-    @RequestMapping("ExibeExemplo")
+    @RequestMapping(value = "ExibeExemplo", produces = "text/html; charset=UTF8")
+    @ResponseBody
     public ResponseEntity<String> ExibeExemplo(@RequestParam int id) {
         return new JsonHelper<Exemplo>().ToJson(this.ExemploBll.Buscar(id));
     }

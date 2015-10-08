@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ModalController {
 
-    private ModalClass model;
+    private ModalClass modal;
 
     public ModalController() {
-        model = new ModalClass();
+        modal = new ModalClass();
     }
 
     @RequestMapping(value="ModalAtencao", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ModalAtencao(String corpo) {
-        model.setTitulo("Atenção");
-        model.setCorpo(corpo);
+        modal.setTitulo("Atenção");
+        modal.setCorpo(corpo);
         BotaoEnum btns[] = {BotaoEnum.Cancelar, BotaoEnum.Ok};
-        model.setBtns(btns);
-        ResponseEntity<String> json = new JsonHelper<ModalClass>().ToJson(model);
+        modal.setBtns(btns);
+        ResponseEntity<String> json = new JsonHelper<ModalClass>().ToJson(modal);
         return json;
     }
 

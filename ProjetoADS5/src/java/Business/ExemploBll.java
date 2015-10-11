@@ -8,7 +8,7 @@ package Business;
 import Business.Interface.IExemploBll;
 import DataAccess.ExemploDal;
 import DataAccess.Interface.IExemploDal;
-import Business.Entity.Exemplo;
+import Business.Entity.Map.Exemplo;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;

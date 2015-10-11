@@ -6,7 +6,7 @@
 package DataAccess;
 
 import DataAccess.Interface.IExemploDal;
-import Business.Entity.Exemplo;
+import Business.Entity.Map.Exemplo;
 import java.util.List;
 
 /**

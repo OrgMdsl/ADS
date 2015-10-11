@@ -5,7 +5,7 @@
  */
 package Web.Controller;
 
-import Business.Entity.Exemplo;
+import Business.Entity.Map.Exemplo;
 import Web.Controller.Helpers.JsonHelper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

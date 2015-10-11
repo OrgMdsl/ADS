@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Business.Entity.Map.Usuario" table="Usuario" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="idUsuario" type="int">
+            <column name="id_usuario" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="coreGenericoItemByIdStatus" class="Business.Entity.Map.CoreGenericoItem" fetch="select">
+            <column name="id_status" />
+        </many-to-one>
+        <many-to-one name="coreGenericoItemByAtivo" class="Business.Entity.Map.CoreGenericoItem" fetch="select">
+            <column name="ativo" />
+        </many-to-one>
+        <many-to-one name="pessoa" class="Business.Entity.Map.Pessoa" fetch="select">
+            <column name="id_pessoa" />
+        </many-to-one>
+        <many-to-one name="usuarioPerfil" class="Business.Entity.Map.UsuarioPerfil" fetch="select">
+            <column name="id_perfil" />
+        </many-to-one>
+        <many-to-one name="usuarioSetor" class="Business.Entity.Map.UsuarioSetor" fetch="select">
+            <column name="id_setor" />
+        </many-to-one>
+        <property name="senha" type="string">
+            <column name="senha" length="50" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="50" />
+        </property>
+        <set name="usuarioPersonalizacaos" table="UsuarioPersonalizacao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario" />
+            </key>
+            <one-to-many class="Business.Entity.Map.UsuarioPersonalizacao" />
+        </set>
+        <set name="chamadoHistoricosForIdUsuarioSolicitante" table="ChamadoHistorico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario_solicitante" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ChamadoHistorico" />
+        </set>
+        <set name="chamadoHistoricosForIdUsuarioAtendente" table="ChamadoHistorico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario_atendente" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ChamadoHistorico" />
+        </set>
+    </class>
+</hibernate-mapping>

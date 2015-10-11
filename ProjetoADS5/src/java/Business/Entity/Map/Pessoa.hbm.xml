@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Business.Entity.Map.Pessoa" table="Pessoa" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="idPessoa" type="int">
+            <column name="id_pessoa" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="200" />
+        </property>
+        <property name="dataNascimento" type="date">
+            <column name="data_nascimento" length="10" />
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" />
+        </property>
+        <set name="usuarios" table="Usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pessoa" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Usuario" />
+        </set>
+        <set name="enderecoPessoas" table="EnderecoPessoa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pessoa" />
+            </key>
+            <one-to-many class="Business.Entity.Map.EnderecoPessoa" />
+        </set>
+    </class>
+</hibernate-mapping>

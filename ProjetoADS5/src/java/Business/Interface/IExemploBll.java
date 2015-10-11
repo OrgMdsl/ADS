@@ -5,7 +5,7 @@
  */
 package Business.Interface;
 
-import Business.Entity.Exemplo;
+import Business.Entity.Map.Exemplo;
 
 /**
  *

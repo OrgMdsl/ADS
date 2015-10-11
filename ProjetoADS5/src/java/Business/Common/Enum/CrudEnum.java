@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Interface;
-
-import Business.Entity.Map.Exemplo;
-import java.util.List;
+package Business.Common.Enum;
 
 /**
  *
  * @author matheusdsl
  */
-public interface IExemploDal {
-    
-    public Exemplo Buscar(int id);
-    
+public enum CrudEnum {
+    Save,
+    Update,
+    SaveUpdate,
+    Delete
 }

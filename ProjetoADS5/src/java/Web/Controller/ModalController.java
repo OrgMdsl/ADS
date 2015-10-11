@@ -6,7 +6,7 @@
 package Web.Controller;
 
 import Web.Controller.Helpers.JsonHelper;
-import Web.Utils.Class.ModalClass;
+import Business.Dto.Common.ModalDto;
 import Web.Utils.Enum.BotaoEnum;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ModalController {
 
-    private ModalClass modal;
+    private ModalDto modal;
 
     public ModalController() {
-        modal = new ModalClass();
+        modal = new ModalDto();
     }
 
     @RequestMapping(value="ModalAtencao", produces = "text/html; charset=UTF8")
@@ -35,7 +35,7 @@ public class ModalController {
         modal.setCorpo(corpo);
         BotaoEnum btns[] = {BotaoEnum.Cancelar, BotaoEnum.Ok};
         modal.setBtns(btns);
-        ResponseEntity<String> json = new JsonHelper<ModalClass>().ToJson(modal);
+        ResponseEntity<String> json = new JsonHelper<ModalDto>().ToJson(modal);
         return json;
     }
 

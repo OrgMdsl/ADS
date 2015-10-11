@@ -5,7 +5,13 @@
  */
 package Web.Controller;
 
+import Business.Entity.Exemplo;
+import Web.Controller.Helpers.JsonHelper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -13,6 +19,11 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class ChamadoController {
-    
-    
+    /*
+    @RequestMapping(value = "ExibeExemplo", produces = "text/html; charset=UTF8")
+    @ResponseBody
+    public ResponseEntity<String> ExibeExemplo(@RequestParam int id) {
+        return new JsonHelper<Exemplo>().ToJson();
+    }
+    */
 }

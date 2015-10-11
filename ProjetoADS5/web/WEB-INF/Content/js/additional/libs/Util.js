@@ -18,7 +18,6 @@ var Util = (function () {
     Util.SelectByName = function (name) {
         return $("[name='" + name + "']");
     };
-
-
+    
     return Util;
 }());

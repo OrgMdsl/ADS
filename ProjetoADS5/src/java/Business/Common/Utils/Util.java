@@ -5,7 +5,7 @@
  */
 package Business.Common.Utils;
 
-import Business.Entity.Common.Erro;
+import Business.Dto.Common.ErroDto;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -24,7 +24,7 @@ public class Util {
          return String.format("%.2f", valor);      
     }
     
-    public static String EnviaErros(List<Erro> obj)
+    public static String EnviaErros(List<ErroDto> obj)
     {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");

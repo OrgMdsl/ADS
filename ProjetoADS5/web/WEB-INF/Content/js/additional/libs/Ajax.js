@@ -3,7 +3,6 @@ var Ajax = (function () {
 
     //Construtor
     function Ajax() {
-        alert("Ajax!");
     }
 
     /**

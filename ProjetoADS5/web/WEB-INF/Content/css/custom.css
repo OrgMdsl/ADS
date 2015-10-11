@@ -1,0 +1,67 @@
+body {
+    background: #fff;
+}
+table th {
+    background: #563D7C;
+    color: #fff;
+    border: 0;
+}
+table td {
+    border-left: 1px solid #eee;
+}
+
+
+table.dataTable.no-footer {
+    border: 0;
+}
+
+.danger {
+    color: #ff5757;
+    font-weight: bold;
+}
+
+.custom-navbar {
+    background: #563D7C;
+}
+
+.custom-footer {
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-img-perfil {
+    float: right;
+    height: 50px;
+    width: 50px;
+    margin-left: 5px;
+    margin-top: 0;
+}
+.custom-img-perfil img {
+    width: 50px;
+    height: 50px;
+}
+.top-nav a{
+    color: #eee;
+}
+.top-nav li a {
+    color: #eee;
+}
+.navbar-header .navbar-brand{
+    color: #fff;
+}
+.media{
+    color: #111;
+}
+.dropdown-menu li a {
+    color: #111;
+}
+
+.navbar-toggle {
+    border: 0;
+}
+.navbar-toggle i{
+    color: #fff;
+    font-size: 20px;
+}

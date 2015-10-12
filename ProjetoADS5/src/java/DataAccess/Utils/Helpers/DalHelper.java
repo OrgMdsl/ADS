@@ -34,15 +34,20 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
 
     @Override
     public T Buscar(Integer id) {
-        Criteria crit = getSession().createCriteria(entityClass);
+        Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("id", id));
         return (T) crit.uniqueResult();
     }
 
     @Override
     public List<T> Pesquisar() {
-        Criteria crit = getSession().createCriteria(entityClass);
+        Criteria crit = GetCriteria();
         return crit.list();
+    }
+
+    @Override
+    public Criteria GetCriteria() {
+        return getSession().createCriteria(entityClass);
     }
 
 }

@@ -28,13 +28,17 @@
     <mvc:resources mapping="/Views/**" location="/WEB-INF/Views/"/> 
     <mvc:resources mapping="/Layout/**" location="/WEB-INF/Views/Layout/"/> 
     <mvc:resources mapping="/RootPath/**" location="http://localhost:8080/ProjetoADS5/" />
+     
     <mvc:annotation-driven />
     <context:annotation-config />     
 
      
       <mvc:interceptors>
-            <bean class="Business.Interceptors.AccessControl" />
+        <bean class="Business.Interceptors.UrlParameter" />
+        <bean class="Business.Interceptors.AccessControl" />
       </mvc:interceptors>
+     
+    
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />

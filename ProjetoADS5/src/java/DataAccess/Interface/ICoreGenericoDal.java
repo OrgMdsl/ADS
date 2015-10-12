@@ -6,15 +6,12 @@
 package DataAccess.Interface;
 
 import Business.Entity.Map.CoreGenerico;
-import Business.Entity.Map.CoreGenericoItem;
-import com.googlecode.genericdao.dao.hibernate.GenericDAO;
-import java.util.Set;
+import DataAccess.Utils.Helpers.IDalHelper;
 
 /**
  *
  * @author matheusdsl
  */
-public interface ICoreGenericoDal extends GenericDAO<CoreGenerico, Long> {
-    public CoreGenerico Buscar(Integer id);
+public interface ICoreGenericoDal extends IDalHelper<CoreGenerico> {
     public CoreGenerico Buscar(String nome);
 }

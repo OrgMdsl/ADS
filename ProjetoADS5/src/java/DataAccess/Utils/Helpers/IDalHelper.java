@@ -6,6 +6,7 @@
 package DataAccess.Utils.Helpers;
 
 import java.util.List;
+import org.hibernate.Criteria;
 
 /**
  *
@@ -15,4 +16,5 @@ import java.util.List;
 public interface IDalHelper<T> {
     T Buscar(Integer id);
     List<T> Pesquisar();
+    Criteria GetCriteria();
 }

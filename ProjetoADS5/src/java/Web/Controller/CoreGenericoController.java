@@ -27,7 +27,24 @@ public class CoreGenericoController {
     
     @RequestMapping(value = "BuscaCoreGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> ExibeExemplo(@RequestParam int id) {
+    public ResponseEntity<String> BuscaCoreGenerico(@RequestParam int id) {
         return new JsonHelper<CoreGenerico>().ToJson(this.CoreGenericoBll.Buscar(id));
     }    
+    
+    @RequestMapping(value = "BuscaCoreGenericoNome", produces = "text/html; charset=UTF8")
+    @ResponseBody
+    public ResponseEntity<String> BuscaCoreGenericoNome(@RequestParam String nome) {
+        return new JsonHelper<CoreGenerico>().ToJson(this.CoreGenericoBll.GetByName(nome));
+    }     
+    
+    @RequestMapping(value = "SalvarCoreGenerico", produces = "text/html; charset=UTF8")
+    @ResponseBody
+    public String SalvarCoreGenerico(@RequestParam String nome) {
+        CoreGenerico c = new CoreGenerico();
+        c.setNome(nome);
+        c.setDescricao("Nível");
+        
+        new CoreGenericoBll().save(c);
+        return "SALVOU ESSA BAGAÇA!!!";
+    }
 }

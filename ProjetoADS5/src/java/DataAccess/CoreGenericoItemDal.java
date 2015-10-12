@@ -19,16 +19,11 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author matheusdsl
  */
-public class CoreGenericoItemDal extends GenericDAOImpl<CoreGenericoItem, Long> implements ICoreGenericoItemDal {
-
-    @Override
-    public CoreGenericoItem Buscar(Integer id) {
-        return new DalHelper<CoreGenericoItem>().Buscar(id);
-    }
+public class CoreGenericoItemDal extends DalHelper<CoreGenericoItem> implements ICoreGenericoItemDal {
 
     @Override
     public CoreGenericoItem Buscar(String sigla, Integer idCoreGenerico) {
-        Criteria crit = getSession().createCriteria(CoreGenericoItem.class);
+        Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("sigla", sigla));
         crit.add(Restrictions.eq("id_generico", idCoreGenerico));
         return (CoreGenericoItem) crit.uniqueResult();
@@ -36,7 +31,7 @@ public class CoreGenericoItemDal extends GenericDAOImpl<CoreGenericoItem, Long> 
 
     @Override
     public Set<CoreGenericoItem> GetItens(CoreGenerico pai) {
-        Criteria crit = getSession().createCriteria(CoreGenericoItem.class);
+        Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("id_generico", pai.getIdGenerico()));
         return new HashSet<CoreGenericoItem>(crit.list());
     }

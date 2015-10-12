@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Common.Enum;
+package DataAccess.Utils.Helpers;
+
+import java.util.List;
 
 /**
  *
  * @author matheusdsl
+ * @param <T>
  */
-public enum CrudEnum {
-    Save,
-    Update,
-    SaveUpdate,
-    Delete,
-    Select
+public interface IDalHelper<T> {
+    T Buscar(Integer id);
+    List<T> Pesquisar();
 }

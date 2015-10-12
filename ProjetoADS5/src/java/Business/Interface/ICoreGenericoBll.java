@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Common.Enum;
+package Business.Interface;
+
+import Business.Entity.Map.CoreGenerico;
+import DataAccess.Utils.Helpers.IDalHelper;
 
 /**
  *
  * @author matheusdsl
  */
-public enum CrudEnum {
-    Save,
-    Update,
-    SaveUpdate,
-    Delete,
-    Select
+public interface ICoreGenericoBll extends IDalHelper<CoreGenerico> {
+    
 }

@@ -58,21 +58,18 @@ public class ExemploController {
 
             CoreGenericoItem obj = new CoreGenericoItem();
             obj.setAtivo(Boolean.TRUE);
-            obj.setCoreGenerico(o);
             obj.setDescricao("Alta");
             obj.setSigla("A");
             list.add(obj);
 
             obj = new CoreGenericoItem();
             obj.setAtivo(Boolean.TRUE);
-            obj.setCoreGenerico(o);
             obj.setDescricao("Média");
             obj.setSigla("M");
             list.add(obj);
 
             obj = new CoreGenericoItem();
             obj.setAtivo(Boolean.TRUE);
-            obj.setCoreGenerico(o);
             obj.setDescricao("Baixa");
             obj.setSigla("B");
             list.add(obj);

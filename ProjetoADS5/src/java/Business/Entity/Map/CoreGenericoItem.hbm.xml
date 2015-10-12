@@ -7,9 +7,6 @@
             <column name="id_generico_item" />
             <generator class="identity" />
         </id>
-        <many-to-one name="coreGenerico" class="Business.Entity.Map.CoreGenerico" fetch="select">
-            <column name="id_generico" />
-        </many-to-one>
         <property name="sigla" type="string">
             <column name="sigla" length="5" />
         </property>

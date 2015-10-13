@@ -13,7 +13,7 @@ public class CoreArquivo  implements java.io.Serializable {
      private String extensao;
      private byte[] arquivo;
      private String url;
-     private Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
+     private transient Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
 
     public CoreArquivo() {
     }

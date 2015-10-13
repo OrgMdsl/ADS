@@ -5,11 +5,11 @@
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-        <!--listener-class>Web.Configuration.MyContextLoaderListerner</listener-class>
+        <!--listener-class>org.springframework.web.context.ContextLoaderListener</listener-class-->
+        <listener-class>Web.Configuration.MyContextLoaderListerner</listener-class>
     </listener>
     <listener>
-        <listener-class>Web.Configuration.SessionCounterListener</listener-class-->
+        <listener-class>Web.Configuration.SessionCounterListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>dispatcher</servlet-name>

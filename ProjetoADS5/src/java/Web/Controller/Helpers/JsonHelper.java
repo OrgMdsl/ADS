@@ -6,6 +6,8 @@
 package Web.Controller.Helpers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.lang.reflect.Modifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +18,13 @@ import org.springframework.http.ResponseEntity;
  * @param <T>
  */
 public class JsonHelper<T> {
-    
-    private final Gson gson;
 
-    public JsonHelper() {
-        this.gson = new Gson();
-    }
-
-    public ResponseEntity<String> ToJson(T obj)
-    {
+    public ResponseEntity<String> ToJson(T obj) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+        headers.set("Content-Type", "application/json; charset=utf8");
+        Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
         String json = gson.toJson(obj);
         return new ResponseEntity<String>(json, headers, HttpStatus.CREATED);
     }
-    
+
 }

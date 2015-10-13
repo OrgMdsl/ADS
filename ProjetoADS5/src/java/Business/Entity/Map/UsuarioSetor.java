@@ -8,7 +8,7 @@ public class UsuarioSetor  implements java.io.Serializable {
 
      private int idSetor;
      private String nome;
-     private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+     private transient Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
     public UsuarioSetor() {
     }

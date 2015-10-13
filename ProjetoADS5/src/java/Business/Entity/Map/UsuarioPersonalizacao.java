@@ -4,7 +4,7 @@ public class UsuarioPersonalizacao  implements java.io.Serializable {
 
 
      private int idPersonalizacao;
-     private Usuario usuario;
+     private transient Usuario usuario;
 
     public UsuarioPersonalizacao() {
     }

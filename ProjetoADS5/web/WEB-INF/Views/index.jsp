@@ -21,12 +21,7 @@
                         <div class="col-lg-12">
                             <h1 class="page-header">
                                 ${ViewName} <small>${ViewDescription}</small>
-                            </h1>
-                            <ol class="breadcrumb">
-                                <li class="active">
-                                    Home
-                                </li>
-                            </ol>
+                            </h1>                            
                         </div>
                     </div>
                     <!-- /.row -->
@@ -35,7 +30,7 @@
                         <div class="col-lg-12" id="alertbar">
                             <div class="alert alert-info alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
+                                <i class="fa fa-info-circle"></i>  <strong>Mensagem</strong> Teste
                             </div>
                         </div>
                     </div>
@@ -70,11 +65,7 @@
 
                         <!-- /.row -->
 
-                        <div class="row">
-                            <div class="panel-body custom-footer">
-                                <span>HelpDesk. Copyright © 2015</span>
-                            </div>
-                        </div>
+                        <c:import url="Layout/footer.jsp" />
 
                     </div>
                     <!-- /.container-fluid -->

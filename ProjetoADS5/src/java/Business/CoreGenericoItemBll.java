@@ -5,15 +5,23 @@
  */
 package Business;
 
+import Business.Entity.Map.CoreGenerico;
 import Business.Entity.Map.CoreGenericoItem;
 import Business.Interface.ICoreGenericoItemBll;
+import DataAccess.CoreGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
-import java.util.List;
 
 /**
  *
  * @author matheusdsl
  */
 public class CoreGenericoItemBll extends DalHelper<CoreGenericoItem> implements ICoreGenericoItemBll {
+
+    public final CoreGenericoItemDal CoreGenericoItemDal = new CoreGenericoItemDal();
+
+    @Override
+    public CoreGenericoItem BuscarPorSigla(String sigla, String nomePai) {
+        return CoreGenericoItemDal.BuscarPorSigla(sigla, nomePai);
+    }
 
 }

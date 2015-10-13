@@ -7,6 +7,7 @@ package Web.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -14,9 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
-    
+
     @RequestMapping("*")
-    public String Index() {
-        return "index";
-    }  
+    public ModelAndView Index() {
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("ViewName", "Home");
+        mv.addObject("ViewDescription", "Lista de chamados");
+        return mv;
+    }
+
+    @RequestMapping("LayoutLeftMenu")
+    public String LayoutLeftMenu() {
+        return "Layout/left-menu";
+    }
+
+    @RequestMapping("LayoutTopWrapper")
+    public String LayoutTopWrapper() {
+        return "Layout/top-wrapper";
+    }
+
+    @RequestMapping("LayoutHeadEssential")
+    public String LayoutHeadEssential() {
+        return "Layout/head-essential";
+    }
+
+    @RequestMapping("LayoutFooter")
+    public String LayoutFooter() {
+        return "Layout/footer";
+    }
 }

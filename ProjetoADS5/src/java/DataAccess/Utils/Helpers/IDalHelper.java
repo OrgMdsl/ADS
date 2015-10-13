@@ -5,7 +5,7 @@
  */
 package DataAccess.Utils.Helpers;
 
-import java.util.List;
+import java.util.Set;
 import org.hibernate.Criteria;
 
 /**
@@ -14,7 +14,18 @@ import org.hibernate.Criteria;
  * @param <T>
  */
 public interface IDalHelper<T> {
+
     T Buscar(Integer id);
-    List<T> Pesquisar();
+
+    Set<T> Pesquisar();
+
     Criteria GetCriteria();
+
+    String Inserir(T obj);
+
+    String Atualizar(T obj);
+
+    String InserirAtualizar(T obj);
+
+    String Excluir(T obj);
 }

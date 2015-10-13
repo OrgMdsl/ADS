@@ -12,7 +12,7 @@ public class Chamado  implements java.io.Serializable {
      private String descricaoSolicitacao;
      private String descricaoSolucaoFinal;
      private String tituloSolicitacao;
-     private Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
+     private transient Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
 
     public Chamado() {
     }

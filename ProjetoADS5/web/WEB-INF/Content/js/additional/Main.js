@@ -139,13 +139,6 @@ function modal(data)
 
 $(document).ready(function(){
 
-    $(".table").DataTable( {
-        processing: true
-        //serverSide: true
-        /*ajax: $.fn.dataTable.pipeline( {
-            url: 'ExibeExemplo?id=1',
-            pages: 5 //cache pages
-        } )*/
-    } );
+    
     
 });

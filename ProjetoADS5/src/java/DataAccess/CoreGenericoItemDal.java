@@ -21,11 +21,12 @@ import org.hibernate.criterion.Restrictions;
  */
 public class CoreGenericoItemDal extends DalHelper<CoreGenericoItem> implements ICoreGenericoItemDal {
 
+    private CoreGenericoDal CoreGenericoDal = new CoreGenericoDal();
     @Override
-    public CoreGenericoItem Buscar(String sigla, Integer idCoreGenerico) {
+    public CoreGenericoItem BuscarPorSigla(String sigla, String nomePai) {
         Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("sigla", sigla));
-        crit.add(Restrictions.eq("id_generico", idCoreGenerico));
+        crit.add(Restrictions.eq("id_generico", CoreGenericoDal.Buscar(nomePai).getIdGenerico()));
         return (CoreGenericoItem) crit.uniqueResult();
     }
 
@@ -35,5 +36,8 @@ public class CoreGenericoItemDal extends DalHelper<CoreGenericoItem> implements 
         crit.add(Restrictions.eq("id_generico", pai.getIdGenerico()));
         return new HashSet<CoreGenericoItem>(crit.list());
     }
+    
+    
+    
     
 }

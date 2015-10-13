@@ -15,6 +15,9 @@
         </property>
         <property name="ativo" type="java.lang.Boolean">
             <column name="ativo" />
-        </property>      
+        </property>     
+        <many-to-one name="coreGenerico" class="Business.Entity.Map.CoreGenerico" fetch="select">
+            <column name="id_generico" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

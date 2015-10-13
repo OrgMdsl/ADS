@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="baseURL" value="${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, pageContext.request.contextPath)}" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,3 +24,5 @@
 <script src="libs/Constantes.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Util.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Ajax.js" charset="utf8" type="text/javascript"></script>
+
+<script src="additional/Main.js" type="text/javascript"></script>

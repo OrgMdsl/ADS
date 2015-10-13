@@ -5,12 +5,16 @@
  */
 package DataAccess.Utils.Helpers;
 
+import Business.Common.Const.MessagesConst;
 import br.com.configuration.HibernateUtility;
 import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -40,14 +44,78 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
     }
 
     @Override
-    public List<T> Pesquisar() {
+    public Set<T> Pesquisar() {
         Criteria crit = GetCriteria();
-        return crit.list();
+        return new HashSet<T>(crit.list());
     }
 
     @Override
     public Criteria GetCriteria() {
         return getSession().createCriteria(entityClass);
+    }
+
+    @Override
+    public String Inserir(T obj) {
+        Session s = getSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.save(obj);
+            t.commit();
+            return MessagesConst.INSERIDO;
+        } catch (Exception ex) {
+            t.rollback();
+            throw ex;
+        } finally {
+            s.close();
+        }
+    }
+
+    @Override
+    public String Atualizar(T obj) {
+        Session s = getSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.update(obj);
+            t.commit();
+            return MessagesConst.ATUALIZADO;
+        } catch (Exception ex) {
+            t.rollback();
+            throw ex;
+        } finally {
+            s.close();
+        }
+    }
+
+    @Override
+    public String InserirAtualizar(T obj) {
+        Session s = getSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.saveOrUpdate(obj);
+            t.commit();
+            return MessagesConst.INSERIDO;
+        } catch (Exception ex) {
+            t.rollback();
+            throw ex;
+        } finally {
+            s.close();
+        }
+    }
+
+    @Override
+    public String Excluir(T obj) {
+        Session s = getSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.delete(obj);
+            t.commit();
+            return MessagesConst.EXCLUÍDO;
+        } catch (Exception ex) {
+            t.rollback();
+            throw ex;
+        } finally {
+            s.close();
+        }
     }
 
 }

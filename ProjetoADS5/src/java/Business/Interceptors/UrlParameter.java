@@ -8,7 +8,9 @@ package Business.Interceptors;
 import Business.Common.Const.AccessControlConst;
 import Business.Common.Const.ActionsConst;
 import Business.Common.Const.AttributesConst;
+import java.io.IOException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -39,7 +41,7 @@ public class UrlParameter extends HandlerInterceptorAdapter {
                 dispacher.forward(request, response);
                 return false;
             }
-            catch(Exception ex)
+            catch(NumberFormatException | ServletException | IOException ex)
             {}
         }
         return true;

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="baseURL" value="${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, pageContext.request.contextPath)}" />
 <!-- Navigation -->
 <nav id="navbar_topo" class="navbar navbar-inverse navbar-fixed-top custom-navbar" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -85,23 +88,6 @@
         </li>
     </ul>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar_left">
-        <ul class="nav navbar-nav side-nav">
-            <li class="active">
-                <a href="index"><i class="fa fa-fw fa-home"></i> Home</a>
-            </li>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="#">Dropdown Item</a>
-                    </li>
-                    <li>
-                        <a href="#">Dropdown Item</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+    <c:import url="/WEB-INF/Views/Layout/left-menu.jsp" />
     <!-- /.navbar-collapse -->
 </nav>

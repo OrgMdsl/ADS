@@ -13,5 +13,5 @@ import DataAccess.Utils.Helpers.IDalHelper;
  * @author matheusdsl
  */
 public interface ICoreGenericoBll extends IDalHelper<CoreGenerico> {
-    
+    CoreGenerico BuscarPorNome(String nome);
 }

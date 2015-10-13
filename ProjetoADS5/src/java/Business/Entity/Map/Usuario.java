@@ -15,8 +15,8 @@ public class Usuario  implements java.io.Serializable {
      private String senha;
      private String usuario;
      private Set<UsuarioPersonalizacao> usuarioPersonalizacaos = new HashSet<UsuarioPersonalizacao>(0);
-     private Set<ChamadoHistorico> chamadoHistoricosForIdUsuarioSolicitante = new HashSet<ChamadoHistorico>(0);
-     private Set<ChamadoHistorico> chamadoHistoricosForIdUsuarioAtendente = new HashSet<ChamadoHistorico>(0);
+     private transient Set<ChamadoHistorico> chamadoHistoricosForIdUsuarioSolicitante = new HashSet<ChamadoHistorico>(0);
+     private transient Set<ChamadoHistorico> chamadoHistoricosForIdUsuarioAtendente = new HashSet<ChamadoHistorico>(0);
 
     public Usuario() {
     }

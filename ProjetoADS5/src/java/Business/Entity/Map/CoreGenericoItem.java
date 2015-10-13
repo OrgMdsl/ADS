@@ -1,15 +1,16 @@
 package Business.Entity.Map;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.google.gson.annotations.Expose;
 
 public class CoreGenericoItem  implements java.io.Serializable {
-
 
      private int idGenericoItem;
      private String sigla;
      private String descricao;
      private Boolean ativo;
+     private transient CoreGenerico coreGenerico;
+
+    
 
     public CoreGenericoItem() {
     }
@@ -18,11 +19,13 @@ public class CoreGenericoItem  implements java.io.Serializable {
     public CoreGenericoItem(int idGenericoItem) {
         this.idGenericoItem = idGenericoItem;
     }
+
     public CoreGenericoItem(int idGenericoItem, CoreGenerico coreGenerico, String sigla, String descricao, Boolean ativo) {
        this.idGenericoItem = idGenericoItem;
        this.sigla = sigla;
        this.descricao = descricao;
        this.ativo = ativo;
+       this.coreGenerico = coreGenerico;
     }
    
     public int getIdGenericoItem() {
@@ -52,6 +55,14 @@ public class CoreGenericoItem  implements java.io.Serializable {
     
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+    
+    public CoreGenerico getCoreGenerico() {
+        return coreGenerico;
+    }
+
+    public void setCoreGenerico(CoreGenerico coreGenerico) {
+        this.coreGenerico = coreGenerico;
     }
 
 }

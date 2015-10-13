@@ -13,7 +13,7 @@ public class ChamadoTipoChamado  implements java.io.Serializable {
      private Integer idTipoChamadoPai;
      private String descricao;
      private Integer quantidadeHoraSla;
-     private Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
+     private transient Set<ChamadoHistorico> chamadoHistoricos = new HashSet<ChamadoHistorico>(0);
 
     public ChamadoTipoChamado() {
     }

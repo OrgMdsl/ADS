@@ -15,7 +15,7 @@ import java.util.Set;
  * @author matheusdsl
  */
 public interface ICoreGenericoItemDal extends GenericDAO<CoreGenericoItem, Long> {
-    public CoreGenericoItem Buscar(Integer id);
-    public CoreGenericoItem Buscar(String sigla, Integer idCoreGenerico);
-    public Set<CoreGenericoItem> GetItens(CoreGenerico pai);
+    CoreGenericoItem Buscar(Integer id);
+    CoreGenericoItem BuscarPorSigla(String sigla, String nomePai);
+    Set<CoreGenericoItem> GetItens(CoreGenerico pai);
 }

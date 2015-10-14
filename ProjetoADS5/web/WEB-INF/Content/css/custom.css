@@ -65,3 +65,25 @@ table.dataTable.no-footer {
     color: #fff;
     font-size: 20px;
 }
+
+.componente_btn {
+    font-size: 20px;
+    color: #563D7C;
+    margin-left: 8px
+}
+.componente_btn a {
+    color: #563D7C;
+}
+
+.red a {
+    color: #ee4545;
+}
+.orange a {
+    color: #fb7d2c;
+}
+.green a {
+    color: #5bb352;
+}
+.gray a {
+    color: rgba(200,200,200,0.8);
+}

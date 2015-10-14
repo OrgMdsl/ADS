@@ -35,19 +35,21 @@
                                 </div>
                             </div>
                         </div> 
-
-
-                        <c:import url="/WEB-INF/Views/Layout/footer.jsp" />
-
                     </div>
-                    <!-- /.container-fluid -->
+
+                    <c:import url="/WEB-INF/Views/Layout/footer.jsp" />
 
                 </div>
-                <!-- /#page-wrapper -->
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- /#wrapper -->
+            <!-- /#page-wrapper -->
 
-    </body>
+        </div>
+        <!-- /#wrapper -->
+
+    </div>
+
+</body>
 
 </html>

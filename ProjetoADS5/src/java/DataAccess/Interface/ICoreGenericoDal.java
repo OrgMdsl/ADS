@@ -13,5 +13,5 @@ import DataAccess.Utils.Helpers.IDalHelper;
  * @author matheusdsl
  */
 public interface ICoreGenericoDal extends IDalHelper<CoreGenerico> {
-    public CoreGenerico Buscar(String nome);
+    CoreGenerico Buscar(String nome);
 }

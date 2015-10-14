@@ -25,4 +25,6 @@ public class CoreGenericoDal extends DalHelper<CoreGenerico> implements ICoreGen
         crit.add(Restrictions.eq("nome", nome));
         return (CoreGenerico) crit.uniqueResult();
     }
+    
+    
 }

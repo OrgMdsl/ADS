@@ -5,8 +5,7 @@ $(document).ready(function () {
         ajax: {
             url: 'ListaCoreGenerico',
             pages: 5,
-            dataSrc: ''
-
+            dataSrc: ""
         },
         columns: [
             {
@@ -24,7 +23,13 @@ $(document).ready(function () {
             {
                 title: 'Ações',
                 render: function (data, type, full) {
-                    return '<b>Teste</b>';
+                    var botoes = Componente.Botoes.Visualizar("");
+                    botoes += Componente.Botoes.Editar("");
+                    botoes += Componente.Botoes.Excluir("");
+                    botoes += Componente.Botoes.Recuperar("");
+                    botoes += Componente.Botoes.Ativar("");
+                    botoes += Componente.Botoes.Desativar("");
+                    return botoes;
                 }
             }
         ]

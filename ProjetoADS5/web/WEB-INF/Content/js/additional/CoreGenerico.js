@@ -9,29 +9,47 @@ $(document).ready(function () {
         },
         columns: [
             {
+                width: '10%',
                 title: 'Id',
                 data: 'idGenerico'
             },
             {
+                width: '40%',
                 title: 'Nome',
                 data: 'nome'
             },
             {
+                width: '40%',
                 title: 'Descrição',
                 data: 'descricao'
             },
             {
+                width: '10%',
                 title: 'Ações',
                 render: function (data, type, full) {
-                    var botoes = Componente.Botoes.Visualizar("");
-                    botoes += Componente.Botoes.Editar("");
-                    botoes += Componente.Botoes.Excluir("");
-                    botoes += Componente.Botoes.Recuperar("");
-                    botoes += Componente.Botoes.Ativar("");
-                    botoes += Componente.Botoes.Desativar("");
+                    var botoes = Componente.Icones.Visualizar("");
+                    botoes += Componente.Icones.Editar("");
+                    botoes += Componente.Icones.Excluir("");
+                    botoes += Componente.Icones.Ativar("");
+                    botoes += Componente.Icones.Desativar("");
                     return botoes;
-                }
+                }                
             }
         ]
     });
+    
+    var t = $('#listagem-CoreGenericoItem').DataTable();
+    var counter = 1;
+ 
+    $('#addRow').on( 'click', function () {
+        t.row.add( [
+            counter +'.1',
+            counter +'.2',
+            counter +'.3',
+            counter +'.4',
+            counter +'.5'
+        ] ).draw( true );
+ 
+        counter++;
+    } );
 });

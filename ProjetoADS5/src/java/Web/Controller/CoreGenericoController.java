@@ -37,7 +37,15 @@ public class CoreGenericoController {
         mv.addObject("ViewName","Listas genéricas");
         return mv;
     }
-
+    
+    @RequestMapping(value = "PaginaCadastroCoreGenerico", produces = "text/html; charset=UTF8")
+    @ResponseBody
+    public ModelAndView PaginaCadastroCoreGenerico() {
+        ModelAndView mv = new ModelAndView("CoreGenerico/CadastroCoreGenerico");
+        mv.addObject("ViewName","Cadastro - Listas genéricas");
+        return mv;
+    }
+    
     @RequestMapping(value = "BuscaCoreGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> BuscaCoreGenerico(@RequestParam int id) {

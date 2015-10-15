@@ -5,7 +5,19 @@ $(document).ready(function () {
         $("#page-wrapper").fadeIn(600);
         pageLoaded = true;
     }
-});
+   
+    $(".ico_muda_status a").on("click", function(){
+        var el = $(this);
+        if(el.hasClass("ativo"))
+        {
+            el.toggleClass("ativo");
+            el.toggleClass("inativo");
+            el.toggleClass("fa-toggle-on");
+            el.toggleClass("fa-toggle-off");            
+        }       
+    });
+    
+}); 
 
 function modal(data)
 {

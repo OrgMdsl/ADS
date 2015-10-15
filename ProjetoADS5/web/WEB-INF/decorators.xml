@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/Views">
+    <excludes>
+        <pattern>*/WEB-INF/Views/Layout/*</pattern>
+        <pattern>*.txt</pattern>
+    </excludes>
+  
+    <decorator name="tema1" page="/WEB-INF/Views/Layout/template.jsp">
+        <pattern>*</pattern>
+    </decorator>
+</decorators>

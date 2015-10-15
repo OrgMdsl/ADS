@@ -66,12 +66,12 @@ table.dataTable.no-footer {
     font-size: 20px;
 }
 
-.componente_btn {
+.componente_ico {
     font-size: 20px;
     color: #563D7C;
     margin-left: 8px
 }
-.componente_btn a {
+.componente_ico a {
     color: #563D7C;
 }
 
@@ -81,9 +81,38 @@ table.dataTable.no-footer {
 .orange a {
     color: #fb7d2c;
 }
-.green a {
+.green a, .ativo a {
     color: #5bb352;
 }
-.gray a {
+.gray a, .inativo a {
     color: rgba(200,200,200,0.8);
+}
+
+.btn-custom:hover{
+    opacity: 0.8;
+    color: #000;
+}
+.btn-custom-primary {
+    background: #563D7C;
+    color: #fff;
+}
+.btn-custom-danger {
+    background: #ee4545;
+    color: #fff;
+}
+.btn-custom-warning{
+    background: #fb7d2c;
+    color: #fff;
+}
+.btn-custom-success {
+    background: #5bb352;
+    color: #fff;
+}
+.btn-custom-default {
+    background: #ccc;
+    color: #111;
+}
+
+label {
+    font-weight: normal;
 }

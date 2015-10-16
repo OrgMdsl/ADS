@@ -14,41 +14,40 @@
             <div class="col-lg-12">
                 <div class="panel-body">
                     <div class="form-group">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" action="CadastrarCoreGenerico">
+                            <input type="hidden" value="${ObjId}" name="id"/>
                             <div class="form-group">
-                                <label for="inputEmail" class="control-label col-xs-2">Email</label>
+                                <label for="nome" class="control-label col-xs-2">Nome</label>
                                 <div class="col-xs-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do campo" maxlength="50">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword" class="control-label col-xs-2">Password</label>
+                                <label for="descricao" class="control-label col-xs-2">Descrição</label>
                                 <div class="col-xs-10">
-                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                    <input type="text" class="form-control" id="descricao" placeholder="Sigla" name="descricao" maxlength="50">
                                 </div>
                             </div>
                             <table id="listagem-CoreGenericoItem" class="table table-condensed table-hover table-responsive table-striped"> 
                                 <thead>
                                     <tr>
-                                        <th>Column 1</th>
-                                        <th>Column 2</th>
-                                        <th>Column 3</th>
-                                        <th>Column 4</th>
-                                        <th>Column 5</th>
+                                        <th>Descrição</th>
+                                        <th>Sigla</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                             </table>
-                            <input type="button" class="btn btn-custom btn-custom-default" value="Add" id="addRow" />
-                            <div class="form-group">
+                            <input type="button" class="btn btn-custom btn-custom-default" value="Adicionar" id="btn-add-item" />
+                           <!-- <div class="form-group">
                                 <div class="col-xs-offset-2 col-xs-10">
                                     <div class="checkbox">
                                         <label><input type="checkbox"> Remember me</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <div class="col-xs-offset-2 col-xs-10">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
                                 </div>
                             </div>
                         </form>

@@ -8,6 +8,7 @@ package Business.Interface;
 import Business.Entity.Map.CoreGenerico;
 import Business.Entity.Map.CoreGenericoItem;
 import DataAccess.Utils.Helpers.IDalHelper;
+import java.util.Set;
 
 /**
  *
@@ -15,4 +16,5 @@ import DataAccess.Utils.Helpers.IDalHelper;
  */
 public interface ICoreGenericoItemBll extends IDalHelper<CoreGenericoItem> {
     CoreGenericoItem BuscarPorSigla(String sigla, String nomePai);
+    Set<CoreGenericoItem> GetItens(Integer idPai);
 }

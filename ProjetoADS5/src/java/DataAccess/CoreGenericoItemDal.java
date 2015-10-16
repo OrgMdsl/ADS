@@ -7,6 +7,7 @@ package DataAccess;
 
 import Business.Entity.Map.CoreGenerico;
 import Business.Entity.Map.CoreGenericoItem;
+import DataAccess.Interface.ICoreGenericoDal;
 import DataAccess.Interface.ICoreGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
 import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
@@ -21,7 +22,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public class CoreGenericoItemDal extends DalHelper<CoreGenericoItem> implements ICoreGenericoItemDal {
 
-    private CoreGenericoDal CoreGenericoDal = new CoreGenericoDal();
+    private ICoreGenericoDal CoreGenericoDal = new CoreGenericoDal();
+
     @Override
     public CoreGenericoItem BuscarPorSigla(String sigla, String nomePai) {
         Criteria crit = GetCriteria();
@@ -36,8 +38,12 @@ public class CoreGenericoItemDal extends DalHelper<CoreGenericoItem> implements 
         crit.add(Restrictions.eq("id_generico", pai.getIdGenerico()));
         return new HashSet<CoreGenericoItem>(crit.list());
     }
-    
-    
-    
-    
+
+    @Override
+    public Set<CoreGenericoItem> GetItens(Integer idPai) {
+        Criteria crit = GetCriteria();
+        crit.add(Restrictions.eq("id_generico", idPai));
+        return new HashSet<CoreGenericoItem>(crit.list());
+    }
+
 }

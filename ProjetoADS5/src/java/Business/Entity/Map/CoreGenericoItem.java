@@ -1,7 +1,5 @@
 package Business.Entity.Map;
 
-import com.google.gson.annotations.Expose;
-
 public class CoreGenericoItem  implements java.io.Serializable {
 
      private int idGenericoItem;

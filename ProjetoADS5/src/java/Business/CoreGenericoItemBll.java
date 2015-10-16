@@ -9,7 +9,9 @@ import Business.Entity.Map.CoreGenerico;
 import Business.Entity.Map.CoreGenericoItem;
 import Business.Interface.ICoreGenericoItemBll;
 import DataAccess.CoreGenericoItemDal;
+import DataAccess.Interface.ICoreGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
+import java.util.Set;
 
 /**
  *
@@ -17,11 +19,16 @@ import DataAccess.Utils.Helpers.DalHelper;
  */
 public class CoreGenericoItemBll extends DalHelper<CoreGenericoItem> implements ICoreGenericoItemBll {
 
-    public final CoreGenericoItemDal CoreGenericoItemDal = new CoreGenericoItemDal();
+    public final ICoreGenericoItemDal CoreGenericoItemDal = new CoreGenericoItemDal();
 
     @Override
     public CoreGenericoItem BuscarPorSigla(String sigla, String nomePai) {
         return CoreGenericoItemDal.BuscarPorSigla(sigla, nomePai);
+    }
+
+    @Override
+    public Set<CoreGenericoItem> GetItens(Integer idPai) {
+        return CoreGenericoItemDal.GetItens(idPai);
     }
 
 }

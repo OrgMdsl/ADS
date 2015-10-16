@@ -18,4 +18,5 @@ public interface ICoreGenericoItemDal extends GenericDAO<CoreGenericoItem, Long>
     CoreGenericoItem Buscar(Integer id);
     CoreGenericoItem BuscarPorSigla(String sigla, String nomePai);
     Set<CoreGenericoItem> GetItens(CoreGenerico pai);
+    Set<CoreGenericoItem> GetItens(Integer idPai);
 }

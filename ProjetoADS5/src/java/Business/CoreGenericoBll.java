@@ -10,6 +10,7 @@ import Business.Interface.ICoreGenericoBll;
 import DataAccess.CoreGenericoDal;
 import DataAccess.Interface.ICoreGenericoDal;
 import DataAccess.Utils.Helpers.DalHelper;
+import static Factory.New.New;
 
 /**
  *
@@ -18,8 +19,9 @@ import DataAccess.Utils.Helpers.DalHelper;
 
 public class CoreGenericoBll extends DalHelper<CoreGenerico> implements ICoreGenericoBll {
 
-    private final ICoreGenericoDal CoreGenericoDal = new CoreGenericoDal();
-    
+    private final ICoreGenericoDal CoreGenericoDal = New(CoreGenericoDal.class);
+
+    @Override
     public CoreGenerico BuscarPorNome(String nome)
     {
        return this.CoreGenericoDal.Buscar(nome);

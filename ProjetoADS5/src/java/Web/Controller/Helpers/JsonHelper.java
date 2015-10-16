@@ -15,11 +15,10 @@ import org.springframework.http.ResponseEntity;
 /**
  *
  * @author matheusdsl
- * @param <T>
  */
-public class JsonHelper<T> {
-
-    public ResponseEntity<String> ToJson(T obj) {
+public class JsonHelper {
+    
+    public <T> ResponseEntity<String> ToJson(T obj) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json; charset=utf8");
         Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();

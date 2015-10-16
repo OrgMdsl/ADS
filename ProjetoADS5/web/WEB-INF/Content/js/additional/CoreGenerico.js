@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //Tela ListagemCoreGenerico
     $("#listagem-CoreGenerico").DataTable({
         processing: false,
         serverSide: false,
@@ -27,29 +29,54 @@ $(document).ready(function () {
                 width: '10%',
                 title: 'Ações',
                 render: function (data, type, full) {
-                    var botoes = Componente.Icones.Visualizar("");
-                    botoes += Componente.Icones.Editar("");
-                    botoes += Componente.Icones.Excluir("");
-                    botoes += Componente.Icones.Ativar("");
-                    botoes += Componente.Icones.Desativar("");
-                    return botoes;
-                }                
+                    return Componente.Icones.Visualizar("")
+                            + Componente.Icones.Editar("")
+                            + Componente.Icones.Excluir("")
+                            + Componente.Icones.Ativar("")
+                            + Componente.Icones.Desativar("");
+
+                }
             }
         ]
     });
-    
-    var t = $('#listagem-CoreGenericoItem').DataTable();
-    var counter = 1;
- 
-    $('#addRow').on( 'click', function () {
-        t.row.add( [
-            counter +'.1',
-            counter +'.2',
-            counter +'.3',
-            counter +'.4',
-            counter +'.5'
-        ] ).draw( true );
- 
-        counter++;
-    } );
+
+    //Tela CadastroCoreGenerico
+    var tabela_itens = $('#listagem-CoreGenericoItem').DataTable({
+        processing: false,
+        serverSide: false,
+        ajax: {
+            url: 'BuscaCoreGenerico?id=' + $("id").val(),
+            pages: 5,
+            dataSrc: "coreGenericoItems"
+        },
+        columns: [
+            {
+                width: '40%',
+                title: 'Descrição',
+                data: 'descricao'
+            },
+            {
+                width: '40%',
+                title: 'Sigla',
+                data: 'sigla'
+            },
+            {
+                width: '20%',
+                title: 'Ações',
+                render: function (data, type, full) {
+                    return Componente.Icones.Editar("PaginaCadastroCoreGenerico?id=" + data.id + "&op=E")
+                            + Componente.Icones.Excluir("");
+                }
+            }
+        ]
+    });
+
+    //Tela CadastroCoreGenerico
+    $('#btn-add-item').on('click', function () {
+        tabela_itens.row.add([
+            $("#itemDescricao").val(),
+            $("#itemSigla").val(),
+            Componente.Icones.Editar("") + Componente.Icones.Ativar("")
+        ]).draw(false);
+    });
 });

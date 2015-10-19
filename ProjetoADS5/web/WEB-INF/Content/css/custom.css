@@ -71,23 +71,27 @@ table.dataTable.no-footer {
     color: #563D7C;
     margin-left: 8px
 }
-.componente_ico a {
+.componente_ico, .componente_ico a {
     color: #563D7C;
+    cursor: pointer;
 }
 
-.red a {
+.red, .red a {
     color: #ee4545;
 }
-.orange a {
+.orange, .orange a {
     color: #fb7d2c;
 }
-.green a, .ativo a {
+.green, .ativo,  .green a, .ativo a {
     color: #5bb352;
 }
-.gray a, .inativo a {
+.gray, .inativo, .gray a, .inativo a {
     color: rgba(200,200,200,0.8);
 }
 
+.btn-custom {
+    margin: 3px;
+}
 .btn-custom:hover{
     opacity: 0.8;
     color: #000;
@@ -115,4 +119,10 @@ table.dataTable.no-footer {
 
 label {
     font-weight: normal;
+}
+
+.panel-default > .panel-heading {
+    background-image: none;
+    background: #563D7C;
+    color: #fff;
 }

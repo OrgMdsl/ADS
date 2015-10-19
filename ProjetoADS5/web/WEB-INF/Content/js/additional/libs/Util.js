@@ -4,7 +4,7 @@ var Util = (function () {
     }
 
     Util.IsNull = function (obj) {
-        if (typeof obj === "undefined" || obj === null)
+        if (!obj || obj === null)
             return true;
         return false;
     };
@@ -18,6 +18,10 @@ var Util = (function () {
     Util.SelectByName = function (name) {
         return $("[name='" + name + "']");
     };
-    
+
+    Util.HasClass = function (element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    };
+
     return Util;
 }());

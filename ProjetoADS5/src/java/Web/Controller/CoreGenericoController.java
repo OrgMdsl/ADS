@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,26 +37,26 @@ public class CoreGenericoController {
     private final ICoreGenericoItemBll CoreGenericoItemBll = New(CoreGenericoItemBll.class);
     private final JsonHelper JsonHelper = New(JsonHelper.class);
 
-    @RequestMapping(value = "PaginaListagemCoreGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "PaginaListarCoreGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ModelAndView PaginaListagemCoreGenerico() {
-        ModelAndView mv = new ModelAndView("CoreGenerico/ListagemCoreGenerico");
+        ModelAndView mv = new ModelAndView("CoreGenerico/ListarCoreGenerico");
         mv.addObject("ViewName", "Listas genéricas");
         return mv;
     }
 
-    @RequestMapping(value = "PaginaCadastroCoreGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "PaginaCadastrarCoreGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ModelAndView PaginaCadastroCoreGenerico() {
-        ModelAndView mv = new ModelAndView("CoreGenerico/CadastroCoreGenerico");
+        ModelAndView mv = new ModelAndView("CoreGenerico/CadastrarCoreGenerico");
         mv.addObject("ViewName", "Cadastro - Listas genéricas");
         return mv;
     }
     
-    @RequestMapping(value = "PaginaCadastroCoreGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "PaginaEditarCoreGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ModelAndView PaginaCadastroCoreGenerico(@RequestParam Integer id) {
-        ModelAndView mv = new ModelAndView("CoreGenerico/CadastroCoreGenerico");
+        ModelAndView mv = new ModelAndView("CoreGenerico/CadastrarCoreGenerico");
         mv.addObject("ViewName", "Edição - Listas genéricas");
         mv.addObject("ObjId", id);
         return mv;
@@ -90,13 +92,10 @@ public class CoreGenericoController {
         return JsonHelper.ToJson(this.CoreGenericoItemBll.BuscarPorSigla(sigla, nomePai));
     }
     
-    @RequestMapping(value = "CadastrarCoreGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "CadastrarCoreGenerico", produces = "text/html; charset=UTF8", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> CadastrarCoreGenerico( 
-            CoreGenerico obj,
-            BindingResult result,
-            HttpServletRequest request,
-            String operacao) {
+            @RequestBody String obj) {
         
         String teste  = "";
         

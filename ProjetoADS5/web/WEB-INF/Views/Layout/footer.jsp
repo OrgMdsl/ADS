@@ -7,3 +7,5 @@
         <span>HelpDesk. Copyright © 2015</span>
     </div>
 </div>
+
+<script src="additional/Main.js" type="text/javascript"></script>

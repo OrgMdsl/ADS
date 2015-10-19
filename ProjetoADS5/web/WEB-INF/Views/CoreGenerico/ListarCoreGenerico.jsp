@@ -6,7 +6,7 @@
 <html>
     <head>
         <title>${ViewName}</title>
-        <script src="additional/CoreGenerico.js" type="text/javascript"></script>
+        <script src="additional/ListarCoreGenerico.js" type="text/javascript"></script>
     </head>
     <body>
 

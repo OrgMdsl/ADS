@@ -25,5 +25,3 @@
 <script src="libs/Util.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Ajax.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Componentes.js" type="text/javascript"></script>
-
-<script src="additional/Main.js" type="text/javascript"></script>

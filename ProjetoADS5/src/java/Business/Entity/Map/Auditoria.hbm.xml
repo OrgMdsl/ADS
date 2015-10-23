@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Business.Entity.Map.Auditoria" table="Auditoria" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="idAuditoria" type="int">
+            <column name="id_auditoria" />
+            <generator class="assigned" />
+        </id>
+        <property name="dataCadastro" type="timestamp">
+            <column name="data_cadastro" length="23" />
+        </property>
+        <set name="pessoaEmpresas" table="Pessoa_Empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.PessoaEmpresa" />
+        </set>
+        <set name="genericos" table="Generico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Generico" />
+        </set>
+        <set name="usuarios" table="Usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Usuario" />
+        </set>
+        <set name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
+        </set>
+        <set name="pessoaEmpresaEnderecos" table="Pessoa_Empresa_Endereco" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.PessoaEmpresaEndereco" />
+        </set>
+        <set name="auditoriaHistoricos" table="Auditoria_Historico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.AuditoriaHistorico" />
+        </set>
+        <set name="contatos" table="Contato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Contato" />
+        </set>
+        <set name="atributos" table="Atributo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Atributo" />
+        </set>
+        <set name="genericoItems" table="Generico_Item" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.GenericoItem" />
+        </set>
+        <set name="objetos" table="Objeto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Objeto" />
+        </set>
+        <set name="clientes" table="Cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Cliente" />
+        </set>
+        <set name="pessoaEmpresaContatos" table="Pessoa_Empresa_Contato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.PessoaEmpresaContato" />
+        </set>
+        <set name="atributoOpcaos" table="Atributo_Opcao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.AtributoOpcao" />
+        </set>
+        <set name="objetoAtributoValors" table="Objeto_Atributo_Valor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ObjetoAtributoValor" />
+        </set>
+        <set name="maquinas" table="Maquina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Maquina" />
+        </set>
+        <set name="fabricantes" table="Fabricante" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.Fabricante" />
+        </set>
+        <set name="objetoAtributos" table="Objeto_Atributo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_auditoria" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ObjetoAtributo" />
+        </set>
+    </class>
+</hibernate-mapping>

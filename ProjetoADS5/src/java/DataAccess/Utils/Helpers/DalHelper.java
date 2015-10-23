@@ -6,16 +6,22 @@
 package DataAccess.Utils.Helpers;
 
 import Business.Common.Const.MessagesConst;
+import Business.Entity.Map.Auditoria;
 import br.com.configuration.HibernateUtility;
+import com.google.gson.Gson;
 import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -75,6 +81,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
         Session s = getSession();
         Transaction t = s.beginTransaction();
         try {
+
             s.update(obj);
             t.commit();
             return MessagesConst.ATUALIZADO;
@@ -116,6 +123,22 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
         } finally {
             s.close();
         }
+    }
+
+    private void Auditoria(T obj) {
+        JsonHelper json = new JsonHelper();
+        Gson gson = new Gson();
+        String j = json.ToJson(obj);
+        JSONObject object = new JSONObject(json);
+        Object auditoria = null;
+        try {
+            auditoria = object.getJSONObject("auditoria");
+        } catch (JSONException ex) {
+            Logger.getLogger(DalHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Auditoria a = (Auditoria) auditoria;
+
+        Auditoria audit = new Auditoria();
     }
 
 }

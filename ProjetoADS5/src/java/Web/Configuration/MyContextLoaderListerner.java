@@ -1,7 +1,7 @@
 package Web.Configuration;
 
-import DataAccess.CoreGenericoDal;
-import DataAccess.Interface.ICoreGenericoDal;
+import DataAccess.GenericoDal;
+import DataAccess.Interface.IGenericoDal;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import org.apache.commons.logging.Log;

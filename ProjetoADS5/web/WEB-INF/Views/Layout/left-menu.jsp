@@ -10,10 +10,10 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="itensGenericos" class="collapse">
                 <li>
-                    <a href="PaginaListarCoreGenerico">Listagem</a>
+                    <a href="PaginaListarGenerico">Listagem</a>
                 </li>
                 <li>
-                    <a href="PaginaCadastrarCoreGenerico">Cadastrar</a>
+                    <a href="PaginaCadastrarGenerico">Cadastrar</a>
                 </li>
             </ul>
         </li>

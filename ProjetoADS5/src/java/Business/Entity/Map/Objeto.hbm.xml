@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Business.Entity.Map.Objeto" table="Objeto" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="idObjeto" type="int">
+            <column name="id_objeto" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="auditoria" class="Business.Entity.Map.Auditoria" fetch="select">
+            <column name="id_auditoria" />
+        </many-to-one>
+        <many-to-one name="genericoItem" class="Business.Entity.Map.GenericoItem" fetch="select">
+            <column name="id_tipo_objeto" />
+        </many-to-one>
+        <property name="descricao" type="string">
+            <column name="descricao" />
+        </property>
+        <property name="dataCadastro" type="timestamp">
+            <column name="data_cadastro" length="23" />
+        </property>
+        <set name="objetoAtributos" table="Objeto_Atributo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_objeto" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ObjetoAtributo" />
+        </set>
+        <set name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_objeto" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
+        </set>
+    </class>
+</hibernate-mapping>

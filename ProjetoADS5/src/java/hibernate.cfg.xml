@@ -2,17 +2,11 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.connection.driver_class">
-        com.microsoft.sqlserver.jdbc.SQLServerDriver
-    </property>
-    <property name="hibernate.connection.url">
-        jdbc:sqlserver://localhost:1433;databaseName=ProjetoADS5
-    </property>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ProjetoADS5</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">123456</property>
-    <property name="hibernate.dialect">
-        org.hibernate.dialect.SQLServerDialect
-    </property>
+    <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <!-- Condiguração do c3p0 -->
     <property name="hibernate.c3p0.max_size">10</property>
@@ -25,20 +19,25 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.generate_statistics">true</property>
     <!-- Mapeamentos -->
+    <mapping resource="Business/Entity/Map/PessoaEmpresaEndereco.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/GenericoItem.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Atributo.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Cliente.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Fabricante.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Maquina.hbm.xml"/>
     <mapping resource="Business/Entity/Map/Usuario.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/UsuarioPerfil.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/CoreArquivo.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/CoreSistema.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/ChamadoTipoChamado.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/CoreConfiguracao.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/Pessoa.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/UsuarioSetor.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/ChamadoHistorico.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/UsuarioPersonalizacao.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/Chamado.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/EnderecoPessoa.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/Endereco.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/CoreGenerico.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/CoreGenericoItem.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/PessoaEmpresaContato.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Contato.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/AtributoOpcao.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/PessoaEmpresa.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Auditoria.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Generico.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/AuditoriaHistorico.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Contrato.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/ComponenteMaquina.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/ObjetoAtributoValor.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/ContratoMaquina.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/Objeto.hbm.xml"/>
+    <mapping resource="Business/Entity/Map/ObjetoAtributo.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

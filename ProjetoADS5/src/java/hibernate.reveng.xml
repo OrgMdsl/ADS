@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="ProjetoADS5" match-schema="dbo"/>
-  <table-filter match-name="UsuarioPerfil"/>
+  <schema-selection match-catalog="ProjetoADS5"/>
+  <table-filter match-name="Pessoa_Empresa_Contato"/>
+  <table-filter match-name="Fabricante"/>
+  <table-filter match-name="Generico_Item"/>
+  <table-filter match-name="Pessoa_Empresa_Endereco"/>
+  <table-filter match-name="Pessoa_Empresa"/>
+  <table-filter match-name="Componente_Maquina"/>
+  <table-filter match-name="Objeto_Atributo"/>
   <table-filter match-name="Usuario"/>
-  <table-filter match-name="ChamadoTipoChamado"/>
-  <table-filter match-name="EnderecoPessoa"/>
-  <table-filter match-name="CoreArquivo"/>
-  <table-filter match-name="UsuarioPersonalizacao"/>
-  <table-filter match-name="UsuarioSetor"/>
-  <table-filter match-name="CoreGenericoItem"/>
-  <table-filter match-name="Pessoa"/>
-  <table-filter match-name="Endereco"/>
-  <table-filter match-name="CoreSistema"/>
-  <table-filter match-name="CoreConfiguracao"/>
-  <table-filter match-name="ChamadoHistorico"/>
-  <table-filter match-name="CoreGenerico"/>
-  <table-filter match-name="Chamado"/>
+  <table-filter match-name="Cliente"/>
+  <table-filter match-name="Objeto_Atributo_Valor"/>
+  <table-filter match-name="Objeto"/>
+  <table-filter match-name="Contrato_Maquina"/>
+  <table-filter match-name="Contato"/>
+  <table-filter match-name="Auditoria"/>
+  <table-filter match-name="Auditoria_Historico"/>
+  <table-filter match-name="Atributo"/>
+  <table-filter match-name="Atributo_Opcao"/>
+  <table-filter match-name="Contrato"/>
+  <table-filter match-name="Maquina"/>
+  <table-filter match-name="Generico"/>
 </hibernate-reverse-engineering>

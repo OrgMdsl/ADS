@@ -1,9 +1,10 @@
 body {
-    background: #fff;
+    background: transparent;
 }
+
 table th {
-    background: #563D7C;
-    color: #fff;
+    background: #eee;
+    color: #444;
     border: 0;
 }
 table td {
@@ -13,6 +14,10 @@ table td {
 
 table.dataTable.no-footer {
     border: 0;
+}
+
+small {
+    font-size: 11px;
 }
 
 .danger {
@@ -121,8 +126,20 @@ label {
     font-weight: normal;
 }
 
+.form-control, .btn {
+    border-color: #888;
+}
+
+.panel-default {
+    border-color: #bbb;
+}
 .panel-default > .panel-heading {
     background-image: none;
     background: #563D7C;
     color: #fff;
+}
+
+.panel:hover > .panel-heading {
+    background: #563D7C;
+    font-weight: bold;
 }

@@ -10,7 +10,7 @@
             <i class="fa fa-bars"></i>
         </button>
 
-        <a class="navbar-brand" href="index">HelpDesk</a>
+        <a class="navbar-brand" href="index"><strong>Inventário de servidores</strong> - <small> LZ Systems </small></a>
 
     </div>
     <!-- Top Menu Items -->

@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="panel-body custom-footer">
-        <span>HelpDesk. Copyright © 2015</span>
+        <span>LZ Systems. Copyright © 2015</span>
     </div>
 </div>
 

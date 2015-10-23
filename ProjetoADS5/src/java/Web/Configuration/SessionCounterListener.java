@@ -5,8 +5,8 @@
  */
 package Web.Configuration;
 
-import DataAccess.CoreGenericoDal;
-import DataAccess.Interface.ICoreGenericoDal;
+import DataAccess.GenericoDal;
+import DataAccess.Interface.IGenericoDal;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

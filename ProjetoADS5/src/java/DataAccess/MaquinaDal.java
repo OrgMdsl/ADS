@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Interface;
+package DataAccess;
 
-import Business.Entity.Map.Generico;
-import DataAccess.Utils.Helpers.IDalHelper;
+import Business.Entity.Map.Maquina;
+import DataAccess.Interface.IMaquinaDal;
+import DataAccess.Utils.Helpers.DalHelper;
 
 /**
  *
  * @author matheusdsl
  */
-public interface IGenericoBll extends IDalHelper<Generico>{
-    Generico BuscarPorNome(String nome);
+public class MaquinaDal extends DalHelper<Maquina> implements IMaquinaDal {
+    
 }

@@ -44,6 +44,5 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
         Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("id_generico", idPai));
         return new HashSet<GenericoItem>(crit.list());
-    }
-
+    }   
 }

@@ -62,33 +62,33 @@ public class GenericoController {
         return mv;
     }
 
-    @RequestMapping(value = "BuscaGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "BuscarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscaGenerico(@RequestParam Integer id) {
+    public ResponseEntity<String> BuscarGenerico(@RequestParam Integer id) {
         return JsonHelper.ToJson(this.GenericoBll.Buscar(id));
     }
 
-    @RequestMapping(value = "BuscaGenericoNome", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "BuscarGenericoNome", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscaGenericoNome(@RequestParam String nome) {
+    public ResponseEntity<String> BuscarGenericoNome(@RequestParam String nome) {
         return JsonHelper.ToJson(this.GenericoBll.BuscarPorNome(nome));
     }
 
-    @RequestMapping(value = "ListaGenerico", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "ListarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> ListaGenerico() {
+    public ResponseEntity<String> ListarGenerico() {
         return JsonHelper.ToJson(this.GenericoBll.Pesquisar());
     }
    
-    @RequestMapping(value = "ListaGenericoItem", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "ListarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> ListaGenericoItem(@RequestParam Integer id) {
+    public ResponseEntity<String> ListarGenericoItem(@RequestParam Integer id) {
         return JsonHelper.ToJson(this.GenericoItemBll.GetItens(id));
     }
 
-    @RequestMapping(value = "BuscaGenericoItem", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "BuscarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscaGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
+    public ResponseEntity<String> BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
         return JsonHelper.ToJson(this.GenericoItemBll.BuscarPorSigla(sigla, nomePai));
     }
     
@@ -96,42 +96,13 @@ public class GenericoController {
     @ResponseBody
     public ResponseEntity<String> CadastrarGenerico( 
             @RequestBody String obj) {
-        
-        String teste  = "";
-        
+        String teste  = "";        
         return JsonHelper.ToJson(obj);
     }
-
-    @RequestMapping(value = "SalvarGenerico", produces = "text/html; charset=UTF8")
+    
+    @RequestMapping(value = "AtivarDesativar", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public String SalvarGenerico() {
-        Generico c = new Generico();
-        c.setNome("Nivel");
-        c.setDescricao("Nível");
-
-        Set<GenericoItem> list = new HashSet<GenericoItem>();
-        GenericoItem i = new GenericoItem();
-        i.setGenerico(c);
-        i.setAtivo(Boolean.TRUE);
-        i.setDescricao("Um");
-        i.setSigla("1");
-        list.add(i);
-        i = new GenericoItem();
-        i.setGenerico(c);
-        i.setAtivo(Boolean.TRUE);
-        i.setDescricao("Dois");
-        i.setSigla("2");
-        list.add(i);
-        i = new GenericoItem();
-        i.setGenerico(c);
-        i.setAtivo(Boolean.TRUE);
-        i.setDescricao("Três");
-        i.setSigla("3");
-        list.add(i);
-
-        c.setGenericoItems(list);
-
-        String msg = GenericoBll.InserirAtualizar(c);
-        return msg;
+    public ResponseEntity<String> AtivarDesativar(@RequestParam Integer id) {
+        return JsonHelper.ToJson(this.GenericoItemBll.AtivarDesativar(id));
     }
 }

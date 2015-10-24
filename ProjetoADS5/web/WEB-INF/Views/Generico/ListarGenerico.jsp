@@ -10,15 +10,20 @@
     </head>
     <body>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel-body">
-                    <div class="table-condensed">
-                        <table id="listagem-Generico" class="table table-condensed table-hover table-responsive table-striped">                                      
-                        </table>
-                    </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Listas Genéricas</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel-body">
+                            <div class="table-condensed">
+                                <table id="listagem-Generico" class="table table-condensed table-hover table-responsive table-striped">                                      
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-            </div> 
+            </div>
         </div>
 
     </body>

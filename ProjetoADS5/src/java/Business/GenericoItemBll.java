@@ -5,7 +5,6 @@
  */
 package Business;
 
-import Business.Entity.Map.Generico;
 import Business.Entity.Map.GenericoItem;
 import Business.Interface.IGenericoItemBll;
 import DataAccess.GenericoItemDal;
@@ -31,4 +30,10 @@ public class GenericoItemBll extends DalHelper<GenericoItem> implements IGeneric
         return GenericoItemDal.GetItens(idPai);
     }
 
+    @Override
+    public String AtivarDesativar(Integer id) {
+        GenericoItem obj = GenericoItemDal.Buscar(id);
+        obj.setAtivo(!obj.getAtivo());      
+        return GenericoItemDal.Atualizar(obj);         
+    }
 }

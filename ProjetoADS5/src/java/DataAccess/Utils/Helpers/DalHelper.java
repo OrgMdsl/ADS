@@ -140,5 +140,4 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
 
         Auditoria audit = new Auditoria();
     }
-
 }

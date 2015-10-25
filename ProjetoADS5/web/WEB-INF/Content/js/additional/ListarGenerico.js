@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#listagem-Generico").DataTable({
+    $("#listagem").DataTable({
         processing: false,
         serverSide: false,
         ajax: {
@@ -26,19 +26,18 @@ $(document).ready(function () {
             {
                 width: '10%',
                 title: 'Ações',
-                render: function (data, type, full) {
-                    var c = Componente.Icones.Visualizar("")
-                            + Componente.Icones.Editar("");
-                            //+ Componente.Icones.Excluir("");
-                    if (!Util.IsNull(data.ativo) && !data.ativo)
-                        c += Componente.Icones.Ativar("");
-                    else
-                        c += Componente.Icones.Desativar("");
-                    return c;
+                render: function (data) {
+                    if (!Util.IsNull(data)) {
+                        var c = Componente.Icones.Visualizar("")
+                                + Componente.Icones.Editar("");
+                        if (!Util.IsNull(data.ativo) && !data.ativo)
+                            c += Componente.Icones.Ativar("");
+                        else
+                            c += Componente.Icones.Desativar("");
+                        return c;
+                    }
                 }
             }
         ]
     });
-
-
 });

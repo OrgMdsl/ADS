@@ -12,7 +12,10 @@ import Business.Interface.IGenericoBll;
 import Business.Interface.IGenericoItemBll;
 import static Factory.New.New;
 import Web.Controller.Helpers.JsonHelper;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,7 +66,8 @@ public class GenericoController {
     @RequestMapping(value = "BuscarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> BuscarGenerico(@RequestParam Integer id) {
-        return JsonHelper.ToJson(this.GenericoBll.Buscar(id));
+        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoBll.Buscar(id));
+        return json;
     }
 
     @RequestMapping(value = "BuscarGenericoNome", produces = "text/html; charset=UTF8")
@@ -75,13 +79,15 @@ public class GenericoController {
     @RequestMapping(value = "ListarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ListarGenerico() {
-        return JsonHelper.ToJson(this.GenericoBll.Pesquisar());
+        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoBll.PesquisarTodos());
+        return json; 
     }
 
     @RequestMapping(value = "ListarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ListarGenericoItem(@RequestParam Integer id) {
-        return JsonHelper.ToJson(this.GenericoItemBll.GetItens(id));
+        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoItemBll.GetItens(id));
+        return json;
     }
 
     @RequestMapping(value = "BuscarGenericoItem", produces = "text/html; charset=UTF8")

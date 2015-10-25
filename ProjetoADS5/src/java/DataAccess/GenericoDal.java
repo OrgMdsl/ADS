@@ -8,8 +8,6 @@ package DataAccess;
 import Business.Entity.Map.Generico;
 import DataAccess.Interface.IGenericoDal;
 import DataAccess.Utils.Helpers.DalHelper;
-import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
-import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 

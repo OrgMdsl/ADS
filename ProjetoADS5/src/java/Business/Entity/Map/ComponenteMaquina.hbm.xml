@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
+ 
 <hibernate-mapping>
     <class name="Business.Entity.Map.ComponenteMaquina" table="Componente_Maquina" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
-        <id name="id" type="int">
+        <id name="id" type="integer">
             <column name="id_componente_maquina" />
             <generator class="identity" />
         </id>

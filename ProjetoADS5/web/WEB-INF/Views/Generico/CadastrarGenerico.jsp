@@ -6,7 +6,7 @@
 <html>
     <head>
         <title>${ViewName}</title>
-        <script src="additional/CadastrarGenerico.js" type="text/javascript"></script>
+        <script src="additional/CadastrarObjeto.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -32,7 +32,7 @@
                                             <div class="form-inline form-group">
                                                 <label for="descricao" class="control-label col-xs-1">Descrição:</label>
                                                 <input type="text" class="form-control col-xs-1" id="itemDescricao" name="itemDescricao" placeholder="Descrição"  maxlength="50">
-                                                <label for="descricao" class="control-label col-xs-1">Sigla:</label>
+                                                <label for="sigla" class="control-label col-xs-1">Sigla:</label>
                                                 <input type="text" class="form-control col-xs-1" id="itemSigla" placeholder="Sigla" maxlength="5">
                                                 <input type="button" class="btn btn-custom btn-custom-default col-xs-1" name="itemSigla" value="Adicionar" id="btn-add-item" />
                                             </div>

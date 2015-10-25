@@ -21,10 +21,10 @@ var Componente = (function () {
             return montaIcone(url_link, "componente_ico gray recuperar", "fa-undo", "Recuperar", id);
         },
         Ativar: function (id) {
-            return montaIconeStatus("componente_ico inativo ico_muda_status ativar", "fa-toggle-off", "Inativo", id);
+            return montaIconeStatus("componente_ico inativo ico_muda_status ativar", "fa-toggle-off", "Inativo", false, id);
         },
         Desativar: function (id) {
-            return montaIconeStatus("componente_ico ativo ico_muda_status desativar", "fa-toggle-on", "Ativo", id);
+            return montaIconeStatus("componente_ico ativo ico_muda_status desativar", "fa-toggle-on", "Ativo", true, id);
         }
     };
 
@@ -55,24 +55,35 @@ var Componente = (function () {
         }
     };
 
-    Componente.fnBtnToggleStatus = function(_el) {
+    Componente.Input = {
+        Checkbox: function (onclick, ativo, id) {
+            return "<input type='checkbox' id='" + id + "' onclick='" + onclick + "' " + (ativo ? 'checked' : '') + "/>";
+        }
+    };
+
+    Componente.fnBtnToggleStatus = function (_el, id) {
         var el = $(_el);
-        if(Util.HasClass(_el, "ativo"))
-            $(el).replaceWith(Componente.Icones.Ativar("", ""));
-        else
-            $(el).replaceWith(Componente.Icones.Desativar("", ""));
+        if (Util.HasClass(_el, "ativo")) {
+            $(el).replaceWith(Componente.Icones.Ativar("", id));
+            //$(el).children("#" + Const.Class.Pre.MUDA_STATUS + id).prop("checked", false);
+        }
+        else {
+            $(el).replaceWith(Componente.Icones.Desativar("", id));
+            //$(el).children("#" + Const.Class.Pre.MUDA_STATUS + id).prop("checked", true);
+        }
     };
 
     function montaIcone(url, clazz, icon, title, id) {
-        if(Util.IsEmpty(url))
+        if (Util.IsEmpty(url))
             return "<span class='" + clazz + "' title='" + title + "'><i class='fa " + icon + "' id='" + id + "'></i></span>";
         else
             return "<span class='" + clazz + "' title='" + title + "'><a href='" + url + "' ><i class='fa " + icon + "' id='" + id + "'></i></a></span>";
     }
-    
-    function montaIconeStatus(clazz, icon, title, id) {
-            return "<span class='" + clazz + "' title='" + title + "' onclick='Componente.fnBtnToggleStatus(this);'><i class='fa " + icon + "' id='" + id + "'></i></span>";
-        
+
+    function montaIconeStatus(clazz, icon, title, ativo, id) {
+        return "<span class='" + clazz + "' title='" + title + "' onclick='Componente.fnBtnToggleStatus(this,\"" + id + "\");'><i class='fa " + icon + "' id='" + id + "'></i>"
+                + Componente.Input.Checkbox("", ativo, Const.Class.Pre.MUDA_STATUS + id) + "</span>";
+
     }
 
     function montaBotao(txt, onclick, clazz_span, clazz_button, id) {

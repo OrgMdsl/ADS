@@ -1,8 +1,4 @@
-var isEdicao = false;
-var itens = new Array();
 $(document).ready(function () {
-    isEdicao = Util.IsEmpty($("#hiddenOperacao").val()) ? false : true;
-
     $("#listagem-Generico").DataTable({
         processing: false,
         serverSide: false,
@@ -15,7 +11,7 @@ $(document).ready(function () {
             {
                 width: '10%',
                 title: 'Id',
-                data: 'idGenerico'
+                data: 'id'
             },
             {
                 width: '40%',
@@ -32,8 +28,8 @@ $(document).ready(function () {
                 title: 'Ações',
                 render: function (data, type, full) {
                     var c = Componente.Icones.Visualizar("")
-                            + Componente.Icones.Editar("")
-                            + Componente.Icones.Excluir("");
+                            + Componente.Icones.Editar("");
+                            //+ Componente.Icones.Excluir("");
                     if (!Util.IsNull(data.ativo) && !data.ativo)
                         c += Componente.Icones.Ativar("");
                     else

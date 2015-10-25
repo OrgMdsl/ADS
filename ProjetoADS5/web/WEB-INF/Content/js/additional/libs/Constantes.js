@@ -7,5 +7,10 @@ var Const = {
     },
     Attributes: {
         LOGADO: "logado"
+    },
+    Class: {
+      Pre: {
+          MUDA_STATUS: "muda_status_"
+      }  
     }
 };

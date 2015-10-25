@@ -1,4 +1,5 @@
 var pageLoaded = false;
+var numero_aux = 0;
 $(document).ready(function () {
     if (!pageLoaded) {
         $("#page-wrapper").hide(0);
@@ -52,5 +53,8 @@ function modal(data)
     $("#modalMsg").modal("show");
 }
 
-
+function getNumero() {
+    numero_aux++;
+    return numero_aux;
+}
 

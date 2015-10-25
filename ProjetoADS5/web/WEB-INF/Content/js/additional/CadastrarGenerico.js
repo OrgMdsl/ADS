@@ -44,14 +44,21 @@ $(document).ready(function () {
                             data: 'sigla'
                         },
                         {
+                            visible: false,
+                            title: 'Ativo',
+                            data: 'ativo'
+                        },
+                        {
                             width: '20%',
                             title: 'Ações',
                             render: function (data) {
+                                debugger;
                                 var bts = Componente.Icones.Editar("");
                                 if (data.ativo)
-                                    bts += Componente.Icones.Desativar("");
+                                    bts += Componente.Icones.Desativar("item_" + data.id);
                                 else
-                                    bts += Componente.Icones.Ativar("");
+                                    bts += Componente.Icones.Ativar("item_" + data.id);
+                                return bts;
                             }
                         }
                     ]
@@ -76,11 +83,10 @@ $(document).ready(function () {
         tabela_itens.row.add([
             $("#itemDescricao").val(),
             $("#itemSigla").val().toUpperCase(),
-            Componente.Icones.Editar("", "") +
-                    Componente.Icones.Ativar("", "") +
-                    Componente.Icones.Excluir("", "")
+            Componente.Icones.Editar("") +
+                    Componente.Icones.Desativar("item_" + getNumero()) +
+                    Componente.Icones.Excluir("")
         ]).draw(false);
-
         $("#itemSigla").val("");
         $("#itemDescricao").val("");
     });
@@ -93,34 +99,37 @@ $(document).ready(function () {
     $("#btn-salvar").on('click', function () {
         var dataArray = new Array();
         for (var i = 1; i <= tabela_itens.rows().data().length; i++) {
-            dataArray.push(
-                    {
-                        descricao: $("table tr:nth-child(" + i + ") td").eq(0).html(),
-                        sigla: $("table tr:nth-child(" + i + ") td").eq(1).html(),
-                        ativo: Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo")
-                    }
-            );
+            dataArray.push({
+                descricao: $("table tr:nth-child(" + i + ") td").eq(0).html(),
+                sigla: $("table tr:nth-child(" + i + ") td").eq(1).html(),
+                ativo: Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo")
+            });
         }
 
         var formData =
                 {
                     nome: $('#nome').val(),
                     descricao: $('#descricao').val(),
-                    coreGenericoItems: dataArray
+                    genericoItems: dataArray,
+                    ativo: true
                 };
 
         var obj = JSON.stringify(formData);
+        //var obj = formData;
 
         $.ajax({
             type: "POST",
             url: "CadastrarGenerico",
             data: obj,
             contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            processData: false,
             success: function (data) {
                 debugger;
             },
             error: function (data) {
-                $("#page-wrapper").html(data);
+                $("#page-wrapper").html(data.responseText);
             }
         });
 

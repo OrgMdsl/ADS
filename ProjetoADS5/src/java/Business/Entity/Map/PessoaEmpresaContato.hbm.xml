@@ -4,13 +4,10 @@
 <!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Business.Entity.Map.PessoaEmpresaContato" table="Pessoa_Empresa_Contato" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
-        <id name="idPessoaEmpresaContato" type="int">
+        <id name="id" type="int">
             <column name="id_pessoa_empresa_contato" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="auditoria" class="Business.Entity.Map.Auditoria" fetch="select">
-            <column name="id_auditoria" />
-        </many-to-one>
         <many-to-one name="contato" class="Business.Entity.Map.Contato" fetch="select">
             <column name="id_contato" />
         </many-to-one>
@@ -19,6 +16,9 @@
         </many-to-one>
         <property name="dataCadastro" type="timestamp">
             <column name="data_cadastro" length="23" />
+        </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

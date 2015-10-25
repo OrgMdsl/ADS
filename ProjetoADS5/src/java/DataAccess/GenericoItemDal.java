@@ -10,9 +10,7 @@ import Business.Entity.Map.GenericoItem;
 import DataAccess.Interface.IGenericoDal;
 import DataAccess.Interface.IGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
-import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -28,21 +26,21 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
     public GenericoItem BuscarPorSigla(String sigla, String nomePai) {
         Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("sigla", sigla));
-        crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getIdGenerico()));
+        crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getId()));
         return (GenericoItem) crit.uniqueResult();
     }
 
     @Override
-    public Set<GenericoItem> GetItens(Generico pai) {
+    public List<GenericoItem> GetItens(Generico pai) {
         Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("id_generico", pai.getIdGenerico()));
-        return new HashSet<GenericoItem>(crit.list());
+        crit.add(Restrictions.eq("id_generico", pai.getId()));
+        return crit.list();
     }
 
     @Override
-    public Set<GenericoItem> GetItens(Integer idPai) {
+    public List<GenericoItem> GetItens(Integer idPai) {
         Criteria crit = GetCriteria();
         crit.add(Restrictions.eq("id_generico", idPai));
-        return new HashSet<GenericoItem>(crit.list());
+        return crit.list();
     }   
 }

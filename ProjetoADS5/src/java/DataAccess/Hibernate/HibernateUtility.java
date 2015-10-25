@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.configuration;
+package DataAccess.Hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

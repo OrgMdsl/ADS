@@ -10,7 +10,7 @@ package Business.Dto.Common;
  * @author Programador
  */
 public class ErroDto {
-    private int id;
+    private Integer id;
     private String mensagemErro;
     private String atributo;
 

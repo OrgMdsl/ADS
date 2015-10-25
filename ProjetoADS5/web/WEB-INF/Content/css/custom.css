@@ -143,3 +143,7 @@ label {
     background: #563D7C;
     font-weight: bold;
 }
+
+.ico_muda_status input[type="checkbox"] {
+    display: none;
+}

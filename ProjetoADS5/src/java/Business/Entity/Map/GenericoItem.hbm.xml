@@ -4,13 +4,10 @@
 <!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Business.Entity.Map.GenericoItem" table="Generico_Item" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
-        <id name="idGenericoItem" type="int">
+        <id name="id" >
             <column name="id_generico_item" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="auditoria" class="Business.Entity.Map.Auditoria" fetch="select">
-            <column name="id_auditoria" />
-        </many-to-one>
         <many-to-one name="generico" class="Business.Entity.Map.Generico" fetch="select">
             <column name="id_generico" />
         </many-to-one>
@@ -20,12 +17,13 @@
         <property name="sigla" type="string">
             <column name="sigla" length="5" />
         </property>
-        <property name="ativo" type="java.lang.Boolean">
-            <column name="ativo" />
-        </property>
         <property name="dataCadastro" type="timestamp">
-            <column name="data_cadastro" length="23" />
+            <column name="data_cadastro"/>
         </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
+        </property>
+        <!--
         <set name="clientes" table="Cliente" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_tipo_pessoa" />
@@ -74,5 +72,6 @@
             </key>
             <one-to-many class="Business.Entity.Map.Atributo" />
         </set>
+        -->
     </class>
 </hibernate-mapping>

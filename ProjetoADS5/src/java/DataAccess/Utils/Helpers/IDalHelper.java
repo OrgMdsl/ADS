@@ -5,8 +5,9 @@
  */
 package DataAccess.Utils.Helpers;
 
-import java.util.Set;
+import java.util.List;
 import org.hibernate.Criteria;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -17,15 +18,21 @@ public interface IDalHelper<T> {
 
     T Buscar(Integer id);
 
-    Set<T> Pesquisar();
+    List<T> Pesquisar();
+    
+    List<T> PesquisarInativos();
+    
+    List<T> PesquisarTodos();
 
     Criteria GetCriteria();
 
-    String Inserir(T obj);
+    ResponseEntity<String> Inserir(T obj);
 
-    String Atualizar(T obj);
+    ResponseEntity<String> Atualizar(T obj);
 
-    String InserirAtualizar(T obj);
+    ResponseEntity<String> InserirAtualizar(T obj);
 
-    String Excluir(T obj);
+    ResponseEntity<String> Excluir(T obj);
+    
+    ResponseEntity<String> ExcluirFisicamente(T obj);
 }

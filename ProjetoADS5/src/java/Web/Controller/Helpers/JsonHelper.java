@@ -25,5 +25,8 @@ public class JsonHelper {
         String json = gson.toJson(obj);
         return new ResponseEntity<String>(json, headers, HttpStatus.CREATED);
     }
-
+    
+    public <T> T FromJson(String json, Class<T> obj) {
+        return new Gson().fromJson(json, obj);
+    }
 }

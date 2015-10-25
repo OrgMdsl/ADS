@@ -14,5 +14,6 @@ public class MessagesConst {
             INSERIDO = "Inserído com sucesso!",
             ATUALIZADO = "Atualizado com sucesso!",
             EXCLUÍDO = "Excluído com sucesso!",
+            LIXEIRA = "Item movido para a lixera.",
             ERRO = "Ocorreu um erro...";
 }

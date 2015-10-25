@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="panel-body">
                     <div class="form-group">
-                        <form class="form-horizontal" action="CadastrarGenerico" id="form-coreGenericoItem">
+                        <form class="form-horizontal" action="" id="form-Generico">
                             <input type="hidden" value="${ObjId}" name="id" id="hiddenId"/>
                             <div class="panel panel-default">
                                 <div class="panel-heading">Lista Genérica</div>

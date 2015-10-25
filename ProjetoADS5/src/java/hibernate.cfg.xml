@@ -30,9 +30,7 @@
     <mapping resource="Business/Entity/Map/Contato.hbm.xml"/>
     <mapping resource="Business/Entity/Map/AtributoOpcao.hbm.xml"/>
     <mapping resource="Business/Entity/Map/PessoaEmpresa.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/Auditoria.hbm.xml"/>
     <mapping resource="Business/Entity/Map/Generico.hbm.xml"/>
-    <mapping resource="Business/Entity/Map/AuditoriaHistorico.hbm.xml"/>
     <mapping resource="Business/Entity/Map/Contrato.hbm.xml"/>
     <mapping resource="Business/Entity/Map/ComponenteMaquina.hbm.xml"/>
     <mapping resource="Business/Entity/Map/ObjetoAtributoValor.hbm.xml"/>

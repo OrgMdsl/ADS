@@ -8,17 +8,12 @@ package Web.Controller;
 import Business.GenericoBll;
 import Business.GenericoItemBll;
 import Business.Entity.Map.Generico;
-import Business.Entity.Map.GenericoItem;
 import Business.Interface.IGenericoBll;
 import Business.Interface.IGenericoItemBll;
 import static Factory.New.New;
 import Web.Controller.Helpers.JsonHelper;
-import java.util.HashSet;
-import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,10 +89,9 @@ public class GenericoController {
     
     @RequestMapping(value = "CadastrarGenerico", produces = "text/html; charset=UTF8", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> CadastrarGenerico( 
-            @RequestBody String obj) {
-        String teste  = "";        
-        return JsonHelper.ToJson(obj);
+    public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {   
+        Generico _obj = JsonHelper.FromJson(obj, Generico.class);
+        return this.GenericoBll.InserirAtualizar(_obj);
     }
     
     @RequestMapping(value = "AtivarDesativar", produces = "text/html; charset=UTF8")

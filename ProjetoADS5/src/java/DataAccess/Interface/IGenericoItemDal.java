@@ -8,8 +8,7 @@ package DataAccess.Interface;
 import Business.Entity.Map.Generico;
 import Business.Entity.Map.GenericoItem;
 import DataAccess.Utils.Helpers.IDalHelper;
-import com.googlecode.genericdao.dao.hibernate.GenericDAO;
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -18,6 +17,6 @@ import java.util.Set;
 public interface IGenericoItemDal extends  IDalHelper<GenericoItem> {
     GenericoItem Buscar(Integer id);
     GenericoItem BuscarPorSigla(String sigla, String nomePai);
-    Set<GenericoItem> GetItens(Generico pai);
-    Set<GenericoItem> GetItens(Integer idPai);
+    List<GenericoItem> GetItens(Generico pai);
+    List<GenericoItem> GetItens(Integer idPai);
 }

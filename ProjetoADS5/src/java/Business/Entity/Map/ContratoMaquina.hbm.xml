@@ -4,9 +4,9 @@
 <!-- Generated 23/10/2015 01:12:46 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Business.Entity.Map.ContratoMaquina" table="Contrato_Maquina" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
-        <id name="idContratoMaquina" type="int">
+        <id name="id" type="int">
             <column name="id_contrato_maquina" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="contrato" class="Business.Entity.Map.Contrato" fetch="select">
             <column name="id_contrato" />
@@ -14,11 +14,11 @@
         <many-to-one name="maquina" class="Business.Entity.Map.Maquina" fetch="select">
             <column name="id_maquina" />
         </many-to-one>
-        <property name="idAuditoria" type="java.lang.Integer">
-            <column name="id_auditoria" />
-        </property>
         <property name="dataCadastro" type="timestamp">
             <column name="data_cadastro" length="23" />
+        </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

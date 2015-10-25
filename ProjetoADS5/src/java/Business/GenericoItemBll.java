@@ -10,7 +10,9 @@ import Business.Interface.IGenericoItemBll;
 import DataAccess.GenericoItemDal;
 import DataAccess.Interface.IGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
+import java.util.List;
 import java.util.Set;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -26,12 +28,12 @@ public class GenericoItemBll extends DalHelper<GenericoItem> implements IGeneric
     }
 
     @Override
-    public Set<GenericoItem> GetItens(Integer idPai) {
+    public List<GenericoItem> GetItens(Integer idPai) {
         return GenericoItemDal.GetItens(idPai);
     }
 
     @Override
-    public String AtivarDesativar(Integer id) {
+    public ResponseEntity<String> AtivarDesativar(Integer id) {
         GenericoItem obj = GenericoItemDal.Buscar(id);
         obj.setAtivo(!obj.getAtivo());      
         return GenericoItemDal.Atualizar(obj);         

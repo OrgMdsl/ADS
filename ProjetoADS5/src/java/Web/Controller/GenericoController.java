@@ -35,15 +35,17 @@ public class GenericoController {
 
     @RequestMapping(value = "PaginaListarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ModelAndView PaginaListagemGenerico() {
-        ModelAndView mv = new ModelAndView("Generico/ListarGenerico");
-        mv.addObject("ViewName", "Listas genéricas");
+    public ModelAndView PaginaListarGenerico() {
+        ModelAndView mv = new ModelAndView("Shared/Listar"); //Arquivo que será aberto
+        mv.addObject("ViewName", "Listas genéricas"); //Nome da página
+        mv.addObject("JsArchive", "additional/ListarGenerico.js"); //Caminho do arquivo JS da página
+        mv.addObject("PanelName", "Lista Genérica"); //Nome da tabela
         return mv;
     }
 
     @RequestMapping(value = "PaginaCadastrarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ModelAndView PaginaCadastroGenerico() {
+    public ModelAndView PaginaCadastrarGenerico() {
         ModelAndView mv = new ModelAndView("Generico/CadastrarGenerico");
         mv.addObject("ViewName", "Cadastro - Listas genéricas");
         return mv;

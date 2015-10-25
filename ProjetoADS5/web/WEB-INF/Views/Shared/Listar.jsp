@@ -6,18 +6,18 @@
 <html>
     <head>
         <title>${ViewName}</title>
-        <script src="additional/ListarGenerico.js" type="text/javascript"></script>
+        <script src="${JsArchive}" type="text/javascript"></script>
     </head>
     <body>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Listas Genéricas</div>
+            <div class="panel-heading">${PanelName}</div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel-body">
                             <div class="table-condensed">
-                                <table id="listagem-Generico" class="table table-condensed table-hover table-responsive table-striped">                                      
+                                <table id="listagem" class="table table-condensed table-hover table-responsive table-striped">                                      
                                 </table>
                             </div>
                         </div>

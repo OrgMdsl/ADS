@@ -5,10 +5,13 @@
  */
 package DataAccess.Interface;
 
+import Business.Entity.Map.Fabricante;
+import DataAccess.Utils.Helpers.IDalHelper;
+
 /**
  *
  * @author Gabriel
  */
-public interface IFabricanteDal {
-    
+public interface IFabricanteDal extends IDalHelper<Fabricante> {
+
 }

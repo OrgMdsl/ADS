@@ -7,7 +7,7 @@ import java.util.Set;
 public class Objeto implements java.io.Serializable {
 
     private Integer id;
-    private GenericoItem genericoItem;
+    private GenericoItem tipoObjeto;
     private String descricao;
     private Date dataCadastro;
     private List objetoAtributos;
@@ -37,12 +37,12 @@ public class Objeto implements java.io.Serializable {
         this.id = id;
     }
 
-    public GenericoItem getGenericoItem() {
-        return this.genericoItem;
+    public GenericoItem getTipoObjeto() {
+        return tipoObjeto;
     }
 
-    public void setGenericoItem(GenericoItem genericoItem) {
-        this.genericoItem = genericoItem;
+    public void setTipoObjeto(GenericoItem tipoObjeto) {
+        this.tipoObjeto = tipoObjeto;
     }
 
     public String getDescricao() {

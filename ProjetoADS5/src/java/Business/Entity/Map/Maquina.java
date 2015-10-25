@@ -15,9 +15,9 @@ public class Maquina implements java.io.Serializable {
     private String modelo;
     private Date dataUltimaRevisao;
     private Date dataCadastro;
-    private List componenteMaquinas;
-    private List contratoMaquinas;
-    private List maquinas;
+    private List<ComponenteMaquina> componenteMaquinas;
+    private List<ContratoMaquina> contratoMaquinas;
+    private List<Maquina> maquinas;
     private boolean ativo;
 
     public boolean isAtivo() {

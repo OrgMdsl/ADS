@@ -2,7 +2,6 @@ package Business.Entity.Map;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class Objeto implements java.io.Serializable {
 
@@ -10,8 +9,8 @@ public class Objeto implements java.io.Serializable {
     private GenericoItem tipoObjeto;
     private String descricao;
     private Date dataCadastro;
-    private List objetoAtributos;
-    private List componenteMaquinas;
+    private List<ObjetoAtributo> objetoAtributos;
+    private List<ComponenteMaquina> componenteMaquinas;
     private boolean ativo;
 
     public boolean isAtivo() {

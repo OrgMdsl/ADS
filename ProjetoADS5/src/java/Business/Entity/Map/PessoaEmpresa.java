@@ -11,8 +11,8 @@ public class PessoaEmpresa implements java.io.Serializable {
     private String cpf;
     private Date dataCadastro;
     private Cliente cliente;
-    private List pessoaEmpresaEnderecos;
-    private List pessoaEmpresaContatos;
+    private List<PessoaEmpresaEndereco> pessoaEmpresaEnderecos;
+    private List<PessoaEmpresaContato> pessoaEmpresaContatos;
     private Usuario usuario;
     private boolean ativo;
 

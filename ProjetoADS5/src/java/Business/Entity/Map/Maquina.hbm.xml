@@ -35,23 +35,23 @@
         <property name="ativo" type="boolean">
             <column name="ativo" not-null="true"/>
         </property>
-        <set name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
+        <bag name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_maquina" />
             </key>
             <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
-        </set>
-        <set name="contratoMaquinas" table="Contrato_Maquina" inverse="true" lazy="true" fetch="select">
+        </bag>
+        <bag name="contratoMaquinas" table="Contrato_Maquina" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_maquina" />
             </key>
             <one-to-many class="Business.Entity.Map.ContratoMaquina" />
-        </set>
-        <set name="maquinas" table="Maquina" inverse="true" lazy="true" fetch="select">
+        </bag>
+        <bag name="maquinas" table="Maquina" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_maquina_pai" />
             </key>
             <one-to-many class="Business.Entity.Map.Maquina" />
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

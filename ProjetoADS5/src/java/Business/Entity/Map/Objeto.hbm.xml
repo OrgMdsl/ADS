@@ -20,17 +20,17 @@
         <property name="ativo" type="boolean">
             <column name="ativo" not-null="true"/>
         </property>
-        <set name="objetoAtributos" table="Objeto_Atributo" inverse="true" lazy="true" fetch="select">
+        <bag name="objetoAtributos" table="Objeto_Atributo" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_objeto" />
             </key>
             <one-to-many class="Business.Entity.Map.ObjetoAtributo" />
-        </set>
-        <set name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
+        </bag>
+        <bag name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_objeto" />
             </key>
             <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

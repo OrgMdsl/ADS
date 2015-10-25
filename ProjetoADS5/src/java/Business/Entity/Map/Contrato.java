@@ -9,7 +9,7 @@ public class Contrato implements java.io.Serializable {
     private Integer id;
     private Cliente cliente;
     private Date dataCadastro;
-    private List contratoMaquinas;
+    private List<ContratoMaquina> contratoMaquinas;
     private boolean ativo;
 
     public boolean isAtivo() {

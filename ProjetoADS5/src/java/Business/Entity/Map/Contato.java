@@ -11,7 +11,7 @@ public class Contato implements java.io.Serializable {
     private String telefone;
     private String email;
     private Date dataCadastro;
-    private List pessoaEmpresaContatos;
+    private List<PessoaEmpresaContato> pessoaEmpresaContatos;
     private boolean ativo;
 
     public boolean isAtivo() {

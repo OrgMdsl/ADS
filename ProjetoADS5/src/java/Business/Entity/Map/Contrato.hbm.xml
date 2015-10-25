@@ -17,11 +17,11 @@
         <property name="ativo" type="boolean">
             <column name="ativo" not-null="true"/>
         </property>
-        <set name="contratoMaquinas" table="Contrato_Maquina" inverse="true" lazy="true" fetch="select">
+        <bag name="contratoMaquinas" table="Contrato_Maquina" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_contrato" />
             </key>
             <one-to-many class="Business.Entity.Map.ContratoMaquina" />
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

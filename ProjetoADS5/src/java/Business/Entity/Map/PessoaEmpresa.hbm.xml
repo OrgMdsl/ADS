@@ -24,18 +24,18 @@
             <column name="ativo" not-null="true"/>
         </property>
         <one-to-one name="cliente" class="Business.Entity.Map.Cliente"></one-to-one>
-        <set name="pessoaEmpresaEnderecos" table="Pessoa_Empresa_Endereco" inverse="true" lazy="true" fetch="select">
+        <bag name="pessoaEmpresaEnderecos" table="Pessoa_Empresa_Endereco" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_pessoa_empresa" />
             </key>
             <one-to-many class="Business.Entity.Map.PessoaEmpresaEndereco" />
-        </set>
-        <set name="pessoaEmpresaContatos" table="Pessoa_Empresa_Contato" inverse="true" lazy="true" fetch="select">
+        </bag>
+        <bag name="pessoaEmpresaContatos" table="Pessoa_Empresa_Contato" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_pessoa_empresa" />
             </key>
             <one-to-many class="Business.Entity.Map.PessoaEmpresaContato" />
-        </set>
+        </bag>
         <one-to-one name="usuario" class="Business.Entity.Map.Usuario"></one-to-one>
     </class>
 </hibernate-mapping>

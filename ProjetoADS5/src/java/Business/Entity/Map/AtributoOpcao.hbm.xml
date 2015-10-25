@@ -20,11 +20,11 @@
         <property name="ativo" type="boolean">
             <column name="ativo" not-null="true"/>
         </property>
-        <set name="objetoAtributoValors" table="Objeto_Atributo_Valor" inverse="true" lazy="true" fetch="select">
+        <bag name="objetoAtributoValors" table="Objeto_Atributo_Valor" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_atributo_opcao" />
             </key>
             <one-to-many class="Business.Entity.Map.ObjetoAtributoValor" />
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

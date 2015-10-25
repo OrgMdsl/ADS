@@ -23,11 +23,11 @@
         <property name="dataCadastro" type="timestamp">
             <column name="data_cadastro" length="23" />
         </property>
-        <set name="objetoAtributoValors" table="Objeto_Atributo_Valor" inverse="true" lazy="true" fetch="select">
+        <bag name="objetoAtributoValors" table="Objeto_Atributo_Valor" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_objeto_atributo" />
             </key>
             <one-to-many class="Business.Entity.Map.ObjetoAtributoValor" />
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

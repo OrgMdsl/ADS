@@ -10,7 +10,7 @@ public class AtributoOpcao implements java.io.Serializable {
     private Atributo atributo;
     private String opcao;
     private Date dataCadastro;
-    private List objetoAtributoValors;
+    private List<ObjetoAtributoValor> objetoAtributoValors;
     private boolean ativo;
 
     public boolean isAtivo() {

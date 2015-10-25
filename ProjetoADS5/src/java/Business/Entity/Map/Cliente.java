@@ -10,7 +10,7 @@ public class Cliente implements java.io.Serializable {
     private GenericoItem genericoItem;
     private PessoaEmpresa pessoaEmpresa;
     private Date dataCadastro;
-    private List contratos;
+    private List<Contrato> contratos;
     private boolean ativo;
 
     public boolean isAtivo() {

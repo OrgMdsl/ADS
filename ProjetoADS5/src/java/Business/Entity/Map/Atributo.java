@@ -10,8 +10,8 @@ public class Atributo implements java.io.Serializable {
     private GenericoItem genericoItem;
     private String descricao;
     private Date dataCadastro;
-    private List objetoAtributos;
-    private List atributoOpcaos;
+    private List<ObjetoAtributo> objetoAtributos;
+    private List<Atributo> atributoOpcaos;
     private boolean ativo;
 
     public boolean isAtivo() {

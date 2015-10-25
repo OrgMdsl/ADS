@@ -11,7 +11,7 @@ public class ObjetoAtributo implements java.io.Serializable {
     private Objeto objeto;
     private String valor;
     private Date dataCadastro;
-    private List objetoAtributoValors;
+    private List<ObjetoAtributoValor> objetoAtributoValors;
     private boolean ativo;
 
     public boolean isAtivo() {

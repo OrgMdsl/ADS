@@ -12,6 +12,7 @@ import Business.Interface.IGenericoBll;
 import Business.Interface.IGenericoItemBll;
 import static Factory.New.New;
 import Web.Controller.Helpers.JsonHelper;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +48,7 @@ public class GenericoController {
         mv.addObject("ViewName", "Cadastro - Listas genéricas");
         return mv;
     }
-    
+
     @RequestMapping(value = "PaginaEditarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ModelAndView PaginaCadastroGenerico(@RequestParam Integer id) {
@@ -74,7 +75,7 @@ public class GenericoController {
     public ResponseEntity<String> ListarGenerico() {
         return JsonHelper.ToJson(this.GenericoBll.Pesquisar());
     }
-   
+
     @RequestMapping(value = "ListarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ListarGenericoItem(@RequestParam Integer id) {
@@ -86,14 +87,14 @@ public class GenericoController {
     public ResponseEntity<String> BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
         return JsonHelper.ToJson(this.GenericoItemBll.BuscarPorSigla(sigla, nomePai));
     }
-    
-    @RequestMapping(value = "CadastrarGenerico", produces = "text/html; charset=UTF8", method = RequestMethod.POST)
+
+    @RequestMapping(value = "CadastrarGenerico", method = RequestMethod.POST, consumes = "application/json; charset=utf-8", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {   
+    public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {
         Generico _obj = JsonHelper.FromJson(obj, Generico.class);
         return this.GenericoBll.InserirAtualizar(_obj);
     }
-    
+
     @RequestMapping(value = "AtivarDesativar", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> AtivarDesativar(@RequestParam Integer id) {

@@ -9,7 +9,7 @@ public class Generico implements java.io.Serializable {
     private String nome;
     private String descricao;
     private Date dataCadastro;
-    private List genericoItems;
+    private List<GenericoItem> genericoItems;
     private boolean ativo;
 
     public boolean isAtivo() {

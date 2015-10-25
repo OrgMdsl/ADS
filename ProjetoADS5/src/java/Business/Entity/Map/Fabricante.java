@@ -9,7 +9,7 @@ public class Fabricante implements java.io.Serializable {
     private Integer id;
     private String descricao;
     private Date dataCadastro;
-    private List componenteMaquinas;
+    private List<ComponenteMaquina> componenteMaquinas;
     private boolean ativo;
 
     public boolean isAtivo() {

@@ -1,43 +1,50 @@
 $(document).ready(function () {
-    $("#listagem").DataTable({
-        processing: false,
-        serverSide: false,
-        ajax: {
-            url: 'ListarGenerico',
-            pages: 5,
-            dataSrc: ""
+
+    $('#listagem').DataTable({
+        "ajax": {
+            "url": "ListarGenerico",
+            "pages": 5,
+            "dataSrc": ""
         },
-        columns: [
+        "deferRender": true,
+        "columns": [
             {
-                width: '10%',
-                title: 'Id',
-                data: 'id'
+                "title": "Id",
+                "data": "id",
+                "width": "10%"
             },
             {
-                width: '40%',
-                title: 'Nome',
-                data: 'nome'
+                "title": "Nome",
+                "data": "nome",
+                "width": "30%"
             },
             {
-                width: '40%',
-                title: 'Descrição',
-                data: 'descricao'
+                "title": "Descrição",
+                "data": "descricao",
+                "width": "40%"
             },
             {
-                width: '10%',
-                title: 'Ações',
-                render: function (data) {
-                    if (!Util.IsNull(data)) {
-                        var c = Componente.Icones.Visualizar("")
-                                + Componente.Icones.Editar("");
-                        if (!Util.IsNull(data.ativo) && !data.ativo)
-                            c += Componente.Icones.Ativar("");
+                "title": "Ações",
+                "width": "20%",
+                "render": function (data, type, row) {
+                    if (!Util.IsNull(row)) {
+                        var c = Componente.Icones.Visualizar("PaginaVisualizarGenerico?id=" + row.id)
+                                + Componente.Icones.Editar("PaginaEditarGenerico?id=" + row.id);
+                        if (row.ativo === false)
+                            c += Componente.Icones.Ativar("","AlterarStatusGenerico?id=" + row.id);
                         else
-                            c += Componente.Icones.Desativar("");
+                            c += Componente.Icones.Desativar("","AlterarStatusGenerico?id=" + row.id);
                         return c;
                     }
+                    return Const.Messages.ERRO_1;
                 }
             }
         ]
     });
+    
+    $('#listagem')
+    .on( 'processing.dt', function ( e, settings, processing ) {
+        $('#processingIndicator').css( 'display', processing ? 'block' : 'none' );
+    } )
+    .dataTable();
 });

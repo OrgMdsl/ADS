@@ -4,6 +4,16 @@ var Componente = (function () {
     function Componente() {
     }
 
+    Componente.Loading = {
+        Show: function () {
+            $("html").append("<div class='loading'><div>Por favor, aguarde ...</div></div>");
+            $(".loading div").fadeIn(300);
+        },
+        Remove: function () {
+            $(".loading").fadeOut(150, function() { $(this).remove(); });
+        }
+    };
+
     Componente.Icones = {
         Editar: function (url_link, id) {
             return montaIcone(url_link, "componente_ico orange editar", "fa-pencil", "Editar", id);
@@ -20,11 +30,20 @@ var Componente = (function () {
         Recuperar: function (url_link, id) {
             return montaIcone(url_link, "componente_ico gray recuperar", "fa-undo", "Recuperar", id);
         },
-        Ativar: function (id) {
-            return montaIconeStatus("componente_ico inativo ico_muda_status ativar", "fa-toggle-off", "Inativo", false, id);
+        Ativar: function (id, action) {
+            return icone_status.ativar(id, action);
         },
-        Desativar: function (id) {
-            return montaIconeStatus("componente_ico ativo ico_muda_status desativar", "fa-toggle-on", "Ativo", true, id);
+        Desativar: function (id, action) {
+            return icone_status.desativar(id, action);
+        }
+    };
+
+    var icone_status = {
+        ativar: function (id, action) {
+            return montaIconeStatus("componente_ico inativo ico_muda_status ativar", "fa-toggle-off", "Inativo", false, id, action);
+        },
+        desativar: function (id, action) {
+            return montaIconeStatus("componente_ico ativo ico_muda_status desativar", "fa-toggle-on", "Ativo", true, id, action);
         }
     };
 
@@ -61,15 +80,28 @@ var Componente = (function () {
         }
     };
 
-    Componente.fnBtnToggleStatus = function (_el, id) {
+    Componente.fnBtnToggleStatus = function (_el, id, action) {
+        Componente.Loading.Show();
         var el = $(_el);
-        if (Util.HasClass(_el, "ativo")) {
-            $(el).replaceWith(Componente.Icones.Ativar("", id));
-            //$(el).children("#" + Const.Class.Pre.MUDA_STATUS + id).prop("checked", false);
-        }
+        var ico;
+        if (Util.HasClass(_el, "ativo"))
+            ico = icone_status.ativar(id, action);
+        else
+            ico = icone_status.desativar(id, action);
+
+        if (!Util.IsEmpty(action))
+            $.ajax({
+                url: action,
+                success: function (data, textStatus, jqXHR) {
+                    $(el).replaceWith(ico);
+                    Componente.Loading.Remove();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
         else {
-            $(el).replaceWith(Componente.Icones.Desativar("", id));
-            //$(el).children("#" + Const.Class.Pre.MUDA_STATUS + id).prop("checked", true);
+            $(el).replaceWith(ico);
+            Componente.Loading.Remove();
         }
     };
 
@@ -80,8 +112,8 @@ var Componente = (function () {
             return "<span class='" + clazz + "' title='" + title + "'><a href='" + url + "' ><i class='fa " + icon + "' id='" + id + "'></i></a></span>";
     }
 
-    function montaIconeStatus(clazz, icon, title, ativo, id) {
-        return "<span class='" + clazz + "' title='" + title + "' onclick='Componente.fnBtnToggleStatus(this,\"" + id + "\");'><i class='fa " + icon + "' id='" + id + "'></i>"
+    function montaIconeStatus(clazz, icon, title, ativo, id, action) {
+        return "<span class='" + clazz + "' title='" + title + "' onclick=\"Componente.fnBtnToggleStatus(this,'" + id + "','" + action + "');\"><i class='fa " + icon + "' id='" + id + "'></i>"
                 + Componente.Input.Checkbox("", ativo, Const.Class.Pre.MUDA_STATUS + id) + "</span>";
 
     }

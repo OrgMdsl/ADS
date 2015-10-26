@@ -39,37 +39,52 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
     protected Session getSession() {
         return HibernateUtil.getSession();
     }
-
+    
     @Override
     public T Buscar(Integer id) {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("id", id));
-        return (T) crit.uniqueResult();
+        Session s = getSession();
+        Criteria crit = s.createCriteria(entityClass);
+        try {
+            crit.add(Restrictions.eq("id", id));
+            return (T) crit.uniqueResult();
+        } finally {
+            s.close();
+        }
     }
 
     @Override
     public List<T> Pesquisar() {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("ativo", true));
-        return crit.list();
+        Session s = getSession();
+        Criteria crit = s.createCriteria(entityClass);
+        try {
+            crit.add(Restrictions.eq("ativo", true));
+            return crit.list();
+        } finally {
+            //s.close();
+        }
     }
 
     @Override
     public List<T> PesquisarInativos() {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("ativo", false));
-        return crit.list();
+        Session s = getSession();
+        Criteria crit = s.createCriteria(entityClass);
+        try {
+            crit.add(Restrictions.eq("ativo", false));
+            return crit.list();
+        } finally {
+            //s.close();
+        }
     }
 
     @Override
     public List<T> PesquisarTodos() {
-        Criteria crit = GetCriteria();
-        return crit.list();
-    }
-
-    @Override
-    public Criteria GetCriteria() {
-        return getSession().createCriteria(entityClass);
+        Session s = getSession();
+        Criteria crit = s.createCriteria(entityClass);
+        try {
+            return crit.list();
+        } finally {
+            //s.close();
+        }
     }
 
     @Override
@@ -167,5 +182,38 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
         } finally {
             s.close();
         }
+    }
+
+    @Override
+    public ResponseEntity<String> ToggleStatus(T obj) {
+        Session s = getSession();
+        Transaction t = s.beginTransaction();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "text/html; charset=utf8");
+        Boolean ativo = (Boolean) Reflection.get(obj, "ativo");
+        if (ativo != null) {
+            if (ativo) {
+                Reflection.set(obj, "ativo", false);
+            } else {
+                Reflection.set(obj, "ativo", true);
+            }
+        } else {
+            return new ResponseEntity<String>("Não é possível alterar o status deste item, pois o mesmo não possui este atributo.", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        try {
+            s.update(obj);
+            t.commit();
+            return new ResponseEntity<String>(MessagesConst.ATUALIZADO, headers, HttpStatus.CREATED);
+        } catch (Exception ex) {
+            t.rollback();
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        } finally {
+            s.close();
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> ToggleStatus(Integer id) {
+        return this.ToggleStatus(this.Buscar(id));
     }
 }

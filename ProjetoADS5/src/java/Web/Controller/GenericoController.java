@@ -12,9 +12,7 @@ import Business.Interface.IGenericoBll;
 import Business.Interface.IGenericoItemBll;
 import static Factory.New.New;
 import Web.Controller.Helpers.JsonHelper;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import org.json.JSONObject;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -103,9 +101,10 @@ public class GenericoController {
         return this.GenericoBll.InserirAtualizar(_obj);
     }
 
-    @RequestMapping(value = "AtivarDesativar", produces = "text/html; charset=UTF8")
+    @RequestMapping(value = "AlterarStatusGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> AtivarDesativar(@RequestParam Integer id) {
-        return JsonHelper.ToJson(this.GenericoItemBll.AtivarDesativar(id));
+    public ResponseEntity<String> AlterarStatusGenerico(@RequestParam Integer id) {     
+        ResponseEntity<String> json = this.GenericoBll.ToggleStatus(id);
+        return json;
     }
 }

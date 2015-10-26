@@ -7,6 +7,7 @@ package DataAccess.Utils.Helpers;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
  * @param <T>
  */
 public interface IDalHelper<T> {
-
+        
     T Buscar(Integer id);
 
     List<T> Pesquisar();
@@ -23,8 +24,6 @@ public interface IDalHelper<T> {
     List<T> PesquisarInativos();
     
     List<T> PesquisarTodos();
-
-    Criteria GetCriteria();
 
     ResponseEntity<String> Inserir(T obj);
 
@@ -35,4 +34,8 @@ public interface IDalHelper<T> {
     ResponseEntity<String> Excluir(T obj);
     
     ResponseEntity<String> ExcluirFisicamente(T obj);
+    
+    ResponseEntity<String> ToggleStatus(T obj);
+    
+    ResponseEntity<String> ToggleStatus(Integer id);
 }

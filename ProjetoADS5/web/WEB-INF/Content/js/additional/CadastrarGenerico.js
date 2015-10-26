@@ -97,6 +97,7 @@ $(document).ready(function () {
             );
 
     $("#btn-salvar").on('click', function () {
+        Componente.Loading.Show();
         var dataArray = new Array();
         for (var i = 1; i <= tabela_itens.rows().data().length; i++) {
             dataArray.push({
@@ -126,9 +127,11 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success: function (data) {
-                debugger;
+                Componente.Loading.Remove();
+                $("#page-wrapper").html(data.responseText);
             },
             error: function (data) {
+                Componente.Loading.Remove();
                 $("#page-wrapper").html(data.responseText);
             }
         });

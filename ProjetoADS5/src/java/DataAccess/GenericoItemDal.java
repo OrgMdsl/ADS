@@ -12,6 +12,7 @@ import DataAccess.Interface.IGenericoItemDal;
 import DataAccess.Utils.Helpers.DalHelper;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -24,23 +25,38 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
 
     @Override
     public GenericoItem BuscarPorSigla(String sigla, String nomePai) {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("sigla", sigla));
-        crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getId()));
-        return (GenericoItem) crit.uniqueResult();
+        Session s = getSession();
+        Criteria crit = s.createCriteria(Generico.class);
+        try {
+            crit.add(Restrictions.eq("sigla", sigla));
+            crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getId()));
+            return (GenericoItem) crit.uniqueResult();
+        } finally {
+            s.close();
+        }
     }
 
     @Override
     public List<GenericoItem> GetItens(Generico pai) {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("id_generico", pai.getId()));
-        return crit.list();
+        Session s = getSession();
+        Criteria crit = s.createCriteria(Generico.class);
+        try {
+            crit.add(Restrictions.eq("id_generico", pai.getId()));
+            return crit.list();
+        } finally {
+            s.close();
+        }
     }
 
     @Override
     public List<GenericoItem> GetItens(Integer idPai) {
-        Criteria crit = GetCriteria();
-        crit.add(Restrictions.eq("id_generico", idPai));
-        return crit.list();
-    }   
+        Session s = getSession();
+        Criteria crit = s.createCriteria(Generico.class);
+        try {
+            crit.add(Restrictions.eq("id_generico", idPai));
+            return crit.list();
+        } finally {
+            s.close();
+        }
+    }
 }

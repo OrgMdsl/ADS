@@ -6,7 +6,7 @@
 <html>
     <head>
         <title>${ViewName}</title>
-        <script src="additional/CadastrarObjeto.js" type="text/javascript"></script>
+        <script src="additional/CadastrarGenerico.js" type="text/javascript"></script>
     </head>
     <body>
 

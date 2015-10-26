@@ -12,5 +12,8 @@ var Const = {
       Pre: {
           MUDA_STATUS: "muda_status_"
       }  
+    },
+    Messages: {
+        ERRO_1: "#Erro#"
     }
 };

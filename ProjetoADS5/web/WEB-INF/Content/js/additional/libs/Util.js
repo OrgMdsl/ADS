@@ -1,3 +1,4 @@
+
 var Util = (function () {
 
     function Util() {
@@ -21,6 +22,11 @@ var Util = (function () {
 
     Util.HasClass = function (element, cls) {
         return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    };
+
+    Util.VerifyInstance = function (classe) {
+        if (!(this instanceof classe))
+            return new classe();
     };
 
     return Util;

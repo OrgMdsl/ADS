@@ -1,32 +1,14 @@
+/* global Ajax, Util, Const, Componente */
 //Classe
-var Ajax = (function () {
+var AjaxHelper = (function () {
 
     //Construtor
-    function Ajax() {
+    function AjaxHelper() {
     }
 
-    /**
-     * Função para executar requisições Ajax.
-     * 
-     * @example 
-     *   Ajax.Post("ModalAtencao", false, "corpo=Teste",
-            function (data) {
-                modal(data);
-            },
-            function (data) {
-                alert(data.responseText);
-            }
-         );
-     * 
-     * @param   {String} action   Parametro obrigatório. Nome do Controller que efetuará a ação
-     * @param   {Bool} autenticacao    Parametro obrigatório. Exige autenticação?
-     * @param   {String} atributos    Parametro opcional. Atributos concatenados (Se possuir), Ex.: "id=1&nome=teste"
-     * @param   {Função Callback} callbackSucesso    Parametro opcional. Recebe o retorno caso haja sucesso
-     * @param   {Função Callback} callbackErro    Parametro opcional. Recebe o retorno se houver erro
-     * @param   {Object} formData    Parametro opcional. Recebe os dados de um formulário ao realizar o submit. Ex.: formData = new FormData($("#MeuFormulario")[0]);
-     * @returns {}
-     */
-    Ajax.Post = function (action, autenticacao, atributos, callbackSucesso, callbackErro, formData) {
+    AjaxHelper.Post = function (action, autenticacao, atributos, data, callbackSucesso, callbackErro) {
+        Componente.Loading.Show();
+
         if (Util.IsEmpty(action))
             return null;
 
@@ -39,49 +21,28 @@ var Ajax = (function () {
         var restrito = autenticacao ? Const.AccessControl.RESTRITO : "";
 
         var url = action + restrito + "?" + atributos;
-
-        if (!Util.IsEmpty(formData))
-        {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: 'json',
-                success: function (item) {
-                    callbackSucesso(item);
-                },
-                error: function (er) {
-                    callbackErro(er);
-                }
-            });
-        }
-        else
-        {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: 'json',
-                success: function (item) {
-                    callbackSucesso(item);
-                },
-                error: function (er) {
-                    callbackErro(er);
-                }
-            });
-        }
+        $.ajax({
+            url: url,
+            type: 'POST',
+            async: false,
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            processData: false,
+            data: data,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                callbackSucesso(data);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                callbackErro(jqXHR);
+                Componente.Loading.Remove();
+            }
+        });
     };
 
-    //Privado
     var private = {
     };
 
-    return Ajax;
+    return AjaxHelper;
 }());

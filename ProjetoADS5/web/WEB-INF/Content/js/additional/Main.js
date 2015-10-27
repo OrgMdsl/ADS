@@ -1,25 +1,13 @@
+/* global Componente */
+
 var pageLoaded = false;
 var numero_aux = 0;
 $(document).ready(function () {
     if (!pageLoaded) {
         $("#page-wrapper").hide(0);
-        $("#page-wrapper").fadeIn(600);
+        $("#page-wrapper").fadeIn(0);
         pageLoaded = true;
 
-
-
-        $("span.ativo").click(function () {
-
-            $(this).replaceWith(Componente.Icones.Ativar("", ""));
-
-        });
-
-        $("span.inativo").click(function () {
-
-            $(this).replaceWith(Componente.Icones.Desativar("", ""));
-
-        });
-        
         $("table").on('click', '.excluir', function () {
             $("table").DataTable()
                     .row($(this).parents('tr'))
@@ -29,17 +17,17 @@ $(document).ready(function () {
     }
 });
 
-function modal(data)
+function modal(titulo, corpo)
 {
     var html = "<div class=\"modal fade\" id=\"modalMsg\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">" +
             "    <div class=\"modal-dialog\" role=\"document\">" +
             "        <div class=\"modal-content\">" +
             "            <div class=\"modal-header\">" +
             "                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
-            "                <h4 class=\"modal-title\" id=\"myModalLabel\">" + data.titulo + "</h4>" +
+            "                <h4 class=\"modal-title\" id=\"myModalLabel\">" + titulo + "</h4>" +
             "            </div>" +
             "            <div class=\"modal-body\">" +
-            data.corpo +
+            corpo +
             "            </div>" +
             "            <div class=\"modal-footer\">" +
             "                <button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Ok</button>" +
@@ -51,6 +39,51 @@ function modal(data)
 
     $('body').append(html);
     $("#modalMsg").modal("show");
+}
+
+function abrirPaginaSemRefresh(url) {
+    Componente.Loading.Show();
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        cache: false,
+        contentType: "text/html; charset=utf-8",
+        processData: false,
+        success: function (data, textStatus, jqXHR) {
+            document.open();
+            document.write(data);
+            document.close();
+            //Componente.Loading.Remove();
+        },
+        erro: function () {
+            Componente.Loading.Remove();
+            modal("Atenção", "Não foi possível carregar essa página...");
+        }
+    });
+}
+
+function abrirPagina(url) {
+    Componente.Loading.Show();
+    $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        cache: false,
+        contentType: "text/html; charset=utf-8",
+        processData: false,
+        success: function (data, textStatus, jqXHR) {
+            $("#page-wrapper").fadeOut(200, function () {
+                document.location.href = url;
+            });
+            
+            //Componente.Loading.Remove();
+        },
+        erro: function () {
+            Componente.Loading.Remove();
+            modal("Atenção", "Não foi possível carregar essa página...");
+        }
+    });
 }
 
 function getNumero() {

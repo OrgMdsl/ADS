@@ -16,11 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @RequestMapping("*")
+    @RequestMapping("home")
     public ModelAndView Index() {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("ViewName", "Home");
         mv.addObject("ViewDescription", "Lista de chamados");
+        return mv;
+    }
+    
+    @RequestMapping("*")
+    public ModelAndView NaoEncontrado() {
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("ViewName", "Ops... <br><br><small>Página não encontrada.</small>");
         return mv;
     }
 

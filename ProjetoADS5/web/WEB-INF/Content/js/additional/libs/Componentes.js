@@ -1,3 +1,4 @@
+/* global Componente, Util, Const */
 var Componente = (function () {
     var Botoes;
 

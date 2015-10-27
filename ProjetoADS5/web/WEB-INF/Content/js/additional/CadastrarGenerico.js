@@ -1,15 +1,41 @@
+/* global Util, Componente, AjaxHelper */
+
 var isEdicao = false;
+
 $(document).ready(function () {
     isEdicao = Util.IsEmpty($("#hiddenOperacao").val()) ? false : true;
-    var tabela = $('#listagem-GenericoItem');
-    var tabela_itens;
-    if (!isEdicao) {
-        tabela_itens = tabela.DataTable({
+
+
+    CadastrarGenerico.load();
+
+});
+
+function GenericoDto(nome, descricao, genericoItems, ativo) {
+    this.nome = nome;
+    this.descricao = descricao;
+    this.genericoItems = genericoItems;
+    this.ativo = ativo;
+}
+
+function GenericoItemDto(descricao, sigla, ativo) {
+    this.descricao = descricao;
+    this.sigla = sigla;
+    this.ativo = ativo;
+}
+
+var CadastrarGenerico = (function () {
+
+    function CadastrarGenerico() {
+    }
+
+    var tabelaDT = null;
+    CadastrarGenerico.load = function () {
+        tabela = $('#listagem-GenericoItem');
+        tabelaDT = tabela.DataTable({
             columns: [
                 {
                     width: '40%',
                     title: 'Descrição'
-
                 },
                 {
                     width: '40%',
@@ -21,57 +47,21 @@ $(document).ready(function () {
                 }
             ]
         });
-    }
-    else {
-        $.ajax({
-            type: "POST",
-            url: 'BuscaGenerico?id=' + $("id").val(),
-            success: function (data) {
-                tabela_itens = tabela.DataTable({
-                    processing: false,
-                    serverSide: false,
-                    data: data.coreGenericoItems,
-                    columns: [
-                        {
-                            width: '40%',
-                            title: 'Descrição',
-                            data: 'descricao'
 
-                        },
-                        {
-                            width: '40%',
-                            title: 'Sigla',
-                            data: 'sigla'
-                        },
-                        {
-                            visible: false,
-                            title: 'Ativo',
-                            data: 'ativo'
-                        },
-                        {
-                            width: '20%',
-                            title: 'Ações',
-                            render: function (data) {
-                                debugger;
-                                var bts = Componente.Icones.Editar("");
-                                if (data.ativo)
-                                    bts += Componente.Icones.Desativar("item_" + data.id);
-                                else
-                                    bts += Componente.Icones.Ativar("item_" + data.id);
-                                return bts;
-                            }
-                        }
-                    ]
-                });
-            },
-            error: function (data) {
+        $("#acoesFormulario").append(
+                Componente.Botoes.Salvar("", "btn-salvar") +
+                Componente.Botoes.Cancelar("javascript:window.history.back()", "")
+                );
 
-            }
+        $('#btn-add-item').on('click', function () {
+            validaAddItem();
         });
-    }
+        $("#btn-salvar").on('click', function () {
+            salvar();
+        });
+    };
 
-    $('#btn-add-item').on('click', function () {
-
+    function validaAddItem() {
         if (Util.IsEmpty($("#itemSigla").val())) {
             alert("Não pode ficar em branco");
             return false;
@@ -80,7 +70,7 @@ $(document).ready(function () {
             alert("Não pode ficar em branco");
             return false;
         }
-        tabela_itens.row.add([
+        tabelaDT.row.add([
             $("#itemDescricao").val(),
             $("#itemSigla").val().toUpperCase(),
             Componente.Icones.Editar("") +
@@ -89,54 +79,44 @@ $(document).ready(function () {
         ]).draw(false);
         $("#itemSigla").val("");
         $("#itemDescricao").val("");
-    });
+    }
 
-    $("#acoesFormulario").append(
-            Componente.Botoes.Salvar("", "btn-salvar") +
-            Componente.Botoes.Cancelar("javascript:window.history.back()", "")
-            );
-
-    $("#btn-salvar").on('click', function () {
+    function salvar() {
         Componente.Loading.Show();
-        var dataArray = new Array();
-        for (var i = 1; i <= tabela_itens.rows().data().length; i++) {
-            dataArray.push({
-                descricao: $("table tr:nth-child(" + i + ") td").eq(0).html(),
-                sigla: $("table tr:nth-child(" + i + ") td").eq(1).html(),
-                ativo: Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo")
-            });
+
+        var ListaGenericoItemDto = new Array();
+
+        for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
+
+            var item = new GenericoItemDto(
+                    $("table tr:nth-child(" + i + ") td").eq(0).html(),
+                    $("table tr:nth-child(" + i + ") td").eq(1).html(),
+                    Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo")
+                    );
+
+            ListaGenericoItemDto.push(item);
         }
 
-        var formData =
-                {
-                    nome: $('#nome').val(),
-                    descricao: $('#descricao').val(),
-                    genericoItems: dataArray,
-                    ativo: true
-                };
+        var objeto = new GenericoDto(
+                $('#nome').val(),
+                $('#descricao').val(),
+                ListaGenericoItemDto,
+                true
+                );
 
-        var obj = JSON.stringify(formData);
-        //var obj = formData;
+        var obj = JSON.stringify(objeto);
 
-        $.ajax({
-            type: "POST",
-            url: "CadastrarGenerico",
-            data: obj,
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                Componente.Loading.Remove();
-                $("#page-wrapper").html(data.responseText);
-            },
-            error: function (data) {
-                Componente.Loading.Remove();
-                $("#page-wrapper").html(data.responseText);
-            }
-        });
+        Componente.Loading.Remove();
 
-    });
+        AjaxHelper.Post("CadastrarGenerico", true, null, obj,
+                function (sucesso) {
+                    modal("Atenção", sucesso.responseText);
+                },
+                function (erro) {
+                    modal("Atenção", erro.responseText);
+                });
+    }
 
-});
+    return CadastrarGenerico;
+}());
 

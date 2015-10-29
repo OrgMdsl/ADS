@@ -5,7 +5,7 @@ import java.util.Date;
 public class Usuario implements java.io.Serializable {
 
     private Integer id;
-    private GenericoItem genericoItem;
+    private GenericoItem perfil;
     private PessoaEmpresa pessoaEmpresa;
     private String usuario;
     private String senha;
@@ -35,12 +35,12 @@ public class Usuario implements java.io.Serializable {
         this.id = id;
     }
 
-    public GenericoItem getGenericoItem() {
-        return this.genericoItem;
+    public GenericoItem getPerfil() {
+        return this.perfil;
     }
 
-    public void setGenericoItem(GenericoItem genericoItem) {
-        this.genericoItem = genericoItem;
+    public void setPerfil(GenericoItem perfil) {
+        this.perfil = perfil;
     }
 
     public PessoaEmpresa getPessoaEmpresa() {

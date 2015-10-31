@@ -10,7 +10,7 @@
                 <param name="property">pessoaEmpresa</param>
             </generator>
         </id>
-        <many-to-one name="genericoItem" class="Business.Entity.Map.GenericoItem" fetch="select">
+        <many-to-one name="perfil" class="Business.Entity.Map.GenericoItem" fetch="select">
             <column name="id_perfil" />
         </many-to-one>
         <one-to-one name="pessoaEmpresa" class="Business.Entity.Map.PessoaEmpresa" constrained="true"></one-to-one>

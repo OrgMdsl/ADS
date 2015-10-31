@@ -72,6 +72,9 @@ var Componente = (function () {
         },
         Ok: function (onclick, id) {
             return montaBotao("Ok", onclick, "", "btn-custom btn-custom-default", id);
+        },
+        Entrar: function (onclick, id) {
+            return montaBotao("Entrar", onclick, "", "btn-custom btn-custom-primary", id);
         }
     };
 

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="Business.Entity.Map.Fabricante" table="Fabricante" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="id" type="integer">
+            <column name="id_fabricante" />
+            <generator class="identity" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="descricao" length="50" />
+        </property>
+        <property name="dataCadastro" type="timestamp">
+            <column name="data_cadastro" length="23" />
+        </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
+        </property>
+        <bag name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_fabricante" />
+            </key>
+            <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
+        </bag>
+    </class>
+</hibernate-mapping>

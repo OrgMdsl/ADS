@@ -4,8 +4,7 @@ var isEdicao = false;
 
 $(document).ready(function () {
     isEdicao = Util.IsEmpty($("#hiddenOperacao").val()) ? false : true;
-
-
+    
     CadastrarGenerico.load();
 
 });
@@ -25,10 +24,12 @@ function GenericoItemDto(descricao, sigla, ativo) {
 
 var CadastrarGenerico = (function () {
 
-    function CadastrarGenerico() {
+    var tabelaDT = null;
+    var tabela = null;
+
+    function CadastrarGenerico() {       
     }
 
-    var tabelaDT = null;
     CadastrarGenerico.load = function () {
         tabela = $('#listagem-GenericoItem');
         tabelaDT = tabela.DataTable({
@@ -59,6 +60,8 @@ var CadastrarGenerico = (function () {
         $("#btn-salvar").on('click', function () {
             salvar();
         });
+
+        eventoExcluirItem(tabela, tabelaDT);
     };
 
     function validaAddItem() {

@@ -22,19 +22,24 @@ var AjaxHelper = (function () {
 
         var url = action + restrito + "?" + atributos;
         $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             url: url,
             type: 'POST',
             async: false,
             cache: false,
-            contentType: "application/json; charset=utf-8",
             processData: false,
             data: data,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
+                debugger;
                 callbackSucesso(data);
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                debugger;
                 callbackErro(jqXHR);
                 Componente.Loading.Remove();
             }

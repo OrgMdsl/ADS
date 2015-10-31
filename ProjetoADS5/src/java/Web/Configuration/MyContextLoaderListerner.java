@@ -1,11 +1,8 @@
 package Web.Configuration;
 
-import DataAccess.GenericoDal;
-import DataAccess.Interface.IGenericoDal;
+import Web.Controller.Helpers.WebServiceHelper;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -28,7 +25,6 @@ public class MyContextLoaderListerner extends ContextLoaderListener {
         ServletContext servletContect = event.getServletContext();
 
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContect);
-       
     }
 
     @Override

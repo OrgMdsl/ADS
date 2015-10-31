@@ -11,7 +11,9 @@ import Business.Entity.Map.Generico;
 import Business.Interface.IGenericoBll;
 import Business.Interface.IGenericoItemBll;
 import static Factory.New.New;
+import Web.Common.Const.AccessControlConst;
 import Web.Controller.Helpers.JsonHelper;
+import Web.Controller.Helpers.WebServiceHelper;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class GenericoController {
 
-    private final IGenericoBll GenericoBll = New(GenericoBll.class);
-    private final IGenericoItemBll GenericoItemBll = New(GenericoItemBll.class);
     private final JsonHelper JsonHelper = New(JsonHelper.class);
 
     @RequestMapping(value = "PaginaListarGenerico", produces = "text/html; charset=UTF8")
@@ -64,47 +64,54 @@ public class GenericoController {
     @RequestMapping(value = "BuscarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> BuscarGenerico(@RequestParam Integer id) {
-        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoBll.Buscar(id));
-        return json;
+        String parametros = "id=" + id;
+        return WebServiceHelper.GetToJsonService("BuscarGenerico", parametros);
     }
 
     @RequestMapping(value = "BuscarGenericoNome", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> BuscarGenericoNome(@RequestParam String nome) {
-        return JsonHelper.ToJson(this.GenericoBll.BuscarPorNome(nome));
+        String parametros = "nome=" + nome;
+        return WebServiceHelper.GetToJsonService("BuscarGenericoNome", parametros);
     }
 
     @RequestMapping(value = "ListarGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ListarGenerico() {
-        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoBll.PesquisarTodos());
-        return json; 
+        return WebServiceHelper.GetToJsonService("ListarGenerico", null);
     }
 
     @RequestMapping(value = "ListarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> ListarGenericoItem(@RequestParam Integer id) {
-        ResponseEntity<String> json = JsonHelper.ToJson(this.GenericoItemBll.GetItens(id));
-        return json;
+        String parametros = "id=" + id;
+        return WebServiceHelper.GetToJsonService("ListarGenericoItem", parametros);
     }
 
     @RequestMapping(value = "BuscarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
     public ResponseEntity<String> BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
-        return JsonHelper.ToJson(this.GenericoItemBll.BuscarPorSigla(sigla, nomePai));
+        String parametros
+                = "sigla=" + sigla
+                + "nomePai=" + nomePai;
+        return WebServiceHelper.GetToJsonService("BuscarGenericoItem", parametros);
     }
 
-    @RequestMapping(value = "CadastrarGenerico", method = RequestMethod.POST, consumes = "application/json; charset=utf-8", produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "CadastrarGenerico" + AccessControlConst.RESTRITO, 
+            method = RequestMethod.POST, 
+            headers = {"Content-type=application/json"})
     @ResponseBody
     public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {
-        Generico _obj = JsonHelper.FromJson(obj, Generico.class);
-        return this.GenericoBll.InserirAtualizar(_obj);
+        //Generico _obj = JsonHelper.FromJson(obj, Generico.class);
+        //return this.GenericoBll.InserirAtualizar(_obj);
+        return WebServiceHelper.PostCrud("CadastrarGenerico", String.class, obj);
     }
 
     @RequestMapping(value = "AlterarStatusGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> AlterarStatusGenerico(@RequestParam Integer id) {     
-        ResponseEntity<String> json = this.GenericoBll.ToggleStatus(id);
-        return json;
+    public ResponseEntity<String> AlterarStatusGenerico(@RequestParam Integer id) {
+        return WebServiceHelper.PostCrud("CadastrarGenerico", String.class, id.toString());
+       // ResponseEntity<String> json = this.GenericoBll.ToggleStatus(id);
+       // return json;
     }
 }

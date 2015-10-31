@@ -5,7 +5,7 @@
  */
 package Business.Interceptors;
 
-import Business.Common.Const.AccessControlConst;
+import Web.Common.Const.AccessControlConst;
 import Business.Common.Const.ActionsConst;
 import Business.Common.Const.AttributesConst;
 import javax.servlet.RequestDispatcher;
@@ -28,7 +28,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
 
         if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
-            if (request.getSession().getAttribute(AttributesConst.LOGADO) == null
+           /* if (request.getSession().getAttribute(AttributesConst.LOGADO) == null
                     || (boolean) request.getSession().getAttribute(AttributesConst.LOGADO) == false) {
 
                 if (request.getQueryString() != null) {
@@ -40,7 +40,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
                 RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.EXIBE_LOGIN);
                 dispacher.forward(request, response);
                 return false;
-            }
+            }*/
         }
         return true;
     }

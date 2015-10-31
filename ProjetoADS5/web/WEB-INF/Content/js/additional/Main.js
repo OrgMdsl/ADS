@@ -8,12 +8,7 @@ $(document).ready(function () {
         $("#page-wrapper").fadeIn(0);
         pageLoaded = true;
 
-        $("table").on('click', '.excluir', function () {
-            $("table").DataTable()
-                    .row($(this).parents('tr'))
-                    .remove()
-                    .draw();
-        });
+        
     }
 });
 
@@ -91,3 +86,11 @@ function getNumero() {
     return numero_aux;
 }
 
+function eventoExcluirItem(tabela, tabelaDT) {
+    tabela.on('click', '.excluir', function () {
+            tabelaDT
+                    .row($(this).parents('tr'))
+                    .remove()
+                    .draw();
+        });
+}

@@ -5,7 +5,7 @@
  */
 package Business.Interceptors;
 
-import Business.Common.Const.AccessControlConst;
+import Web.Common.Const.AccessControlConst;
 import Business.Common.Const.ActionsConst;
 import Business.Common.Const.AttributesConst;
 import java.io.IOException;

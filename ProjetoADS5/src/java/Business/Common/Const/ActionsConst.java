@@ -11,5 +11,6 @@ package Business.Common.Const;
  */
 public class ActionsConst {
      public static final String 
-            EXIBE_LOGIN = "show_login";
+            EXIBE_LOGIN = "show_login",
+            WEB_SERVICE = "WS";
 }

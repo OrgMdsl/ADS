@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="Business.Entity.Map.PessoaEmpresa" table="Pessoa_Empresa" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="id" type="integer">
+            <column name="id_pessoa_empresa" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="300" />
+        </property>
+        <property name="cnpj" type="string">
+            <column name="cnpj" length="50" />
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="50" />
+        </property>
+        <property name="dataCadastro" type="timestamp">
+            <column name="data_cadastro" length="23" />
+        </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
+        </property>
+        <one-to-one name="cliente" class="Business.Entity.Map.Cliente"></one-to-one>
+        <bag name="pessoaEmpresaEnderecos" table="Pessoa_Empresa_Endereco" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pessoa_empresa" />
+            </key>
+            <one-to-many class="Business.Entity.Map.PessoaEmpresaEndereco" />
+        </bag>
+        <bag name="pessoaEmpresaContatos" table="Pessoa_Empresa_Contato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pessoa_empresa" />
+            </key>
+            <one-to-many class="Business.Entity.Map.PessoaEmpresaContato" />
+        </bag>
+        <one-to-one name="usuario" class="Business.Entity.Map.Usuario"></one-to-one>
+    </class>
+</hibernate-mapping>

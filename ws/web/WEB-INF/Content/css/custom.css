@@ -1,0 +1,175 @@
+body {
+    background: transparent;
+}
+
+table th {
+    background: #eee;
+    color: #444;
+    border: 0;
+}
+table td {
+    border-left: 1px solid #eee;
+}
+
+
+table.dataTable.no-footer {
+    border: 0;
+}
+
+small {
+    font-size: 11px;
+}
+
+.danger {
+    color: #ff5757;
+    font-weight: bold;
+}
+
+.custom-navbar {
+    background: #563D7C;
+}
+
+.custom-footer {
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-img-perfil {
+    float: right;
+    height: 50px;
+    width: 50px;
+    margin-left: 5px;
+    margin-top: 0;
+}
+.custom-img-perfil img {
+    width: 50px;
+    height: 50px;
+}
+.top-nav a{
+    color: #eee;
+}
+.top-nav li a {
+    color: #eee;
+}
+.navbar-header .navbar-brand{
+    color: #fff;
+}
+.media{
+    color: #111;
+}
+.dropdown-menu li a {
+    color: #111;
+}
+
+.navbar-toggle {
+    border: 0;
+}
+.navbar-toggle i{
+    color: #fff;
+    font-size: 20px;
+}
+
+.componente_ico {
+    font-size: 20px;
+    color: #563D7C;
+    margin-left: 8px
+}
+.componente_ico, .componente_ico a {
+    color: #563D7C;
+    cursor: pointer;
+}
+
+.red, .red a {
+    color: #ee4545;
+}
+.orange, .orange a {
+    color: #fb7d2c;
+}
+.green, .ativo,  .green a, .ativo a {
+    color: #5bb352;
+}
+.gray, .inativo, .gray a, .inativo a {
+    color: rgba(200,200,200,0.8);
+}
+
+.btn-custom {
+    margin: 3px;
+}
+.btn-custom:hover{
+    opacity: 0.8;
+    color: #000;
+}
+.btn-custom-primary {
+    background: #563D7C;
+    color: #fff;
+}
+.btn-custom-danger {
+    background: #ee4545;
+    color: #fff;
+}
+.btn-custom-warning{
+    background: #fb7d2c;
+    color: #fff;
+}
+.btn-custom-success {
+    background: #5bb352;
+    color: #fff;
+}
+.btn-custom-default {
+    background: #ccc;
+    color: #111;
+}
+
+label {
+    font-weight: normal;
+}
+
+.form-control, .btn {
+    border-color: #888;
+}
+
+.panel-default {
+    border-color: #bbb;
+}
+.panel-default > .panel-heading {
+    background-image: none;
+    background: #563D7C;
+    color: #fff;
+}
+
+.panel:hover > .panel-heading {
+    background: #563D7C;
+    font-weight: bold;
+}
+
+.ico_muda_status input[type="checkbox"] {
+    display: none;
+}
+
+.loading {
+    background: rgba(255,255,255,0.3);
+    z-index: 99999;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+}
+.loading div {
+    width: 200px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    font-size: 16px;
+    color: #563D7C;
+    font-weight: bold;
+    text-align: center;
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 200px #000;
+    display: none;
+}

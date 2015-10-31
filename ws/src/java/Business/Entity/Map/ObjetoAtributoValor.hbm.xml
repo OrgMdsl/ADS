@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="Business.Entity.Map.ObjetoAtributoValor" table="Objeto_Atributo_Valor" schema="dbo" catalog="ProjetoADS5" optimistic-lock="version">
+        <id name="id" type="integer">
+            <column name="id_objeto_atributo_valor" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="atributoOpcao" class="Business.Entity.Map.AtributoOpcao" fetch="select">
+            <column name="id_atributo_opcao" />
+        </many-to-one>
+        <many-to-one name="objetoAtributo" class="Business.Entity.Map.ObjetoAtributo" fetch="select">
+            <column name="id_objeto_atributo" />
+        </many-to-one>
+        <property name="dataCadastro" type="timestamp">
+            <column name="data_cadastro" length="23" />
+        </property>
+        <property name="ativo" type="boolean">
+            <column name="ativo" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class catalog="ProjetoADS5" name="com.ProjetoADS5.Business.Entity.Map.Cliente" optimistic-lock="version" schema="dbo" table="Cliente">
+    <id name="id" type="integer">
+      <column name="id_cliente"/>
+      <generator class="foreign">
+        <param name="property">pessoaEmpresa</param>
+      </generator>
+    </id>
+    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.GenericoItem" fetch="select" name="genericoItem">
+      <column name="id_tipo_pessoa"/>
+    </many-to-one>
+    <one-to-one class="com.ProjetoADS5.Business.Entity.Map.PessoaEmpresa" constrained="true" name="pessoaEmpresa"/>
+    <property name="dataCadastro" type="timestamp">
+      <column length="23" name="data_cadastro"/>
+    </property>
+    <property name="ativo" type="boolean">
+      <column name="ativo" not-null="true"/>
+    </property>
+    <bag fetch="select" inverse="true" lazy="true" name="contratos" table="Contrato">
+      <key>
+        <column name="id_cliente"/>
+      </key>
+      <one-to-many class="com.ProjetoADS5.Business.Entity.Map.Contrato"/>
+    </bag>
+  </class>
+</hibernate-mapping>

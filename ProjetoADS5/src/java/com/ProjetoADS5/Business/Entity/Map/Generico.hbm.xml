@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class catalog="ProjetoADS5" name="com.ProjetoADS5.Business.Entity.Map.Generico" optimistic-lock="version" schema="dbo" table="Generico">
+    <id name="id" type="integer">
+      <column name="id_generico"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nome" type="string">
+      <column length="50" name="nome"/>
+    </property>
+    <property name="descricao" type="string">
+      <column length="50" name="descricao"/>
+    </property>
+    <property name="dataCadastro" type="timestamp">
+      <column length="23" name="data_cadastro"/>
+    </property>
+    <property name="ativo" type="boolean">
+      <column name="ativo" not-null="true"/>
+    </property>
+    <bag cascade="all" fetch="select" lazy="true" name="genericoItems" table="Generico_Item">
+      <key>
+        <column name="id_generico"/>
+      </key>
+      <one-to-many class="com.ProjetoADS5.Business.Entity.Map.GenericoItem"/>
+    </bag>
+  </class>
+</hibernate-mapping>

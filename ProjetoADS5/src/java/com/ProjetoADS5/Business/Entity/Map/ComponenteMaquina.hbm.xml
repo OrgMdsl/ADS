@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class catalog="ProjetoADS5" name="com.ProjetoADS5.Business.Entity.Map.ComponenteMaquina" optimistic-lock="version" schema="dbo" table="Componente_Maquina">
+    <id name="id" type="integer">
+      <column name="id_componente_maquina"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.Fabricante" fetch="select" name="fabricante">
+      <column name="id_fabricante"/>
+    </many-to-one>
+    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.GenericoItem" fetch="select" name="genericoItem">
+      <column name="id_tipo_componente"/>
+    </many-to-one>
+    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.Maquina" fetch="select" name="maquina">
+      <column name="id_maquina"/>
+    </many-to-one>
+    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.Objeto" fetch="select" name="objeto">
+      <column name="id_objeto"/>
+    </many-to-one>
+    <property name="dataCadastro" type="timestamp">
+      <column length="23" name="data_cadastro"/>
+    </property>
+    <property name="ativo" type="boolean">
+      <column name="ativo" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

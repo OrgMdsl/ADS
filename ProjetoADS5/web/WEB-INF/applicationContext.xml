@@ -16,8 +16,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
    
-    <context:component-scan base-package="Web.Controller"/>
-    <context:component-scan base-package="WebService.Service"/>
+    <context:component-scan base-package="com.ProjetoADS5"/>
     <mvc:resources mapping="/Content/**" location="/WEB-INF/Content/"/> 
     <mvc:resources mapping="/js/**" location="/WEB-INF/Content/js/"/>
     <mvc:resources mapping="/additional/**" location="/WEB-INF/Content/js/additional/"/>  
@@ -35,8 +34,8 @@
 
      
       <mvc:interceptors>
-        <bean class="Business.Interceptors.UrlParameter" />
-        <bean class="Business.Interceptors.AccessControl" />
+        <bean class="com.ProjetoADS5.Business.Interceptors.UrlParameter" />
+        <bean class="com.ProjetoADS5.Business.Interceptors.AccessControl" />
       </mvc:interceptors>
      
     

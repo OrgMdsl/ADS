@@ -29,5 +29,31 @@ var Util = (function () {
             return new classe();
     };
 
+    Util.InputColor = {
+        Vermelho: function (element) {
+            element.addClass("red");
+            /* element.css({
+             'border': '1px solid #ee4545',
+             'box-shadow': '0px 0px 3px 0px #ff0000'
+             });
+             */
+            element.on("focus", function () {
+                element.removeClass("red");
+            });
+        }
+
+    };
+
+    Util.ValueExist = function (strd) {
+        debugger;
+        existe = false;
+        $('tr').each(function () {
+            if ($('td:nth(1)', $(this)).html() === strd) {
+                existe = true;
+            }
+        });
+        return existe;
+    };
+
     return Util;
 }());

@@ -20,8 +20,10 @@
 <script src="js/jquery-ui.min.js" charset="utf8" type="text/javascript"></script>
 <script src="js/jquery.dataTables.min.js" charset="utf8" type="text/javascript"></script>
 <script src="js/dataTables.bootstrap.js" charset="utf8" type="text/javascript"></script>
+<script src="js/circular-json.js" charset="utf8" type="text/javascript"></script>
 
 <script src="libs/Constantes.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Util.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Ajax.js" charset="utf8" type="text/javascript"></script>
 <script src="libs/Componentes.js" type="text/javascript"></script>
+<script src="libs/Modais.js" type="text/javascript"></script>

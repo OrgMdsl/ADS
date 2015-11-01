@@ -33,7 +33,7 @@
     <!--parâmetros de configuração de banco de dados -->
     <context-param>
         <param-name>stringConexao</param-name>
-        <param-value>jdbc:sqlserver://localhost;databaseName=aulabd</param-value>        
+        <param-value>jdbc:sqlserver://localhost;databaseName=ProjetoADS5</param-value>        
     </context-param>
     
     <context-param>

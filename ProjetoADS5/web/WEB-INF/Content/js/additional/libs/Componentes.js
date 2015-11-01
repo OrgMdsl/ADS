@@ -1,4 +1,4 @@
-/* global Componente, Util, Const */
+/* global Componente, Util, Const, Modal, Modais */
 var Componente = (function () {
     var Botoes;
 
@@ -7,11 +7,11 @@ var Componente = (function () {
 
     Componente.Loading = {
         Show: function () {
-            $("html").append("<div class='loading'><div>Por favor, aguarde ...</div></div>");
-            $(".loading div").fadeIn(300);
+            $("html").append("<div class='loading'><div>Aguarde... <br><br><i class='fa fa-cog fa-spin'></i></div></div>");
+            $(".loading div").fadeIn(20);
         },
         Remove: function () {
-            $(".loading").fadeOut(150, function() { $(this).remove(); });
+            $(".loading").hide(0, function() { $(this).remove(); });
         }
     };
 
@@ -75,6 +75,15 @@ var Componente = (function () {
         },
         Entrar: function (onclick, id) {
             return montaBotao("Entrar", onclick, "", "btn-custom btn-custom-primary", id);
+        },
+        Fechar: function (onclick, id) {
+            return montaBotao("Fechar", onclick, "", "btn-custom btn-custom-default", id);
+        },
+        Sim: function (onclick, id) {
+            return montaBotao("Sim", onclick, "", "btn-custom btn-custom-primary", id);
+        },
+        Nao: function (onclick, id) {
+            return montaBotao("Não", onclick, "", "btn-custom btn-custom-default", id);
         }
     };
 
@@ -100,7 +109,9 @@ var Componente = (function () {
                     $(el).replaceWith(ico);
                     Componente.Loading.Remove();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {  
+                    Componente.Loading.Remove();
+                    Modais.Get.Erro(jqXHR.responseText).modal("show");
                 }
             });
         else {

@@ -34,12 +34,10 @@ var AjaxHelper = (function () {
             data: data,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
-                debugger;
                 callbackSucesso(data);
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                debugger;
                 callbackErro(jqXHR);
                 Componente.Loading.Remove();
             }

@@ -48,8 +48,8 @@ var ListarGenerico = (function () {
 
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
-            var c = Componente.Icones.Visualizar("PaginaVisualizarGenerico?id=" + row.id) +
-                    Componente.Icones.Editar("PaginaEditarGenerico?id=" + row.id);
+            var c = Componente.Icones.Visualizar("PaginaVisualizarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id) +
+                    Componente.Icones.Editar("PaginaEditarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
             if (!row.ativo)
                 c += Componente.Icones.Ativar("", "AlterarStatusGenerico?id=" + row.id);
             else
@@ -58,6 +58,6 @@ var ListarGenerico = (function () {
         }
         return Const.Messages.ERRO_1;
     }
-    
+
     return ListarGenerico;
 }());

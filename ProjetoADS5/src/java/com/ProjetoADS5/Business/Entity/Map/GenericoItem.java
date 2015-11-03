@@ -9,14 +9,6 @@ public class GenericoItem implements java.io.Serializable {
     private String descricao;
     private String sigla;
     private Date dataCadastro;
-    /*private List clientes;
-    private List maquinasForIdCategoriaMaquina;
-    private List objetos;
-    private List maquinasForIdTipoMaquina;
-    private List componenteMaquinas;
-    private List maquinasForIdAmbienteFuncionamento;
-    private List usuarios;
-    private List atributos;*/
     private boolean ativo;
 
     public boolean isAtivo() {
@@ -81,70 +73,4 @@ public class GenericoItem implements java.io.Serializable {
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-
-    /*
-    public List getClientes() {
-        return this.clientes;
-    }
-
-    public void setClientes(List clientes) {
-        this.clientes = clientes;
-    }
-
-    public List getMaquinasForIdCategoriaMaquina() {
-        return this.maquinasForIdCategoriaMaquina;
-    }
-
-    public void setMaquinasForIdCategoriaMaquina(List maquinasForIdCategoriaMaquina) {
-        this.maquinasForIdCategoriaMaquina = maquinasForIdCategoriaMaquina;
-    }
-
-    public List getObjetos() {
-        return this.objetos;
-    }
-
-    public void setObjetos(List objetos) {
-        this.objetos = objetos;
-    }
-
-    public List getMaquinasForIdTipoMaquina() {
-        return this.maquinasForIdTipoMaquina;
-    }
-
-    public void setMaquinasForIdTipoMaquina(List maquinasForIdTipoMaquina) {
-        this.maquinasForIdTipoMaquina = maquinasForIdTipoMaquina;
-    }
-
-    public List getComponenteMaquinas() {
-        return this.componenteMaquinas;
-    }
-
-    public void setComponenteMaquinas(List componenteMaquinas) {
-        this.componenteMaquinas = componenteMaquinas;
-    }
-
-    public List getMaquinasForIdAmbienteFuncionamento() {
-        return this.maquinasForIdAmbienteFuncionamento;
-    }
-
-    public void setMaquinasForIdAmbienteFuncionamento(List maquinasForIdAmbienteFuncionamento) {
-        this.maquinasForIdAmbienteFuncionamento = maquinasForIdAmbienteFuncionamento;
-    }
-
-    public List getUsuarios() {
-        return this.usuarios;
-    }
-
-    public void setUsuarios(List usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public List getAtributos() {
-        return this.atributos;
-    }
-
-    public void setAtributos(List atributos) {
-        this.atributos = atributos;
-    }
-    */
 }

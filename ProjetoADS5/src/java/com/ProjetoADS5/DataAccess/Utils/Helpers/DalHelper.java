@@ -5,10 +5,9 @@
  */
 package com.ProjetoADS5.DataAccess.Utils.Helpers;
 
-import com.ProjetoADS5.Business.Common.Const.MessagesConst;
-import com.ProjetoADS5.Business.Common.Utils.Reflection;
+import com.ProjetoADS5.Common.Const.MessagesConst;
+import com.ProjetoADS5.Common.Utils.Reflection;
 import com.ProjetoADS5.DataAccess.Hibernate.HibernateUtil;
-import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -25,7 +24,7 @@ import org.springframework.http.ResponseEntity;
  * @author matheusdsl
  * @param <T>
  */
-public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<T> {
+public class DalHelper<T> implements IDalHelper<T> {
 
     private final Class<T> entityClass;
 
@@ -34,11 +33,10 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    @Override
     protected Session getSession() {
         return HibernateUtil.getSession();
     }
-    
+
     @Override
     public T Buscar(Integer id) {
         Session s = getSession();
@@ -54,9 +52,10 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
     @Override
     public List<T> Pesquisar() {
         Session s = getSession();
-        Criteria crit = s.createCriteria(entityClass);
-        try {
-            crit.add(Restrictions.eq("ativo", true));
+        Criteria crit = s.createCriteria(entityClass)
+        .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        try {         
+
             return crit.list();
         } finally {
             //s.close();
@@ -68,7 +67,8 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
         Session s = getSession();
         Criteria crit = s.createCriteria(entityClass);
         try {
-            crit.add(Restrictions.eq("ativo", false));
+            crit.add(Restrictions.eq("ativo", false))
+            .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             return crit.list();
         } finally {
             //s.close();
@@ -78,7 +78,8 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
     @Override
     public List<T> PesquisarTodos() {
         Session s = getSession();
-        Criteria crit = s.createCriteria(entityClass);
+        Criteria crit = s.createCriteria(entityClass)
+        .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         try {
             return crit.list();
         } finally {
@@ -99,7 +100,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.INSERIDO, headers, HttpStatus.OK);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -117,7 +118,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.ATUALIZADO, headers, HttpStatus.OK);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -140,7 +141,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.INSERIDO, headers, HttpStatus.OK);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -159,7 +160,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.LIXEIRA, headers, HttpStatus.CREATED);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -177,7 +178,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.EXCLUÍDO, headers, HttpStatus.OK);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -205,7 +206,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
             return new ResponseEntity<String>(MessagesConst.ATUALIZADO, headers, HttpStatus.OK);
         } catch (Exception ex) {
             t.rollback();
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
         } finally {
             s.close();
         }
@@ -213,6 +214,7 @@ public class DalHelper<T> extends GenericDAOImpl<T, Long> implements IDalHelper<
 
     @Override
     public ResponseEntity<String> ToggleStatus(Integer id) {
-        return this.ToggleStatus(this.Buscar(id));
+        T obj = this.Buscar(id);
+        return this.ToggleStatus(obj);
     }
 }

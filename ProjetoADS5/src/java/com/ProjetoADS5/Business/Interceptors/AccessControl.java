@@ -6,11 +6,13 @@
 package com.ProjetoADS5.Business.Interceptors;
 
 import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
-import com.ProjetoADS5.Business.Common.Const.ActionsConst;
-import com.ProjetoADS5.Business.Common.Const.AttributesConst;
+import com.ProjetoADS5.Common.Const.ActionsConst;
+import com.ProjetoADS5.Common.Const.AttributesConst;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -24,24 +26,25 @@ public class AccessControl extends HandlerInterceptorAdapter {
             HttpServletRequest request,
             HttpServletResponse response,
             Object controller) throws Exception {
-
+        HttpSession sessao = request.getSession(true);
         String uri = request.getRequestURI();
+        /*        
+         if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
+         if (sessao.getAttribute(AttributesConst.LOGADO) == null
+         || (boolean) sessao.getAttribute(AttributesConst.LOGADO) == false) {
 
-        if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
-           /* if (request.getSession().getAttribute(AttributesConst.LOGADO) == null
-                    || (boolean) request.getSession().getAttribute(AttributesConst.LOGADO) == false) {
+         if (request.getQueryString() != null) {
+         uri += "?" + request.getQueryString();
+         }
 
-                if (request.getQueryString() != null) {
-                    uri += "?" + request.getQueryString();
-                }
+         sessao.setAttribute("endereco", uri);
 
-                request.getSession().setAttribute("endereco", uri);
-
-                RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.EXIBE_LOGIN);
-                dispacher.forward(request, response);
-                return false;
-            }*/
-        }
+         RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.FAZER_LOGIN);
+         dispacher.forward(request, response);
+         return false;
+         }
+         }
+         */
         return true;
     }
 

@@ -3,7 +3,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=ProjetoADS5</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=TrabADS5</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">123456</property>
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -19,23 +19,11 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.generate_statistics">true</property>
     <!-- Mapeamentos -->
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/PessoaEmpresaEndereco.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/GenericoItem.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Atributo.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Cliente.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Fabricante.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Maquina.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Usuario.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/PessoaEmpresaContato.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Contato.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/AtributoOpcao.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/PessoaEmpresa.hbm.xml"/>
     <mapping resource="com/ProjetoADS5/Business/Entity/Map/Generico.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Contrato.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/ComponenteMaquina.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/ObjetoAtributoValor.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/ContratoMaquina.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/Objeto.hbm.xml"/>
-    <mapping resource="com/ProjetoADS5/Business/Entity/Map/ObjetoAtributo.hbm.xml"/>
+    <mapping resource="com/ProjetoADS5/Business/Entity/Map/GenericoItem.hbm.xml"/>
+    <mapping class="com.ProjetoADS5.Business.Entity.Map.Aluno"/>
+    <mapping class="com.ProjetoADS5.Business.Entity.Map.Curso"/>
+    <mapping class="com.ProjetoADS5.Business.Entity.Map.Disciplina"/>
+    <mapping class="com.ProjetoADS5.Business.Entity.Map.Usuario"/>
   </session-factory>
 </hibernate-configuration>

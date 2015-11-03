@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class catalog="ProjetoADS5" name="com.ProjetoADS5.Business.Entity.Map.GenericoItem" optimistic-lock="version" schema="dbo" table="Generico_Item">
+  <class catalog="TrabADS5" name="com.ProjetoADS5.Business.Entity.Map.GenericoItem" optimistic-lock="version" schema="dbo" table="Generico_Item">
     <id name="id" type="integer">
       <column name="id_generico_item"/>
       <generator class="identity"/>
@@ -21,55 +21,5 @@
     <property name="ativo" type="boolean">
       <column name="ativo" not-null="true"/>
     </property>
-    <!--
-        <bag name="clientes" table="Cliente" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_tipo_pessoa" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Cliente" />
-        </bag>
-        <bag name="maquinasForIdCategoriaMaquina" table="Maquina" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_categoria_maquina" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Maquina" />
-        </bag>
-        <bag name="objetos" table="Objeto" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_tipo_objeto" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Objeto" />
-        </bag>
-        <bag name="maquinasForIdTipoMaquina" table="Maquina" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_tipo_maquina" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Maquina" />
-        </bag>
-        <bag name="componenteMaquinas" table="Componente_Maquina" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_tipo_componente" />
-            </key>
-            <one-to-many class="Business.Entity.Map.ComponenteMaquina" />
-        </bag>
-        <bag name="maquinasForIdAmbienteFuncionamento" table="Maquina" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_ambiente_funcionamento" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Maquina" />
-        </bag>
-        <bag name="usuarios" table="Usuario" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_perfil" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Usuario" />
-        </bag>
-        <bag name="atributos" table="Atributo" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_entidade_usual" />
-            </key>
-            <one-to-many class="Business.Entity.Map.Atributo" />
-        </bag>
-        -->
   </class>
 </hibernate-mapping>

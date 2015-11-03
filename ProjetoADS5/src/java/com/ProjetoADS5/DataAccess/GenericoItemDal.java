@@ -29,7 +29,8 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
         Criteria crit = s.createCriteria(Generico.class);
         try {
             crit.add(Restrictions.eq("sigla", sigla));
-            crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getId()));
+            crit.add(Restrictions.eq("id_generico", GenericoDal.Buscar(nomePai).getId()))
+            .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             return (GenericoItem) crit.uniqueResult();
         } finally {
             s.close();
@@ -41,7 +42,8 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
         Session s = getSession();
         Criteria crit = s.createCriteria(Generico.class);
         try {
-            crit.add(Restrictions.eq("id_generico", pai.getId()));
+            crit.add(Restrictions.eq("id_generico", pai.getId()))
+            .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             return crit.list();
         } finally {
             s.close();
@@ -53,7 +55,8 @@ public class GenericoItemDal extends DalHelper<GenericoItem> implements IGeneric
         Session s = getSession();
         Criteria crit = s.createCriteria(Generico.class);
         try {
-            crit.add(Restrictions.eq("id_generico", idPai));
+            crit.add(Restrictions.eq("id_generico", idPai))
+            .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             return crit.list();
         } finally {
             s.close();

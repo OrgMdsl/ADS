@@ -23,7 +23,8 @@ public class GenericoDal extends DalHelper<Generico> implements IGenericoDal {
         Session s = getSession();
         Criteria crit = s.createCriteria(Generico.class);
         try {
-            crit.add(Restrictions.eq("nome", nome));
+            crit.add(Restrictions.eq("nome", nome))
+            .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             return (Generico) crit.uniqueResult();
         } finally {
             s.close();

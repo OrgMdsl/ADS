@@ -20,10 +20,14 @@
                                 <div class="panel-heading">Lista Genérica</div>
                                 <div class="panel-body">
                                     <div class="form-group form-inline">
-                                        <label for="nome" class="control-label col-xs-1">Nome</label>
+                                        <label for="nome" class="control-label col-xs-1">Nome:</label>
                                         <input type="text" class="form-control col-xs-3" id="nome" name="nome" placeholder="Nome do campo" maxlength="50">
-                                        <label for="descricao" class="control-label col-xs-1">Descrição</label>
+                                        <label for="descricao" class="control-label col-xs-1">Descrição:</label>
                                         <input type="text" class="form-control col-xs-5" id="descricao" name="descricao" placeholder="Descrição"  maxlength="50">
+                                        
+                                        <input type="checkbox" class="col-xs-1" id="ativo" name="ativo">
+                                        <label for="ativo" class="control-label col-xs-0">Ativo</label>
+                                        
                                     </div>
 
                                     <div class="panel panel-default">

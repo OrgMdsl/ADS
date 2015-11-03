@@ -5,14 +5,10 @@
  */
 package com.ProjetoADS5.Web.Controller.Helpers;
 
-import static com.ProjetoADS5.Factory.New.New;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.lang.reflect.Modifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -20,17 +16,15 @@ import org.springframework.web.client.RestTemplate;
  */
 public class JsonHelper {
 
-    public <T> ResponseEntity<String> ToJson(T obj, boolean exclude) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
+    public <T> String ToJson(T obj, boolean exclude) {
         Gson gson = null;
         if (exclude) {
-            gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+            gson = new GsonBuilder().serializeNulls().serializeSpecialFloatingPointValues().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
         } else {
-            gson = new GsonBuilder().create();
+            gson = new GsonBuilder().serializeNulls().serializeSpecialFloatingPointValues().create();
         }
         String json = gson.toJson(obj);
-        return new ResponseEntity<String>(json, headers, HttpStatus.CREATED);
+        return json;
     }
 
     public <T> T FromJson(String json, Class<T> obj) {

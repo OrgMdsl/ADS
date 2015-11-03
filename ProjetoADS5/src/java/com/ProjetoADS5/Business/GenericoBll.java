@@ -10,7 +10,6 @@ import com.ProjetoADS5.Business.Interface.IGenericoBll;
 import com.ProjetoADS5.DataAccess.GenericoDal;
 import com.ProjetoADS5.DataAccess.Interface.IGenericoDal;
 import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
-import static com.ProjetoADS5.Factory.New.New;
 
 /**
  *
@@ -19,7 +18,7 @@ import static com.ProjetoADS5.Factory.New.New;
 
 public class GenericoBll extends DalHelper<Generico> implements IGenericoBll {
 
-    private final IGenericoDal GenericoDal = New(GenericoDal.class);
+    private final IGenericoDal GenericoDal = new GenericoDal();
 
     @Override
     public Generico BuscarPorNome(String nome)

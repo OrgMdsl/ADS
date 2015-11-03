@@ -5,17 +5,22 @@
  */
 package com.ProjetoADS5.Factory;
 
+import java.util.Arrays;
+
 /**
  *
  * @author matheusdsl
  */
 public class New {
-    
+
     public static <T> T New(Class<T> clazz) {
         try {
             System.out.println(" :: CLASSE INSTANCIADA :: " + clazz.getName());
-            return clazz.newInstance();
+            T classe = clazz.newInstance();
+            return classe;
         } catch (InstantiationException | IllegalAccessException ex) {
+            System.out.println(" :: ##### ERRO :: " + ex.getMessage());
+            System.out.println(" :: # :: " + Arrays.toString(ex.getStackTrace()));
             return null;
         }
     }

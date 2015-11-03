@@ -5,12 +5,15 @@
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-        <!--<listener-class>Web.Configuration.MyContextLoaderListerner</listener-class>
+        <!--   
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+            <listener>
+            <listener-class>com.ProjetoADS5.Web.Configuration.SessionCounterListener</listener-class>
+        </listener>
+        -->
+        <listener-class>com.ProjetoADS5.Web.Configuration.MyContextLoaderListerner</listener-class>
     </listener>
-    <listener>
-        <listener-class>Web.Configuration.SessionCounterListener</listener-class>-->
-    </listener>
+    
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -33,7 +36,7 @@
     <!--parâmetros de configuração de banco de dados -->
     <context-param>
         <param-name>stringConexao</param-name>
-        <param-value>jdbc:sqlserver://localhost;databaseName=ProjetoADS5</param-value>        
+        <param-value>jdbc:sqlserver://localhost;databaseName=TrabADS5</param-value>        
     </context-param>
     
     <context-param>
@@ -72,5 +75,7 @@
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    
     
 </web-app>

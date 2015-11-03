@@ -30,15 +30,14 @@
     <mvc:resources mapping="/RootPath/**" location="http://localhost:8080/ProjetoADS5/" />
      
     <mvc:annotation-driven />
-    <context:annotation-config />     
+    <!--<context:annotation-config />     -->
 
      
       <mvc:interceptors>
         <bean class="com.ProjetoADS5.Business.Interceptors.UrlParameter" />
-        <bean class="com.ProjetoADS5.Business.Interceptors.AccessControl" />
+        <bean name="AccessControl" class="com.ProjetoADS5.Business.Interceptors.AccessControl"/>
       </mvc:interceptors>
      
-    
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />

@@ -185,3 +185,6 @@ input.red {
     font-size: 14px;
 }
     
+tr td input {
+    text-align: center;
+}

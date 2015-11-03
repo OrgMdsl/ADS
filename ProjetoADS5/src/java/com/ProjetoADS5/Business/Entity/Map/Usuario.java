@@ -1,58 +1,57 @@
 package com.ProjetoADS5.Business.Entity.Map;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("session")
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements java.io.Serializable {
 
+    @Id
+    @Column(name="id_usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private GenericoItem perfil;
-    private PessoaEmpresa pessoaEmpresa;
+    
+    @Column
+    private String nome;
+    
+    @Column
     private String usuario;
+    
+    @Column
     private String senha;
-    private Date dataCadastro;
-    private boolean ativo;
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
 
     public Usuario() {
     }
 
-    public Usuario(PessoaEmpresa pessoaEmpresa) {
-        this.pessoaEmpresa = pessoaEmpresa;
-    }
-
+    
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public GenericoItem getPerfil() {
-        return this.perfil;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPerfil(GenericoItem perfil) {
-        this.perfil = perfil;
-    }
-
-    public PessoaEmpresa getPessoaEmpresa() {
-        return this.pessoaEmpresa;
-    }
-
-    public void setPessoaEmpresa(PessoaEmpresa pessoaEmpresa) {
-        this.pessoaEmpresa = pessoaEmpresa;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getUsuario() {
-        return this.usuario;
+        return usuario;
     }
 
     public void setUsuario(String usuario) {
@@ -60,19 +59,12 @@ public class Usuario implements java.io.Serializable {
     }
 
     public String getSenha() {
-        return this.senha;
+        return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-    public Date getDataCadastro() {
-        return this.dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
+ 
+    
 }

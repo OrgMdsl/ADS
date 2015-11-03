@@ -11,9 +11,13 @@ var Componente = (function () {
             $(".loading div").fadeIn(20);
         },
         Remove: function () {
-            $(".loading").hide(0, function() { $(this).remove(); });
+            $(".loading").hide(0, function () {
+                $(this).remove();
+            });
         }
     };
+
+    Componente.Id = $("#hiddenId");
 
     Componente.Icones = {
         Editar: function (url_link, id) {
@@ -90,6 +94,9 @@ var Componente = (function () {
     Componente.Input = {
         Checkbox: function (onclick, ativo, id) {
             return "<input type='checkbox' id='" + id + "' onclick='" + onclick + "' " + (ativo ? 'checked' : '') + "/>";
+        },
+        Textbox: function (value, id) {
+            return "<input type='text' id='" + id + "' value='" + value + "'/>";
         }
     };
 
@@ -109,7 +116,7 @@ var Componente = (function () {
                     $(el).replaceWith(ico);
                     Componente.Loading.Remove();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {  
+                error: function (jqXHR, textStatus, errorThrown) {
                     Componente.Loading.Remove();
                     Modais.Get.Erro(jqXHR.responseText).modal("show");
                 }

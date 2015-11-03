@@ -44,7 +44,37 @@ var AjaxHelper = (function () {
         });
     };
 
-    var private = {
+    AjaxHelper.PostSimple = function (action, autenticacao, atributos, callbackSucesso, callbackErro) {
+        Componente.Loading.Show();
+
+        if (Util.IsEmpty(action))
+            return null;
+
+        if (Util.IsNull(autenticacao))
+            autenticacao = false;
+
+        if (Util.IsNull(atributos))
+            atributos = "";
+
+        var restrito = autenticacao ? Const.AccessControl.RESTRITO : "";
+
+        var url = action + restrito + "?" + atributos;
+        $.ajax({
+            url: "BuscarGenerico?id=" + $("#hiddenId").val(),
+            type: 'POST',
+            async: false,
+            cache: false,
+            processData: false,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                callbackSucesso(data);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                callbackErro(jqXHR);
+                Componente.Loading.Remove();
+            }
+        });
     };
 
     return AjaxHelper;

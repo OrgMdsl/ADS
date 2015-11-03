@@ -7,13 +7,24 @@
             <a href="javascript:abrirPagina('home');"><i class="fa fa-fw fa-home"></i> Home</a>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="itensGenericos" class="collapse">
+            <a href="javascript:;" data-toggle="collapse" data-target="#menu_itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menu_itensGenericos" class="collapse">
                 <li>
-                    <a href="javascript:abrirPagina('PaginaListarGenerico');">Listagem</a>
+                    <a href="javascript:abrirPagina('PaginaListarGenerico' + Const.AccessControl.RESTRITO);">Listagem</a>
                 </li>
                 <li>
-                    <a href="javascript:abrirPagina('PaginaCadastrarGenerico');">Cadastrar</a>
+                    <a href="javascript:abrirPagina('PaginaCadastrarGenerico' + Const.AccessControl.RESTRITO);">Cadastrar</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"><i class="fa fa-fw fa-arrows-v"></i> Usuário <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="menu_usuario" class="collapse">
+                <li>
+                    <a href="javascript:abrirPagina('PaginaLogin');">Login</a>
+                </li>
+                <li>
+                    <a href="javascript:abrirPagina('PaginaPerfil');">Perfil</a>
                 </li>
             </ul>
         </li>

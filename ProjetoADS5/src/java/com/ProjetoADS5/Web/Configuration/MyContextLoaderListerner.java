@@ -1,6 +1,5 @@
 package com.ProjetoADS5.Web.Configuration;
 
-import com.ProjetoADS5.Web.Controller.Helpers.WebServiceHelper;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import org.springframework.web.context.ContextLoaderListener;
@@ -23,7 +22,7 @@ public class MyContextLoaderListerner extends ContextLoaderListener {
         super.contextInitialized(event);
 
         ServletContext servletContect = event.getServletContext();
-
+        
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContect);
     }
 

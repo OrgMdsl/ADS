@@ -6,8 +6,8 @@
 package com.ProjetoADS5.Business.Interceptors;
 
 import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
-import com.ProjetoADS5.Business.Common.Const.ActionsConst;
-import com.ProjetoADS5.Business.Common.Const.AttributesConst;
+import com.ProjetoADS5.Common.Const.ActionsConst;
+import com.ProjetoADS5.Common.Const.AttributesConst;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

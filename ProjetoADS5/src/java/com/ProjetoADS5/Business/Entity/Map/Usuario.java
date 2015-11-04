@@ -29,6 +29,9 @@ public class Usuario implements java.io.Serializable {
     
     @Column
     private String senha;
+    
+    @Column
+    private Boolean administrador;
 
     public Usuario() {
     }
@@ -64,6 +67,14 @@ public class Usuario implements java.io.Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Boolean getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Boolean administrador) {
+        this.administrador = administrador;
     }
  
     

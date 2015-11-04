@@ -14,8 +14,8 @@ $(document).ready(function () {
 function LoginDto() {
     LoginDto.usuario;
     LoginDto.senha;
-    LoginDto.perfil;
-    LoginDto.ativo;
+    LoginDto.nome;
+    LoginDto.administrador;
 }
 
 function PerfilDto() {

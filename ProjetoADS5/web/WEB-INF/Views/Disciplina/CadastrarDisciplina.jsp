@@ -36,7 +36,7 @@
                                             </div>
                                             <br>
                                             <div>
-                                                <table id="listagem-GenericoItem" class="table table-condensed table-hover table-responsive table-striped"> 
+                                                <table id="listagem-Disciplina" class="table table-condensed table-hover table-responsive table-striped"> 
                                                 </table>
                                             </div>
                                         </div>

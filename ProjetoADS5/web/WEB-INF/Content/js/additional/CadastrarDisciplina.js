@@ -9,39 +9,31 @@ $(document).ready(function () {
 
 });
 
-function GenericoDto() {
-    GenericoDto.id = null;
-    GenericoDto.nome;
-    GenericoDto.descricao;
-    GenericoDto.genericoItems;
-    GenericoDto.ativo;
+function DisciplinaDto() {
+    DisciplinaDto.id = null;
+    DisciplinaDto.nome;
+    DisciplinaDto.descricao;
+    DisciplinaDto.genericoItems;
+    DisciplinaDto.ativo;
 }
 
-function GenericoItemDto() {
-    GenericoItemDto.descricao;
-    GenericoItemDto.sigla;
-    GenericoItemDto.ativo;
-    GenericoItemDto.generico;
-}
-
-var CadastrarGenerico = (function () {
+var CadastrarDisciplina = (function () {
 
     var tabelaDT = null;
     var tabela = null;
     var siglas = new Array();
 
-    function CadastrarGenerico() {
+    function CadastrarDisciplina() {
     }
 
     CadastrarGenerico.load = function () {
-        tabela = $('#listagem-GenericoItem');
-        if (isEdicao)
-        {
-            AjaxHelper.PostSimple("BuscarGenerico", false, "id=" + $("#hiddenId").val(),
+        tabela = $('#listagem-Disciplina');
+        
+        
+            AjaxHelper.PostSimple("BuscarDisciplina", false, "id=" + $("#hiddenId").val(),
                     function (data) {
                         $("#nome").val(data.nome);
-                        $("#descricao").val(data.descricao);
-                        $("#ativo").attr("checked", data.ativo);
+                       
                         tabelaDT = TabelaEdicao(tabela, data);
                         Componente.Loading.Remove();
                     },
@@ -49,11 +41,7 @@ var CadastrarGenerico = (function () {
                         Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText);
                         Componente.Loading.Remove();
                     });
-        }
-        else
-        {
-            tabelaDT = TabelaCadastro(tabela);
-        }
+       
 
         $("#acoesFormulario").append(
                 Componente.Botoes.Salvar("", "btn-salvar") +
@@ -175,27 +163,7 @@ var CadastrarGenerico = (function () {
                     Componente.Loading.Remove();
                     Modais.Get.Basica(erro.responseText);
                 });
-    }
-
-
-    function TabelaCadastro(tabela) {
-        return tabela.DataTable({
-            columns: [
-                {
-                    width: '40%',
-                    title: 'Descrição'
-                },
-                {
-                    width: '40%',
-                    title: 'Sigla'
-                },
-                {
-                    width: '20%',
-                    title: 'Ações'
-                }
-            ]
-        });
-    }
+    }  
 
     function TabelaEdicao(tabela, dados) {        
         return tabela.DataTable({
@@ -203,21 +171,14 @@ var CadastrarGenerico = (function () {
             "deferRender": true,
             "columns": [
                 {
-                    "title": "Descrição",
-                    "data": "descricao",
-                    "width": "40%",
+                    "title": "Nome da Disciplina",
+                    "data": "nome",
+                    "width": "80%",
                      "render": function (data) {
                         return Componente.Input.Textbox(data);
                     }
                 },
-                {
-                    "width": '40%',
-                    "title": 'Sigla',
-                    "data": "sigla",
-                    "render": function (data) {
-                        return Componente.Input.Textbox(data);
-                    }
-                },
+           
                 {
                     "title": "Ações",
                     "width": "20%",

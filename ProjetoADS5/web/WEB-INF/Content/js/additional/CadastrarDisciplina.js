@@ -60,31 +60,16 @@ var CadastrarDisciplina = (function () {
 
     function validaAddItem() {
         var validacoes = new Array();
-        var sigla = $("#itemSigla");
-        var descricao = $("#itemDescricao");
+        var nome = $("#nome");
 
-        if (Util.IsEmpty(sigla.val())) {
-            Util.InputColor.Vermelho(sigla);
-            validacoes.push("Digite uma sigla;");
-        }
-        if (Util.IsEmpty(descricao.val())) {
-            Util.InputColor.Vermelho(descricao);
-            validacoes.push("Digite uma Descrição;");
+      
+        if (Util.IsEmpty(nome.val())) {
+            Util.InputColor.Vermelho(nome);
+            validacoes.push("Digite um nome;");
         }
 
-        if (!Util.IsEmpty(sigla.val())) {
-            var idx = tabelaDT
-                    .columns()
-                    .data()
-                    .eq(0) // Reduce the 2D array into a 1D array of data
-                    .indexOf(sigla.val());
-
-            if (idx !== -1) {
-                Util.InputColor.Vermelho(sigla);
-                validacoes.push("A sigla ' " + sigla.val().toUpperCase() + " ' já foi adicionada.");
-            }
-        }
-
+       
+       //aqui monta uma string para mostrar na tela os erros.
         if (validacoes.length > 0) {
             var mensagem = "<span class='mensagem_modal_erro red'><b>Preencha os campos corretamente:</b><br/><br/>";
             for (var i = 0; i < validacoes.length; i++) {
@@ -92,6 +77,7 @@ var CadastrarDisciplina = (function () {
             }
             mensagem += "</span>";
 
+            //mostra a mensagem de erro na tela.
             Modais.Get.Erro(mensagem, function (obj) {
                 fecharModal(obj.idModal);
             }).modal("show");
@@ -99,8 +85,8 @@ var CadastrarDisciplina = (function () {
         }
 
         tabelaDT.row.add([
-            $("#itemDescricao").val(),
-            $("#itemSigla").val().toUpperCase(),
+            $("#nome").val(),
+          
             Componente.Icones.Editar("") +
             Componente.Icones.Desativar("item_" + getNumero()) +
             Componente.Icones.Excluir("")
@@ -167,7 +153,7 @@ var CadastrarDisciplina = (function () {
 
     function TabelaEdicao(tabela, dados) {        
         return tabela.DataTable({
-            "data": dados.genericoItems,
+            "data": dados,
             "deferRender": true,
             "columns": [
                 {

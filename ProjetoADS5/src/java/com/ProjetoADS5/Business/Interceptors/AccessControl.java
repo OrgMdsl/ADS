@@ -28,7 +28,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
             Object controller) throws Exception {
         HttpSession sessao = request.getSession(true);
         String uri = request.getRequestURI();
-        /*        
+   
          if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
          if (sessao.getAttribute(AttributesConst.LOGADO) == null
          || (boolean) sessao.getAttribute(AttributesConst.LOGADO) == false) {
@@ -44,7 +44,6 @@ public class AccessControl extends HandlerInterceptorAdapter {
          return false;
          }
          }
-         */
         return true;
     }
 

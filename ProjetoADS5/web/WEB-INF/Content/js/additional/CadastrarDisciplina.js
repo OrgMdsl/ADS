@@ -12,9 +12,8 @@ $(document).ready(function () {
 function DisciplinaDto() {
     DisciplinaDto.id = null;
     DisciplinaDto.nome;
-    DisciplinaDto.descricao;
-    DisciplinaDto.genericoItems;
-    DisciplinaDto.ativo;
+    
+
 }
 
 var CadastrarDisciplina = (function () {
@@ -90,49 +89,19 @@ var CadastrarDisciplina = (function () {
     function salvar() {
         Componente.Loading.Show();
 
-        var objeto = new GenericoDto();
+        var objeto = new DisciplinaDto();
         if (isEdicao)
             objeto.id = $("#hiddenId").val();
         objeto.nome = $('#nome').val();
 
-        objeto.genericoItems = null; //Impedir referencia circular
-        objeto.ativo = $('#ativo').is(":checked");
-
-        //Impede referencia circular
-        var objetoAux = new GenericoDto();
-        objetoAux = jQuery.extend(true, {}, objeto);
-
-        if (!isEdicao) {
-            for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
-                var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td").eq(0).html();
-                item.sigla = $("table tr:nth-child(" + i + ") td").eq(1).html();
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
-                item.generico = objetoAux;
-                ListaGenericoItemDto.push(item);
-            }
-        }
-        else
-        {
-            debugger;
-            for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
-                var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td input").eq(0).val();
-                item.sigla = $("table tr:nth-child(" + i + ") td input").eq(1).val();
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
-                item.generico = objetoAux;
-                ListaGenericoItemDto.push(item);
-            }
-        }
-
-        objeto.genericoItems = ListaGenericoItemDto;
-
         var obj = JSON.stringify(objeto);
 
-        AjaxHelper.Post("CadastrarGenerico", true, null, obj,
+        AjaxHelper.Post("CadastrarDisciplina", false, null, obj,
                 function (sucesso) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(sucesso.responseText);
+                    Modais.Get.Basica(sucesso.responseText, function(){
+                        window.location.reload();
+                    } );
                 },
                 function (erro) {
                     Componente.Loading.Remove();
@@ -190,6 +159,16 @@ var CadastrarDisciplina = (function () {
         }).modal("show");
     }
 
-    return CadastrarGenerico;
+    return CadastrarDisciplina;
 }());
+
+
+
+
+
+
+
+
+
+
 

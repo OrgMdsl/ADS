@@ -21,55 +21,55 @@ var CadastrarDisciplina = (function () {
 
     var tabelaDT = null;
     var tabela = null;
-    var siglas = new Array();
 
     function CadastrarDisciplina() {
     }
 
-    CadastrarGenerico.load = function () {
+    CadastrarDisciplina.load = function () {
         tabela = $('#listagem-Disciplina');
-        
-        
-            AjaxHelper.PostSimple("BuscarDisciplina", false, "id=" + $("#hiddenId").val(),
-                    function (data) {
-                        $("#nome").val(data.nome);
-                       
-                        tabelaDT = TabelaEdicao(tabela, data);
-                        Componente.Loading.Remove();
-                    },
-                    function (erro) {
-                        Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText);
-                        Componente.Loading.Remove();
-                    });
-       
+
+
+        AjaxHelper.PostSimple("BuscarDisciplina", false, "id=" + $("#hiddenId").val(),
+                function (data) {
+                    $("#nome").val(data.nome);
+
+                    tabelaDT = TabelaEdicao(tabela, data);
+                    Componente.Loading.Remove();
+                },
+                function (erro) {
+                    Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText);
+                    Componente.Loading.Remove();
+                });
+
 
         $("#acoesFormulario").append(
                 Componente.Botoes.Salvar("", "btn-salvar") +
                 Componente.Botoes.Cancelar("javascript:window.history.back()", "")
                 );
 
-        $('#btn-add-item').on('click', function () {
-            validaAddItem();
-        });
+
         $("#btn-salvar").on('click', function () {
-            salvar();
+            validaAddItem(function () {
+                salvar();
+            });
+
         });
 
         eventoExcluirItem(tabela, tabelaDT);
     };
 
-    function validaAddItem() {
+    function validaAddItem(callback) {
         var validacoes = new Array();
         var nome = $("#nome");
 
-      
+
         if (Util.IsEmpty(nome.val())) {
             Util.InputColor.Vermelho(nome);
             validacoes.push("Digite um nome;");
         }
 
-       
-       //aqui monta uma string para mostrar na tela os erros.
+
+        //aqui monta uma string para mostrar na tela os erros.
         if (validacoes.length > 0) {
             var mensagem = "<span class='mensagem_modal_erro red'><b>Preencha os campos corretamente:</b><br/><br/>";
             for (var i = 0; i < validacoes.length; i++) {
@@ -84,28 +84,17 @@ var CadastrarDisciplina = (function () {
             return false;
         }
 
-        tabelaDT.row.add([
-            $("#nome").val(),
-          
-            Componente.Icones.Editar("") +
-            Componente.Icones.Desativar("item_" + getNumero()) +
-            Componente.Icones.Excluir("")
-        ]).draw(false);
-        siglas.push(sigla.val());
-        $("#itemSigla").val("");
-        $("#itemDescricao").val("");
+        callback();
     }
 
     function salvar() {
         Componente.Loading.Show();
 
-        var ListaGenericoItemDto = new Array();
-
         var objeto = new GenericoDto();
-        if(isEdicao)
+        if (isEdicao)
             objeto.id = $("#hiddenId").val();
         objeto.nome = $('#nome').val();
-        objeto.descricao = $('#descricao').val();
+
         objeto.genericoItems = null; //Impedir referencia circular
         objeto.ativo = $('#ativo').is(":checked");
 
@@ -149,9 +138,9 @@ var CadastrarDisciplina = (function () {
                     Componente.Loading.Remove();
                     Modais.Get.Basica(erro.responseText);
                 });
-    }  
+    }
 
-    function TabelaEdicao(tabela, dados) {        
+    function TabelaEdicao(tabela, dados) {
         return tabela.DataTable({
             "data": dados,
             "deferRender": true,
@@ -160,11 +149,10 @@ var CadastrarDisciplina = (function () {
                     "title": "Nome da Disciplina",
                     "data": "nome",
                     "width": "80%",
-                     "render": function (data) {
+                    "render": function (data) {
                         return Componente.Input.Textbox(data);
                     }
                 },
-           
                 {
                     "title": "Ações",
                     "width": "20%",
@@ -178,15 +166,30 @@ var CadastrarDisciplina = (function () {
 
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
-            var c = "";
-            if (!row.ativo)
-                c += Componente.Icones.Ativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
-            else
-                c += Componente.Icones.Desativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
+            var c = Componente.Icones.Excluir("javascript:CadastrarDisciplina.excluirDisciplina("+row.id+")","");
             return c;
         }
         return Const.Messages.ERRO_1;
     }
+
+    CadastrarDisciplina.excluirDisciplina = function(id) {
+        Modais.Get.Confirmacao("Deseja realmente excluir este item?", function (obj) {
+
+            AjaxHelper.PostSimple("ExcluirDisciplina", false, "id=" + id,
+                    function (data) {
+                        Modais.Get.Aviso("Excluído com sucesso!");
+                        Componente.Loading.Remove();
+                    },
+                    function (erro) {
+                        Modais.Get.Erro("Erro ao excluir! Detalhes: <br><br>" + erro.responseText);
+                        Componente.Loading.Remove();
+                    });
+
+        }, function (obj) {
+            fecharModal(obj.idModal);
+        }).modal("show");
+    }
+
     return CadastrarGenerico;
 }());
 

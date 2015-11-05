@@ -79,6 +79,7 @@ function eventoExcluirItem(tabela, tabelaDT) {
                                 .remove()
                                 .draw();
                     });
+                  
                 }, function (obj) {
                     fecharModal(obj.idModal);
                 }).modal("show");

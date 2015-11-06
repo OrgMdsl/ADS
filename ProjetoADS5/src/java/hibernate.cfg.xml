@@ -21,7 +21,7 @@
     <!-- Mapeamentos -->
     <mapping resource="com/ProjetoADS5/Business/Entity/Map/Generico.hbm.xml"/>
     <mapping resource="com/ProjetoADS5/Business/Entity/Map/GenericoItem.hbm.xml"/>
-    <mapping class="com.ProjetoADS5.Business.Entity.Map.Professor" file="" jar="" package="" resource=""/>
+    <mapping class="com.ProjetoADS5.Business.Entity.Map.Professor"/>
     <mapping class="com.ProjetoADS5.Business.Entity.Map.Curso"/>
     <mapping class="com.ProjetoADS5.Business.Entity.Map.Disciplina"/>
     <mapping class="com.ProjetoADS5.Business.Entity.Map.Usuario"/>

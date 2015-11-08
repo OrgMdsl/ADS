@@ -94,7 +94,7 @@ public class GenericoController {
             method = RequestMethod.POST,
             headers = {"Content-type=application/json"})
     @ResponseBody
-    public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {
+    public String CadastrarGenerico(@RequestBody String obj) {
         return WebServiceHelper.PostCrud("CadastrarGenerico", obj, null);
     }
 

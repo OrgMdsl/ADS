@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -21,19 +23,20 @@ public class Disciplina implements Serializable {
 
     @Id
     @Column(name = "id_disciplina")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     
     @Column
     String nome;
     
-    @ManyToMany(mappedBy = "disciplinas")
-    private List<Professor> professores;
-    
     @ManyToMany
-    List<Generico> conteudos;
+    private transient List<Generico>  conteudos;
     
     @ManyToMany(mappedBy = "disciplinas")
-    private List<Curso> cursos;
+    private transient List<Professor> professores;
+
+    @ManyToMany(mappedBy = "disciplinas")
+    private transient List<Curso> cursos;
 
     public Disciplina() {
     }
@@ -77,7 +80,5 @@ public class Disciplina implements Serializable {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
-    
-    
 
 }

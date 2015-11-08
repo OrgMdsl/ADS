@@ -21,9 +21,9 @@ public class MyContextLoaderListerner extends ContextLoaderListener {
     public void contextInitialized(ServletContextEvent event) {
         super.contextInitialized(event);
 
-        ServletContext servletContect = event.getServletContext();
+      /*  ServletContext servletContect = event.getServletContext();
         
-        WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContect);
+        WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContect);*/
     }
 
     @Override

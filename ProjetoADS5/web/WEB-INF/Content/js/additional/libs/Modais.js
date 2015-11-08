@@ -7,108 +7,85 @@ var Modais = (function () {
     }
 
     Modais.Get = {
-        Aviso: function (conteudo, okCallback, cancelarCallback) {
+        Aviso: function (conteudo, okOnclick, cancelarOnclick) {
             var botoes = new Array();
             var idModal = "modal_" + getNumero();
             var idOk = idModal + "_ok";
             var idCancelar = idModal + "_cancelar";
 
-            botoes.push(Componente.Botoes.Ok("", idOk));
-            botoes.push(Componente.Botoes.Cancelar("", idCancelar));
+            var cb = new callbackBtn();
+            cb.idModal = "#" + idModal;
+
+            if (Util.IsNull(okOnclick))
+                okOnclick = "fecharModal('" + cb.idModal + "')";
+            if (Util.IsNull(cancelarOnclick))
+                cancelarOnclick = "fecharModal('" + cb.idModal + "')";
+            
+            botoes.push(Componente.Botoes.Ok(okOnclick, idOk));
+            botoes.push(Componente.Botoes.Cancelar(cancelarOnclick, idCancelar));
 
             var html = montaModal("Aviso", conteudo, botoes, idModal);
             $("body").append(html);
 
-            var cb = new callbackBtn();
-            cb.idModal = "#" + idModal;
-
-            $("#" + idOk).on("click", function (data) {
-                if (!Util.IsNull(okCallback))
-                    okCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
-
-            $("#" + idCancelar).on("click", function (data) {
-                if (!Util.IsNull(cancelarCallback))
-                    cancelarCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
-
-            return $("#" + idModal);
+            return $(cb.idModal);
         },
-        Erro: function (conteudo, fecharCallback) {
+        Erro: function (conteudo, fecharOnclick) {
             var botoes = new Array();
             var idModal = "modal_" + getNumero();
             var idFechar = idModal + "_fechar";
-            botoes.push(Componente.Botoes.Fechar("", idFechar));
-            var html = montaModal("Erro", conteudo, botoes, idModal);
-            $("body").append(html);
-
+            
             var cb = new callbackBtn();
             cb.idModal = "#" + idModal;
 
-            $("#" + idFechar).on("click", function (data) {
-                if (!Util.IsNull(fecharCallback))
-                    fecharCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
-            return $("#" + idModal);
+            if (Util.IsNull(fecharOnclick))
+                fecharOnclick = "fecharModal('" + cb.idModal + "')";
+            
+            botoes.push(Componente.Botoes.Fechar(fecharOnclick, idFechar));
+            var html = montaModal("Erro", conteudo, botoes, idModal);
+            $("body").append(html);
+
+            return $(cb.idModal);
         },
-        Confirmacao: function (conteudo, simCallback, naoCallback) {
+        Confirmacao: function (conteudo, simOnclick, naoOnclick) {
             var botoes = new Array();
             var idModal = "modal_" + getNumero();
             var idSim = idModal + "_sim";
             var idNao = idModal + "_nao";
+            
+            var cb = new callbackBtn();
+            cb.idModal = "#" + idModal;
 
-            botoes.push(Componente.Botoes.Sim("", idSim));
-            botoes.push(Componente.Botoes.Nao("", idNao));
+                simOnclick += ";fecharModal('" + cb.idModal + "')";
+            if (Util.IsNull(naoOnclick))
+                naoOnclick += ";fecharModal('" + cb.idModal + "')";
+            
+            botoes.push(Componente.Botoes.Sim(simOnclick, idSim));
+            botoes.push(Componente.Botoes.Nao(naoOnclick, idNao));
 
             var html = montaModal("Atenção", conteudo, botoes, idModal);
             $("body").append(html);
 
-            var cb = new callbackBtn();
-            cb.idModal = "#" + idModal;
-
-            $("#" + idSim).on("click", function (data) {
-                if (!Util.IsNull(simCallback))
-                    simCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
-
-            $("#" + idNao).on("click", function (data) {
-                if (!Util.IsNull(naoCallback))
-                    naoCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
-
-            return $("#" + idModal);
+            return $(cb.idModal);
         },
-        Basica: function (conteudo, okCallback) {
+        Basica: function (conteudo, okOnclick) {
             var botoes = new Array();
             var idModal = "modal_" + getNumero();
             var idOk = idModal + "_ok";
 
-            botoes.push(Componente.Botoes.Ok("", idOk));
-
-            var html = montaModal("<i class='fa fa-exclamation-triangle orange'></i>", conteudo, botoes, idModal);
-            $("body").append(html);
-
             var cb = new callbackBtn();
             cb.idModal = "#" + idModal;
 
-            $("#" + idOk).on("click", function (data) {
-                if (!Util.IsNull(okCallback))
-                    okCallback(cb);
-                else
-                    fecharModal(cb.idModal);
-            });
+            if (Util.IsNull(okOnclick))
+                okOnclick = "fecharModal('" + cb.idModal + "')";
+
+            botoes.push(Componente.Botoes.Ok(okOnclick, idOk));
+
+            var html = montaModal("<i class='fa fa-exclamation-triangle orange'></i>", conteudo, botoes, idModal);
+            $("body").append(html);
             
-            return $("#" + idModal);
+            $("#" + idModal).modal("show");
+            
+            return $(cb.idModal);
         }
     };
 

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginRestController {
 
-    private final IUsuarioBll UsuarioBll = new UsuarioBll();
+    private final IUsuarioBll UsuarioBll = new UsuarioBll(Usuario.class);
     private final JsonHelper JsonHelper = new JsonHelper();
 
     @RequestMapping(value = "FazerLogin" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")

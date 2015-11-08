@@ -11,8 +11,6 @@ import com.ProjetoADS5.DataAccess.GenericoItemDal;
 import com.ProjetoADS5.DataAccess.Interface.IGenericoItemDal;
 import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
 import java.util.List;
-import java.util.Set;
-import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -20,7 +18,11 @@ import org.springframework.http.ResponseEntity;
  */
 public class GenericoItemBll extends DalHelper<GenericoItem> implements IGenericoItemBll {
 
-    public final IGenericoItemDal GenericoItemDal = new GenericoItemDal();
+    public final IGenericoItemDal GenericoItemDal = new GenericoItemDal(GenericoItem.class);
+
+    public GenericoItemBll(Class<GenericoItem> entidade) {
+        super(entidade);
+    }
 
     @Override
     public GenericoItem BuscarPorSigla(String sigla, String nomePai) {
@@ -33,7 +35,7 @@ public class GenericoItemBll extends DalHelper<GenericoItem> implements IGeneric
     }
 
     @Override
-    public ResponseEntity<String> AtivarDesativar(Integer id) {
+    public String AtivarDesativar(Integer id) {
         GenericoItem obj = GenericoItemDal.Buscar(id);
         obj.setAtivo(!obj.getAtivo());      
         return GenericoItemDal.Atualizar(obj);         

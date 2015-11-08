@@ -1,222 +1,194 @@
 /* global Util, Componente, AjaxHelper, CircularJSON, Modais, Const */
 
 var isEdicao = false;
-
+var hiddenId;
+var nome;
+var tabelaDT;
+var tabela;
+var tabelaDisciplina;
+var tabelaDisciplinaDT;
 $(document).ready(function () {
-    isEdicao = Util.IsEmpty($("#hiddenId").val()) ? false : true;
+    hiddenId = $("#hiddenId");
+    nome = $("#nome");
+    isEdicao = Util.IsEmpty(hiddenId.val()) ? false : true;
 
-    CadastrarGenerico.load();
+    CadastrarCurso.load(function () {
 
+        CadastrarCurso.carregarTabela(null);
+
+        if (!isEdicao)
+        {
+            tabelaDisciplinaDT = $("#listagem-Disciplina").DataTable({
+                "deferRender": true,
+                "columns": [
+                    {
+                        "title": "Id",
+                        "width": "40%"
+                    },
+                    {
+                        "width": '40%',
+                        "title": 'Nome'
+                    },
+                    {
+                        "title": "Ações",
+                        "width": "20%"
+                    }
+                ]
+            });
+            
+            eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
+        }
+
+        
+
+    });
 });
 
-function GenericoDto() {
-    GenericoDto.id = null;
-    GenericoDto.nome;
-    GenericoDto.descricao;
-    GenericoDto.genericoItems;
-    GenericoDto.ativo;
+function CursoDto() {
+    CursoDto.id;
+    CursoDto.nome;
+    CursoDto.disciplinas;
 }
 
-function GenericoItemDto() {
-    GenericoItemDto.descricao;
-    GenericoItemDto.sigla;
-    GenericoItemDto.ativo;
-    GenericoItemDto.generico;
+function DisciplinaDto() {
+    DisciplinaDto.id;
+    DisciplinaDto.nome;
+    DisciplinaDto.cursos;
 }
 
-var CadastrarGenerico = (function () {
 
-    var tabelaDT = null;
-    var tabela = null;
-    var siglas = new Array();
+var CadastrarCurso = (function () {
 
-    function CadastrarGenerico() {
+    function CadastrarCurso() {
     }
 
-    CadastrarGenerico.load = function () {
-        tabela = $('#listagem-GenericoItem');
-        if (isEdicao)
-        {
-            AjaxHelper.PostSimple("BuscarGenerico", false, "id=" + $("#hiddenId").val(),
-                    function (data) {
-                        $("#nome").val(data.nome);
-                        $("#descricao").val(data.descricao);
-                        $("#ativo").attr("checked", data.ativo);
-                        tabelaDT = TabelaEdicao(tabela, data);
-                        Componente.Loading.Remove();
-                    },
-                    function (erro) {
-                        Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText);
-                        Componente.Loading.Remove();
-                    });
-        }
-        else
-        {
-            tabelaDT = TabelaCadastro(tabela);
-        }
+    CadastrarCurso.load = function (callback) {
+        tabela = $('#listagem-Curso');
 
         $("#acoesFormulario").append(
                 Componente.Botoes.Salvar("", "btn-salvar") +
-                Componente.Botoes.Cancelar("javascript:window.history.back()", "")
+                Componente.Botoes.Cancelar("", "btn-cancelar")
                 );
 
         $('#btn-add-item').on('click', function () {
             validaAddItem();
         });
+
         $("#btn-salvar").on('click', function () {
-            salvar();
+            validar(function () {
+                salvar();
+            });
         });
 
-        eventoExcluirItem(tabela, tabelaDT);
+        $("#btn-cancelar").on('click', function () {
+            cancelar();
+        });
+
+        $.ajax({
+            url: "PesquisarDisciplina",
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                var html = "";
+                var el = $("#disciplinas");
+                html += "<option value=\"0\"></option>";
+                for (var i = 0; i < data.length; i++) {
+                    html += "<option value=\"" + data[i].id + "\">" + data[i].nome + "</option>";
+                }
+                el.append(html);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + jqXHR.responseText);
+                Componente.Loading.Remove();
+            }
+        });
+
+
+        callback();
     };
 
-    function validaAddItem() {
-        var validacoes = new Array();
-        var sigla = $("#itemSigla");
-        var descricao = $("#itemDescricao");
+    function validar(callback) {
+        var erros = new Array();
 
-        if (Util.IsEmpty(sigla.val())) {
-            Util.InputColor.Vermelho(sigla);
-            validacoes.push("Digite uma sigla;");
-        }
-        if (Util.IsEmpty(descricao.val())) {
-            Util.InputColor.Vermelho(descricao);
-            validacoes.push("Digite uma Descrição;");
+        if (Util.IsEmpty(nome.val())) {
+            Util.InputColor.Vermelho(nome);
+            erros.push("Nome do curso não pode estar vazio");
         }
 
-        if (!Util.IsEmpty(sigla.val())) {
-            var idx = tabelaDT
-                    .columns()
-                    .data()
-                    .eq(0) // Reduce the 2D array into a 1D array of data
-                    .indexOf(sigla.val());
-
-            if (idx !== -1) {
-                Util.InputColor.Vermelho(sigla);
-                validacoes.push("A sigla ' " + sigla.val().toUpperCase() + " ' já foi adicionada.");
-            }
-        }
-
-        if (validacoes.length > 0) {
-            var mensagem = "<span class='mensagem_modal_erro red'><b>Preencha os campos corretamente:</b><br/><br/>";
-            for (var i = 0; i < validacoes.length; i++) {
-                mensagem += "- " + validacoes[i] + "<br/>";
-            }
-            mensagem += "</span>";
-
-            Modais.Get.Erro(mensagem, function (obj) {
-                fecharModal(obj.idModal);
-            }).modal("show");
-            return false;
-        }
-
-        tabelaDT.row.add([
-            $("#itemDescricao").val(),
-            $("#itemSigla").val().toUpperCase(),
-            Componente.Icones.Editar("") +
-            Componente.Icones.Desativar("item_" + getNumero()) +
-            Componente.Icones.Excluir("")
-        ]).draw(false);
-        siglas.push(sigla.val());
-        $("#itemSigla").val("");
-        $("#itemDescricao").val("");
+        Componente.Validar(erros, function () {
+            callback();
+        });
     }
 
     function salvar() {
         Componente.Loading.Show();
 
-        var ListaGenericoItemDto = new Array();
+        var ListaDisciplinaDto = new Array();
+        var ListaCursoDto = new Array();
 
-        var objeto = new GenericoDto();
-        if(isEdicao)
+        var objeto = new CursoDto();
+        if (isEdicao)
             objeto.id = $("#hiddenId").val();
         objeto.nome = $('#nome').val();
-        objeto.descricao = $('#descricao').val();
-        objeto.genericoItems = null; //Impedir referencia circular
-        objeto.ativo = $('#ativo').is(":checked");
+        objeto.disciplinas = null; //Impedir referencia circular
 
         //Impede referencia circular
-        var objetoAux = new GenericoDto();
+        var objetoAux = new CursoDto();
         objetoAux = jQuery.extend(true, {}, objeto);
 
-        if (!isEdicao) {
-            for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
-                var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td").eq(0).html();
-                item.sigla = $("table tr:nth-child(" + i + ") td").eq(1).html();
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
-                item.generico = objetoAux;
-                ListaGenericoItemDto.push(item);
-            }
-        }
-        else
-        {
-            debugger;
-            for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
-                var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td input").eq(0).val();
-                item.sigla = $("table tr:nth-child(" + i + ") td input").eq(1).val();
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
-                item.generico = objetoAux;
-                ListaGenericoItemDto.push(item);
-            }
+        ListaCursoDto.push(objetoAux);
+
+        for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
+            var item = new DisciplinaDto();
+            item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
+            item.cursos = objetoAux;
+            ListaDisciplinaDto.push(item);
         }
 
-        objeto.genericoItems = ListaGenericoItemDto;
-
+        objeto.disciplinas = ListaDisciplinaDto;
+        debugger;
         var obj = JSON.stringify(objeto);
 
-        AjaxHelper.Post("CadastrarGenerico", true, null, obj,
-                function (sucesso) {
-                    Componente.Loading.Remove();
-                    Modais.Get.Basica(sucesso.responseText);
-                },
-                function (erro) {
-                    Componente.Loading.Remove();
-                    Modais.Get.Basica(erro.responseText);
-                });
-    }
-
-
-    function TabelaCadastro(tabela) {
-        return tabela.DataTable({
-            columns: [
-                {
-                    width: '40%',
-                    title: 'Descrição'
-                },
-                {
-                    width: '40%',
-                    title: 'Sigla'
-                },
-                {
-                    width: '20%',
-                    title: 'Ações'
-                }
-            ]
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "CadastrarCurso",
+            type: 'POST',
+            async: false,
+            cache: false,
+            processData: false,
+            data: obj,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                Componente.Loading.Remove();
+                Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Componente.Loading.Remove();
+                Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+            }
         });
+
     }
 
-    function TabelaEdicao(tabela, dados) {        
+    function cancelar() {
+        hiddenId.val("");
+        nome.val("");
+        tabelaDisciplinaDT.destroy();
+    }
+
+    function TabelaEdicao(tabela, dados) {
+        tabela.html("");
         return tabela.DataTable({
-            "data": dados.genericoItems,
+            "data": dados,
             "deferRender": true,
             "columns": [
                 {
-                    "title": "Descrição",
-                    "data": "descricao",
-                    "width": "40%",
-                     "render": function (data) {
-                        return Componente.Input.Textbox(data);
-                    }
-                },
-                {
-                    "width": '40%',
-                    "title": 'Sigla',
-                    "data": "sigla",
-                    "render": function (data) {
-                        return Componente.Input.Textbox(data);
-                    }
+                    "title": "Nome da Curso",
+                    "data": "nome",
+                    "width": "80%"
                 },
                 {
                     "title": "Ações",
@@ -231,15 +203,157 @@ var CadastrarGenerico = (function () {
 
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
-            var c = "";
-            if (!row.ativo)
-                c += Componente.Icones.Ativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
-            else
-                c += Componente.Icones.Desativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
+            var c = Componente.Icones.Editar("javascript:CadastrarCurso.editarCurso(" + row.id + ")", "");
+            c += Componente.Icones.Excluir("javascript:CadastrarCurso.excluirCurso(" + row.id + ")", "");
             return c;
         }
         return Const.Messages.ERRO_1;
     }
-    return CadastrarGenerico;
+
+    CadastrarCurso.montaAcoesDisciplinas = function (row) {
+        if (!Util.IsNull(row)) {
+            var c = Componente.Icones.Excluir("");
+
+            return c;
+        }
+        return Const.Messages.ERRO_1;
+    };
+
+    function validaAddItem() {
+        var validacoes = new Array();
+        var disciplinas = $("#disciplinas");
+        var select = $("#disciplinas option:selected");
+        if (select.val() === '0') {
+            Util.InputColor.Vermelho(disciplinas);
+            validacoes.push("Selecione uma disciplina");
+        }
+        
+        if (select.val() !== '0') {
+            var idx = tabelaDisciplinaDT
+                    .columns()
+                    .data()
+                    .eq(0) // Reduce the 2D array into a 1D array of data
+                    .indexOf(select.val());
+
+            if (idx !== -1) {
+                Util.InputColor.Vermelho(select);
+                validacoes.push("A disciplina ' " + select.text() + " ' já foi adicionada.");
+            }
+        }
+
+        if (validacoes.length > 0) {
+            var mensagem = "<span class='mensagem_modal_erro red'><b>Verifique os erros:</b><br/><br/>";
+            for (var i = 0; i < validacoes.length; i++) {
+                mensagem += "- " + validacoes[i] + "<br/>";
+            }
+            mensagem += "</span>";
+
+            Modais.Get.Erro(mensagem, "").modal("show");
+            return false;
+        }
+
+        tabelaDisciplinaDT.row.add([
+            select.val(),
+            select.text(),
+            Componente.Icones.Excluir("")
+        ]).draw(false);
+    }
+
+    CadastrarCurso.carregarTabela = function () {
+        nome.val("");
+        hiddenId.val("");
+        $.ajax({
+            url: "PesquisarCurso",
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                tabelaDT = TabelaEdicao(tabela, data);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + jqXHR.responseText).modal("show");
+                Componente.Loading.Remove();
+            }
+        });
+
+    };
+    CadastrarCurso.editarCurso = function (id) {
+        isEdicao = true;
+        hiddenId.val(id);
+        $.ajax({
+            url: "BuscarCurso?id=" + id,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                $("#nome").val(data.nome);
+                tabelaDisciplinaDT = TabelaEdicaoDisciplina($("#listagem-Disciplina"), data);
+                eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + jqXHR.responseText);
+                Componente.Loading.Remove();
+            }
+        });
+    };
+
+    CadastrarCurso.excluirCurso = function (id) {
+        Modais.Get.Confirmacao("Deseja realmente excluir este item?", "CadastrarCurso.confirmaExcluir(" + id + ")", null).modal("show");
+    };
+
+    CadastrarCurso.confirmaExcluir = function (id) {
+
+        $.ajax({
+            url: "ExcluirCurso?id=" + id,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                abrirPaginaSemRefresh(window.location);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                abrirPaginaSemRefresh(window.location);
+                Componente.Loading.Remove();
+            }
+        });
+    };
+
+
+
+    function TabelaEdicaoDisciplina(tabelaDisciplina, dados) {
+        tabelaDisciplina.DataTable().destroy();
+        tabelaDisciplinaDT = tabelaDisciplina.DataTable({
+            "data": dados.disciplinas,
+            "columns": [
+                {
+                    "title": "Id",
+                    "data": "id",
+                    "width": "40%"
+                },
+                {
+                    "width": '40%',
+                    "title": 'Nome',
+                    "data": "nome"
+                },
+                {
+                    "title": "Ações",
+                    "width": "20%",
+                    "render": function (data, type, row) {
+                        return CadastrarCurso.montaAcoesDisciplinas(row);
+                    }
+                }
+            ]
+        });
+        return tabelaDisciplinaDT;
+    }
+
+    return CadastrarCurso;
 }());
+
+
+
+
+
+
+
+
+
+
 

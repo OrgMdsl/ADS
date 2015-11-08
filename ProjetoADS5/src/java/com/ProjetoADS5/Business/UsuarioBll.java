@@ -19,7 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UsuarioBll extends DalHelper<Usuario> implements IUsuarioBll{
 
-    UsuarioDal UsuarioDal = new UsuarioDal();
+    UsuarioDal UsuarioDal = new UsuarioDal(Usuario.class);
+
+    public UsuarioBll(Class<Usuario> entidade) {
+        super(entidade);
+    }
     
     @Override
     public Usuario ValidarUsuario(String usuario, String senha) {

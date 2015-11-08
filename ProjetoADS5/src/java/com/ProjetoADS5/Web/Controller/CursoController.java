@@ -5,19 +5,24 @@
  */
 package com.ProjetoADS5.Web.Controller;
 
+
 import com.ProjetoADS5.Business.Entity.Map.Curso;
 import com.ProjetoADS5.DataAccess.Hibernate.HibernateUtil;
 import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
+import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
 import com.ProjetoADS5.Web.Controller.Helpers.JsonHelper;
+import com.ProjetoADS5.Web.Controller.Helpers.WebServiceHelper;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -26,35 +31,45 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CursoController {
     
-    @RequestMapping(value = "CadastrarCurso", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    @ResponseBody
-    public void CadastrarCurso(@RequestBody String obj) {
-        Curso _obj = new JsonHelper().FromJson(obj, Curso.class);
-                
-        Session s = HibernateUtil.getSession();
-        Transaction t = s.beginTransaction();
-        try {
-            s.saveOrUpdate(_obj);
-            t.commit();            
-        } catch (Exception ex) {
-            t.rollback();            
-        } finally {
-            s.close();
-        }
+    @RequestMapping(value = "PaginaCurso" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
+    public ModelAndView PaginaCurso() {
+        ModelAndView mv = new ModelAndView("Curso/CadastrarCurso");
+        mv.addObject("ViewName", "Curso");
+        return mv;
     }
     
-    @RequestMapping(value = "BuscarCurso", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "PaginaEditarCurso" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
+    public ModelAndView PaginaEditarCurso(@RequestParam String id) {
+        ModelAndView mv = new ModelAndView("Curso/CadastrarCurso");
+        mv.addObject("ViewName", "Curso");
+        mv.addObject("ObjId", id);
+        return mv;
+    }
+    
+    @RequestMapping(value = "CadastrarCurso", method = RequestMethod.POST,headers = {"Content-type=application/json"})
+    @ResponseBody
+    public String CadastrarCurso(@RequestBody String obj) {       
+        return WebServiceHelper.PostCrud("CadastrarCurso", obj, null);
+    }
+    
+    @RequestMapping(value = "BuscarCurso", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String BuscarCurso(@RequestParam String id) {
-        Curso c = new DalHelper<Curso>().Buscar(Integer.parseInt(id));    
-        return new JsonHelper().ToJson(c, true);
+        return WebServiceHelper.GetForObject("BuscarCurso", "id="+id, String.class);
     }
     
      @RequestMapping(value = "PesquisarCurso", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String PesquisarCurso() {
-        List<Curso> c = new DalHelper<Curso>().Pesquisar();    
-        return new JsonHelper().ToJson(c, true);
+        String retorno = WebServiceHelper.GetForObject("PesquisarCurso", null, String.class);
+        return retorno;
     }
+    
+    @RequestMapping(value = "ExcluirCurso", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirCurso(@RequestParam String id) {
+        return WebServiceHelper.GetForObject("ExcluirCurso", "id="+id, String.class);
+    }
+    
     
 }

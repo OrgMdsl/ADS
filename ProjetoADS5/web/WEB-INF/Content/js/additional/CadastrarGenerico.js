@@ -1,7 +1,7 @@
 /* global Util, Componente, AjaxHelper, CircularJSON, Modais, Const */
 
 var isEdicao = false;
-
+var tabelaDT = null;
 $(document).ready(function () {
     isEdicao = Util.IsEmpty($("#hiddenId").val()) ? false : true;
 
@@ -26,7 +26,7 @@ function GenericoItemDto() {
 
 var CadastrarGenerico = (function () {
 
-    var tabelaDT = null;
+
     var tabela = null;
     var siglas = new Array();
 
@@ -67,7 +67,16 @@ var CadastrarGenerico = (function () {
             salvar();
         });
 
-        eventoExcluirItem(tabela, tabelaDT);
+        tabela.on(
+                'click',
+                '.excluir',
+                function () {
+                    var row = $(this).parents('tr');
+                    tabelaDT
+                            .row(row)
+                            .remove()
+                            .draw();
+                });
     };
 
     function validaAddItem() {
@@ -104,9 +113,7 @@ var CadastrarGenerico = (function () {
             }
             mensagem += "</span>";
 
-            Modais.Get.Erro(mensagem, function (obj) {
-                fecharModal(obj.idModal);
-            }).modal("show");
+            Modais.Get.Erro(mensagem, "").modal("show");
             return false;
         }
 
@@ -114,13 +121,21 @@ var CadastrarGenerico = (function () {
             $("#itemDescricao").val(),
             $("#itemSigla").val().toUpperCase(),
             Componente.Icones.Editar("") +
-            Componente.Icones.Desativar("item_" + getNumero()) +
-            Componente.Icones.Excluir("")
+                    Componente.Icones.Desativar("item_" + getNumero()) +
+                    Componente.Icones.Excluir("")
         ]).draw(false);
         siglas.push(sigla.val());
         $("#itemSigla").val("");
         $("#itemDescricao").val("");
     }
+
+    CadastrarGenerico.excluirItem = function (item) {
+        var row = $(item).parents('tr');
+        tabelaDT
+                .row(row)
+                .remove()
+                .draw();
+    };
 
     function salvar() {
         Componente.Loading.Show();
@@ -128,7 +143,7 @@ var CadastrarGenerico = (function () {
         var ListaGenericoItemDto = new Array();
 
         var objeto = new GenericoDto();
-        if(isEdicao)
+        if (isEdicao)
             objeto.id = $("#hiddenId").val();
         objeto.nome = $('#nome').val();
         objeto.descricao = $('#descricao').val();
@@ -151,7 +166,6 @@ var CadastrarGenerico = (function () {
         }
         else
         {
-            debugger;
             for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
                 var item = new GenericoItemDto();
                 item.descricao = $("table tr:nth-child(" + i + ") td input").eq(0).val();
@@ -169,11 +183,11 @@ var CadastrarGenerico = (function () {
         AjaxHelper.Post("CadastrarGenerico", true, null, obj,
                 function (sucesso) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(sucesso.responseText);
+                    Modais.Get.Basica(sucesso.responseText, "abrirPaginaSemRefresh(window.location);");
                 },
                 function (erro) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(erro.responseText);
+                    Modais.Get.Basica(erro.responseText, "abrirPaginaSemRefresh(window.location);");
                 });
     }
 
@@ -197,7 +211,7 @@ var CadastrarGenerico = (function () {
         });
     }
 
-    function TabelaEdicao(tabela, dados) {        
+    function TabelaEdicao(tabela, dados) {
         return tabela.DataTable({
             "data": dados.genericoItems,
             "deferRender": true,
@@ -206,7 +220,7 @@ var CadastrarGenerico = (function () {
                     "title": "Descrição",
                     "data": "descricao",
                     "width": "40%",
-                     "render": function (data) {
+                    "render": function (data) {
                         return Componente.Input.Textbox(data);
                     }
                 },

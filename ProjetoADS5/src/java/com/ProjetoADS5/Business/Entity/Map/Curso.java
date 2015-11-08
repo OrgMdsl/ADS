@@ -7,8 +7,12 @@ package com.ProjetoADS5.Business.Entity.Map;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -21,13 +25,14 @@ public class Curso implements Serializable {
     
     @Id
     @Column(name="id_curso")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     
     @Column
     String nome;
     
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Disciplina> disciplinas;
     
 

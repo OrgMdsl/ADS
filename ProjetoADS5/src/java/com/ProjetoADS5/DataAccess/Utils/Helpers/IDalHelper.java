@@ -25,17 +25,17 @@ public interface IDalHelper<T> {
     
     List<T> PesquisarTodos();
 
-    ResponseEntity<String> Inserir(T obj);
+    String Inserir(T obj);
 
-    ResponseEntity<String> Atualizar(T obj);
+    String Atualizar(T obj);
 
-    ResponseEntity<String> InserirAtualizar(T obj);
+    String InserirAtualizar(T obj);
 
-    ResponseEntity<String> Excluir(T obj);
+    String Excluir(T obj);
     
-    ResponseEntity<String> ExcluirFisicamente(T obj);
+    String ExcluirFisicamente(T obj);
     
-    ResponseEntity<String> ToggleStatus(T obj);
+    String ToggleStatus(T obj);
     
-    ResponseEntity<String> ToggleStatus(Integer id);
+    String ToggleStatus(Integer id);
 }

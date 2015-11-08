@@ -24,6 +24,10 @@ import org.springframework.http.ResponseEntity;
  */
 public class UsuarioDal extends DalHelper<Usuario> implements IUsuarioDal {
 
+    public UsuarioDal(Class<Usuario> entidade) {
+        super(entidade);
+    }
+
     @Override
     public Usuario ValidarUsuario(
             String usuario,

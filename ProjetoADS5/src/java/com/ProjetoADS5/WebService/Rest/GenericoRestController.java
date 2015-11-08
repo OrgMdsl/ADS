@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GenericoRestController {
 
-    private final IGenericoBll GenericoBll = new GenericoBll();
-    private final IGenericoItemBll GenericoItemBll = new GenericoItemBll();
+    private final IGenericoBll GenericoBll = new GenericoBll(Generico.class);
+    private final IGenericoItemBll GenericoItemBll = new GenericoItemBll(GenericoItem.class);
     private final JsonHelper JsonHelper = new JsonHelper();
 
     @RequestMapping(value = "BuscarGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
@@ -68,7 +68,7 @@ public class GenericoRestController {
 
     @RequestMapping(value = "CadastrarGenerico" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public ResponseEntity<String> CadastrarGenerico(@RequestBody String obj) {
+    public String CadastrarGenerico(@RequestBody String obj) {
         Generico _obj = JsonHelper.FromJson(obj, Generico.class);
 
         Generico generico = new Generico();
@@ -92,8 +92,8 @@ public class GenericoRestController {
 
     @RequestMapping(value = "AlterarStatusGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> AlterarStatusGenerico(@RequestParam Integer id) {
-        ResponseEntity<String> json = this.GenericoBll.ToggleStatus(id);
+    public String AlterarStatusGenerico(@RequestParam Integer id) {
+        String json = this.GenericoBll.ToggleStatus(id);
         return json;
     }
 }

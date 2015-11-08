@@ -18,7 +18,11 @@ import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
 
 public class GenericoBll extends DalHelper<Generico> implements IGenericoBll {
 
-    private final IGenericoDal GenericoDal = new GenericoDal();
+    private final IGenericoDal GenericoDal = new GenericoDal(Generico.class);
+
+    public GenericoBll(Class<Generico> entidade) {
+        super(entidade);
+    }
 
     @Override
     public Generico BuscarPorNome(String nome)

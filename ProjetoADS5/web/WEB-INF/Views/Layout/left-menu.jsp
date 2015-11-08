@@ -7,6 +7,12 @@
             <a href="javascript:abrirPagina('home');"><i class="fa fa-fw fa-home"></i> Home</a>
         </li>
         <li>
+            <a href="javascript:abrirPagina('PaginaDisciplina' + Const.AccessControl.RESTRITO);">Disciplina</a>
+        </li>
+        <li>
+            <a href="javascript:abrirPagina('PaginaCurso' + Const.AccessControl.RESTRITO);">Curso</a>
+        </li>
+        <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#menu_itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="menu_itensGenericos" class="collapse">
                 <li>
@@ -22,9 +28,6 @@
             <ul id="menu_usuario" class="collapse">
                 <li>
                     <a href="javascript:abrirPagina('PaginaLogin');">Login</a>
-                </li>
-                <li>
-                    <a href="javascript:abrirPagina('PaginaPerfil');">Perfil</a>
                 </li>
             </ul>
         </li>

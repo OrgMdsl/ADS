@@ -18,5 +18,5 @@ import org.springframework.http.ResponseEntity;
 public interface IGenericoItemBll extends IDalHelper<GenericoItem> {
     GenericoItem BuscarPorSigla(String sigla, String nomePai);
     List<GenericoItem> GetItens(Integer idPai);
-    ResponseEntity<String> AtivarDesativar(Integer id);
+    String AtivarDesativar(Integer id);
 }

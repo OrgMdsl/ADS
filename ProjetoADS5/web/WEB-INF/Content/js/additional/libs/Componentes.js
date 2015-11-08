@@ -8,7 +8,7 @@ var Componente = (function () {
     Componente.Loading = {
         Show: function () {
             $("html").append("<div class='loading'><div>Aguarde... <br><br><i class='fa fa-cog fa-spin'></i></div></div>");
-            $(".loading div").fadeIn(20);
+            $(".loading div").fadeIn(50);
         },
         Remove: function () {
             $(".loading").hide(0, function () {
@@ -16,7 +16,22 @@ var Componente = (function () {
             });
         }
     };
+    
+    Componente.Validar = function(erros, callback) {
+        if (erros.length > 0) {
+            var mensagem = "<span class='mensagem_modal_erro red'><b>Corrija os seguintes erros:</b><br/><br/>";
+            for (var i = 0; i < erros.length; i++) {
+                mensagem += "- " + erros[i] + "<br/>";
+            }
+            mensagem += "</span>";
 
+            //mostra a mensagem de erro na tela.
+            Modais.Get.Erro(mensagem, "").modal("show");
+            return false;
+        }
+        callback();
+    };
+    
     Componente.Id = $("#hiddenId");
 
     Componente.Icones = {

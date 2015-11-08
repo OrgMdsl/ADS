@@ -18,6 +18,10 @@ import org.hibernate.criterion.Restrictions;
  */
 public class GenericoDal extends DalHelper<Generico> implements IGenericoDal {
 
+    public GenericoDal(Class<Generico> entidade) {
+        super(entidade);
+    }
+
     @Override
     public Generico Buscar(String nome) {
         Session s = getSession();

@@ -4,8 +4,7 @@ var pageLoaded = false;
 var numero_aux_global = 0;
 $(document).ready(function () {
     if (!pageLoaded) {
-        $("#page-wrapper").hide(0);
-        $("#page-wrapper").fadeIn(0);
+        $("#page-wrapper").fadeIn(500);
         pageLoaded = true;
 
 
@@ -37,25 +36,18 @@ function abrirPaginaSemRefresh(url) {
 }
 
 function abrirPagina(url) {
-    Componente.Loading.Show();
     $.ajax({
         url: url,
-        type: 'POST',
-        async: false,
-        cache: false,
         contentType: "text/html; charset=utf-8",
-        processData: false,
         success: function (data, textStatus, jqXHR) {
             $("#page-wrapper").fadeOut(200, function () {
                 document.location.href = url;
             });
-
-            //Componente.Loading.Remove();
         },
         erro: function () {
             Componente.Loading.Remove();
             Modais.Get.Erro("Não foi possível carregar essa página...", function (obj) {
-                $(obj.idModal).modal("hide");
+                fecharModal(obj.idModal);
             }).modal("show");
         }
     });
@@ -72,18 +64,21 @@ function eventoExcluirItem(tabela, tabelaDT) {
             '.excluir',
             function () {
                 var row = $(this).parents('tr');
-                Modais.Get.Confirmacao("Deseja realmente excluir este item?", function (obj) {
-                    fecharModal(obj.idModal, function () {
-                        tabelaDT
-                                .row(row)
-                                .remove()
-                                .draw();
-                    });
-                  
-                }, function (obj) {
-                    fecharModal(obj.idModal);
-                }).modal("show");
+                tabelaDT
+                        .row(row)
+                        .remove()
+                        .draw();
             });
+}
+function _eventoExcluirItemAcao(tabelaDT, row) {
+
+}
+function eventoExcluirItemSemModal(tabela, tabelaDT) {
+    var row = $(tabela).parents('tr');
+    tabelaDT
+            .row(row)
+            .remove()
+            .draw();
 }
 function fecharModal(_modal, finishCallback) {
     $(_modal).on('hidden.bs.modal', function (e) {

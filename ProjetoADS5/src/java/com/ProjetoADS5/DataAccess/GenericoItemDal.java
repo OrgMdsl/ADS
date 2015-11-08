@@ -21,7 +21,11 @@ import org.hibernate.criterion.Restrictions;
  */
 public class GenericoItemDal extends DalHelper<GenericoItem> implements IGenericoItemDal {
 
-    private IGenericoDal GenericoDal = new GenericoDal();
+    private IGenericoDal GenericoDal = new GenericoDal(Generico.class);
+
+    public GenericoItemDal(Class<GenericoItem> entidade) {
+        super(entidade);
+    }
 
     @Override
     public GenericoItem BuscarPorSigla(String sigla, String nomePai) {

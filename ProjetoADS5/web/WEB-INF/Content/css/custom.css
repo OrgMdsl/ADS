@@ -2,6 +2,10 @@ body {
     background: transparent;
 }
 
+#page-wrapper {
+    display: none;
+}
+
 table th {
     background: #eee;
     color: #444;

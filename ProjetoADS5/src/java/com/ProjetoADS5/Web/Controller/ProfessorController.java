@@ -5,22 +5,24 @@
  */
 package com.ProjetoADS5.Web.Controller;
 
-import com.ProjetoADS5.WebService.Rest.*;
-import com.ProjetoADS5.Business.Entity.Map.Disciplina;
+
 import com.ProjetoADS5.Business.Entity.Map.Professor;
-import com.ProjetoADS5.Common.Const.ActionsConst;
 import com.ProjetoADS5.DataAccess.Hibernate.HibernateUtil;
 import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
+import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
 import com.ProjetoADS5.Web.Controller.Helpers.JsonHelper;
+import com.ProjetoADS5.Web.Controller.Helpers.WebServiceHelper;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -28,36 +30,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class ProfessorController {
-
-    @RequestMapping(value = "CadastrarProfessor", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    @ResponseBody
-    public void CadastrarProfessor(@RequestBody String obj) {
-        Professor _obj = new JsonHelper().FromJson(obj, Professor.class);
-
-        Session s = HibernateUtil.getSession();
-        Transaction t = s.beginTransaction();
-        try {
-            s.saveOrUpdate(_obj);
-            t.commit();
-        } catch (Exception ex) {
-            t.rollback();
-        } finally {
-            s.close();
-        }
+    
+    @RequestMapping(value = "PaginaProfessor" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
+    public ModelAndView PaginaProfessor() {
+        ModelAndView mv = new ModelAndView("Professor/CadastrarProfessor");
+        mv.addObject("ViewName", "Professor");
+        return mv;
     }
-
-    @RequestMapping(value = "BuscarProfessor", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    
+    @RequestMapping(value = "PaginaEditarProfessor" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
+    public ModelAndView PaginaEditarProfessor(@RequestParam String id) {
+        ModelAndView mv = new ModelAndView("Professor/CadastrarProfessor");
+        mv.addObject("ViewName", "Professor");
+        mv.addObject("ObjId", id);
+        return mv;
+    }
+    
+    @RequestMapping(value = "CadastrarProfessor", method = RequestMethod.POST,headers = {"Content-type=application/json"})
+    @ResponseBody
+    public String CadastrarProfessor(@RequestBody String obj) {       
+        return WebServiceHelper.PostCrud("CadastrarProfessor", obj, null);
+    }
+    
+    @RequestMapping(value = "BuscarProfessor", produces = "application/json; charset=utf-8")
     @ResponseBody
     public String BuscarProfessor(@RequestParam String id) {
-        Professor o = new DalHelper<Professor>().Buscar(Integer.parseInt(id));
-        return new JsonHelper().ToJson(o, true);
+        return WebServiceHelper.GetForObject("BuscarProfessor", "id="+id, String.class);
     }
-
-    @RequestMapping(value = "PesquisarProfessor", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    
+     @RequestMapping(value = "PesquisarProfessor", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String PesquisarProfessor() {
-        List<Professor> o = new DalHelper<Professor>().Pesquisar();
-        return new JsonHelper().ToJson(o, true);
+        String retorno = WebServiceHelper.GetForObject("PesquisarProfessor", null, String.class);
+        return retorno;
     }
-
+    
+    @RequestMapping(value = "ExcluirProfessor", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirProfessor(@RequestParam String id) {
+        return WebServiceHelper.GetForObject("ExcluirProfessor", "id="+id, String.class);
+    }
+    
+    
 }

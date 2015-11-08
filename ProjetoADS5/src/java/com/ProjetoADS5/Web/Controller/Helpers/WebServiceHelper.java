@@ -25,6 +25,13 @@ public class WebServiceHelper {
         return BASE_PATH + NAME_PROJECT + action + "WS" + "?" + (parameters != null ? parameters : "");
     }
 
+    public static <T> T GetForObject(String action, String parameters, Class<T> classe) {
+        RestTemplate template = new RestTemplate();
+        String url = WebServiceHelper.GetWebServiceUrl(action, parameters);
+        T resposta = template.getForObject(url, classe);
+        return resposta;
+    }
+
     public static <T> T GetFromJsonService(String url, Class<T> obj) {
         String resposta = new RestTemplate().getForObject(url, String.class);
         return new JsonHelper().FromJson(resposta, obj);
@@ -46,23 +53,17 @@ public class WebServiceHelper {
         return new JsonHelper().FromJson(resposta, obj);
     }
 
-    public static ResponseEntity<String> PostCrud(String action, String obj, Map<String, String> vars) {
+    public static String PostCrud(String action, String obj, Map<String, String> vars) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json; charset=utf8");
-
-        try {
-            String url = WebServiceHelper.GetWebServiceUrl(action, null);
-            String t = "";
-            if (vars != null) {
-                t = new RestTemplate().postForObject(url, obj, String.class, vars);
-            } else {
-                t = new RestTemplate().postForObject(url, obj, String.class);
-            }
-
-            return new ResponseEntity<String>(t, headers, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<String>(ex.getMessage(), headers, HttpStatus.NOT_FOUND);
+        String url = WebServiceHelper.GetWebServiceUrl(action, null);
+        String t = "";
+        if (vars != null) {
+            t = new RestTemplate().postForObject(url, obj, String.class, vars);
+        } else {
+            t = new RestTemplate().postForObject(url, obj, String.class);
         }
+        return t;
     }
 
     public static ResponseEntity<String> SendParam(String action, String parametros) {

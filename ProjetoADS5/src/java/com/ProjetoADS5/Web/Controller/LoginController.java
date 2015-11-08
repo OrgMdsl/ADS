@@ -63,13 +63,14 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> FazerLogin(
             @RequestBody String obj,           
-            HttpSession sessao,
+            HttpServletRequest request,
             HttpServletResponse response) {
+        HttpSession sessao = request.getSession();
         Usuario u = JsonHelper.FromJson(obj, Usuario.class);
         String parametros
                 = "usuario=" + u.getUsuario()
                 + "&senha=" + u.getSenha();
-
+/*
             Cookie c = new Cookie("usuarioCookie", u.getUsuario());
             c.setMaxAge(60); // em segundos
             response.addCookie(c);
@@ -77,7 +78,7 @@ public class LoginController {
             c = new Cookie("senhaCookie", u.getSenha());
             c.setMaxAge(60); // em segundos
             response.addCookie(c);
-        
+        */
         
         ResponseEntity<String> retorno = WebServiceHelper.GetToJsonService("FazerLogin", parametros, String.class);
         
@@ -87,6 +88,8 @@ public class LoginController {
             sessao.setAttribute(AttributesConst.LOGADO, false);
         else
             sessao.setAttribute(AttributesConst.LOGADO, true);
+        
+        
                 
         return retorno;
     }

@@ -12,7 +12,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.context.annotation.Scope;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -26,24 +25,24 @@ public class AccessControl extends HandlerInterceptorAdapter {
             HttpServletRequest request,
             HttpServletResponse response,
             Object controller) throws Exception {
-        HttpSession sessao = request.getSession(true);
+        HttpSession sessao = request.getSession();
         String uri = request.getRequestURI();
-   
-         if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
-         if (sessao.getAttribute(AttributesConst.LOGADO) == null
-         || (boolean) sessao.getAttribute(AttributesConst.LOGADO) == false) {
+       /* System.out.println(":::::::::  " + sessao.getCreationTime());
+        if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
+            if (sessao.getAttribute(AttributesConst.LOGADO) == null
+                    || (boolean) sessao.getAttribute(AttributesConst.LOGADO) == false) {
 
-         if (request.getQueryString() != null) {
-         uri += "?" + request.getQueryString();
-         }
+                if (request.getQueryString() != null) {
+                    uri += "?" + request.getQueryString();
+                }
 
-         sessao.setAttribute("endereco", uri);
+                sessao.setAttribute("endereco", uri);
 
-         RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.FAZER_LOGIN);
-         dispacher.forward(request, response);
-         return false;
-         }
-         }
+                RequestDispatcher dispacher = request.getRequestDispatcher(ActionsConst.FAZER_LOGIN);
+                dispacher.forward(request, response);
+                return false;
+            }
+        }*/
         return true;
     }
 

@@ -16,10 +16,10 @@
             <a href="javascript:abrirPagina('PaginaProfessor' + Const.AccessControl.RESTRITO);">Professor</a>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#menu_itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#menu_itensGenericos">Conteúdos <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="menu_itensGenericos" class="collapse">
                 <li>
-                    <a href="javascript:abrirPagina('PaginaListarGenerico' + Const.AccessControl.RESTRITO);">Listagem</a>
+                    <a href="javascript:abrirPagina('PaginaListarGenerico' + Const.AccessControl.RESTRITO);">Tópicos</a>
                 </li>
                 <li>
                     <a href="javascript:abrirPagina('PaginaCadastrarGenerico' + Const.AccessControl.RESTRITO);">Cadastrar</a>
@@ -27,7 +27,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"><i class="fa fa-fw fa-arrows-v"></i> Usuário <i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"> Usuário <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="menu_usuario" class="collapse">
                 <li>
                     <a href="javascript:abrirPagina('PaginaLogin');">Login</a>

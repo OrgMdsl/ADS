@@ -3,6 +3,9 @@
 var isEdicao = false;
 var hiddenId;
 var nome;
+var usuario;
+var senha;
+var file;
 var tabelaDT;
 var tabela;
 var tabelaDisciplina;
@@ -10,6 +13,9 @@ var tabelaDisciplinaDT;
 $(document).ready(function () {
     hiddenId = $("#hiddenId");
     nome = $("#nome");
+    usuario = $("#usuario");
+    senha = $("#senha");
+    file = $("#file");
     isEdicao = Util.IsEmpty(hiddenId.val()) ? false : true;
 
     CadastrarProfessor.load(function () {
@@ -47,13 +53,16 @@ $(document).ready(function () {
 function ProfessorDto() {
     ProfessorDto.id;
     ProfessorDto.nome;
+    ProfessorDto.usuario;
+    ProfessorDto.senha;
+    ProfessorDto.file;
     ProfessorDto.disciplinas;
 }
 
 function DisciplinaDto() {
     DisciplinaDto.id;
     DisciplinaDto.nome;
-    DisciplinaDto.cursos;
+    DisciplinaDto.professores;
 }
 
 
@@ -130,6 +139,8 @@ var CadastrarProfessor = (function () {
         if (isEdicao)
             objeto.id = $("#hiddenId").val();
         objeto.nome = $('#nome').val();
+        objeto.usuario = $("#usuario").val();
+        objeto.senha = $("#senha").val();
         objeto.disciplinas = null; //Impedir referencia circular
 
         //Impede referencia circular
@@ -141,7 +152,7 @@ var CadastrarProfessor = (function () {
         for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
             var item = new DisciplinaDto();
             item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
-            item.cursos = objetoAux;
+            item.professores = ListaProfessorDto;
             ListaDisciplinaDto.push(item);
         }
 
@@ -186,9 +197,14 @@ var CadastrarProfessor = (function () {
             "deferRender": true,
             "columns": [
                 {
-                    "title": "Nome da Professor",
+                    "title": "Nome do Professor",
                     "data": "nome",
-                    "width": "80%"
+                    "width": "40%"
+                },
+                {
+                    "title": "Usuário do Professor",
+                    "data": "usuario",
+                    "width": "40%"
                 },
                 {
                     "title": "Ações",

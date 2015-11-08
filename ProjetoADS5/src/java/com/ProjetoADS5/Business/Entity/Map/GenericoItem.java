@@ -7,7 +7,7 @@ public class GenericoItem implements java.io.Serializable {
     private Integer id;
     private transient Generico generico;
     private String descricao;
-    private String sigla;
+    private String titulo;
     private Date dataCadastro;
     private boolean ativo;
 
@@ -50,12 +50,12 @@ public class GenericoItem implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public String getSigla() {
-        return this.sigla;
+    public String getTitulo() {
+        return this.titulo;
     }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Boolean getAtivo() {

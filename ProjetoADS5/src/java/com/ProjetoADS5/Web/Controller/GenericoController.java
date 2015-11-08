@@ -31,16 +31,16 @@ public class GenericoController {
     @RequestMapping(value = "PaginaListarGenerico" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
     public ModelAndView PaginaListarGenerico() {
         ModelAndView mv = new ModelAndView("Shared/Listar"); //Arquivo que será aberto
-        mv.addObject("ViewName", "Listas genéricas"); //Nome da página
+        mv.addObject("ViewName", "Conteúdos"); //Nome da página
         mv.addObject("JsArchive", "additional/ListarGenerico.js"); //Caminho do arquivo JS da página
-        mv.addObject("PanelName", "Lista Genérica"); //Nome da tabela
+        mv.addObject("PanelName", "Tópicos"); //Nome da tabela
         return mv;
     }
 
     @RequestMapping(value = "PaginaCadastrarGenerico" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
     public ModelAndView PaginaCadastrarGenerico() {
         ModelAndView mv = new ModelAndView("Generico/CadastrarGenerico");
-        mv.addObject("ViewName", "Cadastro - Listas genéricas");
+        mv.addObject("ViewName", "Cadastro - Conteúdos");
         return mv;
     }
 
@@ -100,7 +100,13 @@ public class GenericoController {
 
     @RequestMapping(value = "AlterarStatusGenerico", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> AlterarStatusGenerico(@RequestParam Integer id) {
-        return WebServiceHelper.SendParam("AlterarStatusGenerico", "id=" + id);
+    public String AlterarStatusGenerico(@RequestParam Integer id) {
+        return WebServiceHelper.GetForObject("AlterarStatusGenerico", "id=" + id, String.class);
+    }
+    
+    @RequestMapping(value = "ExcluirGenerico", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirGenerico(@RequestParam String id) {
+        return WebServiceHelper.GetForObject("ExcluirGenerico", "id="+id, String.class);
     }
 }

@@ -13,6 +13,9 @@
             <a href="javascript:abrirPagina('PaginaCurso' + Const.AccessControl.RESTRITO);">Curso</a>
         </li>
         <li>
+            <a href="javascript:abrirPagina('PaginaProfessor' + Const.AccessControl.RESTRITO);">Professor</a>
+        </li>
+        <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#menu_itensGenericos"><i class="fa fa-fw fa-arrows-v"></i> Itens Genéricos <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="menu_itensGenericos" class="collapse">
                 <li>

@@ -19,7 +19,7 @@ function GenericoDto() {
 
 function GenericoItemDto() {
     GenericoItemDto.descricao;
-    GenericoItemDto.sigla;
+    GenericoItemDto.titulo;
     GenericoItemDto.ativo;
     GenericoItemDto.generico;
 }
@@ -28,7 +28,7 @@ var CadastrarGenerico = (function () {
 
 
     var tabela = null;
-    var siglas = new Array();
+    var titulos = new Array();
 
     function CadastrarGenerico() {
     }
@@ -81,28 +81,28 @@ var CadastrarGenerico = (function () {
 
     function validaAddItem() {
         var validacoes = new Array();
-        var sigla = $("#itemSigla");
+        var titulo = $("#itemTitulo");
         var descricao = $("#itemDescricao");
 
-        if (Util.IsEmpty(sigla.val())) {
-            Util.InputColor.Vermelho(sigla);
-            validacoes.push("Digite uma sigla;");
+        if (Util.IsEmpty(titulo.val())) {
+            Util.InputColor.Vermelho(titulo);
+            validacoes.push("Digite uma titulo;");
         }
         if (Util.IsEmpty(descricao.val())) {
             Util.InputColor.Vermelho(descricao);
             validacoes.push("Digite uma Descrição;");
         }
 
-        if (!Util.IsEmpty(sigla.val())) {
+        if (!Util.IsEmpty(titulo.val())) {
             var idx = tabelaDT
                     .columns()
                     .data()
                     .eq(0) // Reduce the 2D array into a 1D array of data
-                    .indexOf(sigla.val());
+                    .indexOf(titulo.val());
 
             if (idx !== -1) {
-                Util.InputColor.Vermelho(sigla);
-                validacoes.push("A sigla ' " + sigla.val().toUpperCase() + " ' já foi adicionada.");
+                Util.InputColor.Vermelho(titulo);
+                validacoes.push("A titulo ' " + titulo.val().toUpperCase() + " ' já foi adicionada.");
             }
         }
 
@@ -119,13 +119,13 @@ var CadastrarGenerico = (function () {
 
         tabelaDT.row.add([
             $("#itemDescricao").val(),
-            $("#itemSigla").val().toUpperCase(),
+            $("#itemTitulo").val().toUpperCase(),
             Componente.Icones.Editar("") +
                     Componente.Icones.Desativar("item_" + getNumero()) +
                     Componente.Icones.Excluir("")
         ]).draw(false);
-        siglas.push(sigla.val());
-        $("#itemSigla").val("");
+        titulos.push(titulo.val());
+        $("#itemTitulo").val("");
         $("#itemDescricao").val("");
     }
 
@@ -158,7 +158,7 @@ var CadastrarGenerico = (function () {
             for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
                 var item = new GenericoItemDto();
                 item.descricao = $("table tr:nth-child(" + i + ") td").eq(0).html();
-                item.sigla = $("table tr:nth-child(" + i + ") td").eq(1).html();
+                item.titulo = $("table tr:nth-child(" + i + ") td").eq(1).html();
                 item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
                 item.generico = objetoAux;
                 ListaGenericoItemDto.push(item);
@@ -169,7 +169,7 @@ var CadastrarGenerico = (function () {
             for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
                 var item = new GenericoItemDto();
                 item.descricao = $("table tr:nth-child(" + i + ") td input").eq(0).val();
-                item.sigla = $("table tr:nth-child(" + i + ") td input").eq(1).val();
+                item.titulo = $("table tr:nth-child(" + i + ") td input").eq(1).val();
                 item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
                 item.generico = objetoAux;
                 ListaGenericoItemDto.push(item);
@@ -201,7 +201,7 @@ var CadastrarGenerico = (function () {
                 },
                 {
                     width: '40%',
-                    title: 'Sigla'
+                    title: 'Titulo'
                 },
                 {
                     width: '20%',
@@ -226,8 +226,8 @@ var CadastrarGenerico = (function () {
                 },
                 {
                     "width": '40%',
-                    "title": 'Sigla',
-                    "data": "sigla",
+                    "title": 'Título',
+                    "data": "titulo",
                     "render": function (data) {
                         return Componente.Input.Textbox(data);
                     }
@@ -254,6 +254,7 @@ var CadastrarGenerico = (function () {
         }
         return Const.Messages.ERRO_1;
     }
+    
     return CadastrarGenerico;
 }());
 

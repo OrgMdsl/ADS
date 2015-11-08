@@ -10,10 +10,10 @@
       <column name="id_generico"/>
     </many-to-one>
     <property name="descricao" type="string">
-      <column length="300" name="descricao"/>
+      <column name="descricao"/>
     </property>
-    <property name="sigla" type="string">
-      <column length="5" name="sigla"/>
+    <property name="titulo" type="string">
+      <column name="titulo"/>
     </property>
     <property name="dataCadastro" type="timestamp">
       <column name="data_cadastro"/>

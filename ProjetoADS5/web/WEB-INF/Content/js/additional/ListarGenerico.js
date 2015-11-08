@@ -1,4 +1,4 @@
-/* global Util, Componente, Const */
+/* global Util, Componente, Const, Modais */
 
 $(document).ready(function () {
 
@@ -50,14 +50,32 @@ var ListarGenerico = (function () {
         if (!Util.IsNull(row)) {
             var c = Componente.Icones.Visualizar("PaginaVisualizarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id) +
                     Componente.Icones.Editar("PaginaEditarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
-            if (!row.ativo)
-                c += Componente.Icones.Ativar("", "AlterarStatusGenerico?id=" + row.id);
-            else
-                c += Componente.Icones.Desativar("", "AlterarStatusGenerico?id=" + row.id);
+                c += Componente.Icones.Excluir("javascript:ListarGenerico.excluiGenerico(" + row.id + ")", "");
             return c;
         }
         return Const.Messages.ERRO_1;
     }
+    
+    
+     ListarGenerico.excluiGenerico = function (id) {
+        Modais.Get.Confirmacao("Deseja realmente excluir este tópico e todo o seu conteúdo?", "ListarGenerico.confirmaExcluir(" + id + ")", null).modal("show");
+    };
 
+    ListarGenerico.confirmaExcluir = function (id) {
+        
+        $.ajax({
+            url: "ExcluirGenerico?id=" + id,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                abrirPaginaSemRefresh(window.location);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                abrirPaginaSemRefresh(window.location);
+                Componente.Loading.Remove();
+            }
+        });
+    };
+    
     return ListarGenerico;
 }());

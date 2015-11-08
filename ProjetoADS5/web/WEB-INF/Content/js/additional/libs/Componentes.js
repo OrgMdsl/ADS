@@ -133,7 +133,6 @@ var Componente = (function () {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     Componente.Loading.Remove();
-                    Modais.Get.Erro(jqXHR.responseText).modal("show");
                 }
             });
         else {

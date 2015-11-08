@@ -17,7 +17,7 @@
                         <form class="form-horizontal" action="" id="form-Generico">
                             <input type="hidden" value="${ObjId}" name="id" id="hiddenId"/>
                             <div class="panel panel-default">
-                                <div class="panel-heading">Lista Genérica</div>
+                                <div class="panel-heading">Tópico</div>
                                 <div class="panel-body">
                                     <div class="form-group form-inline">
                                         <label for="nome" class="control-label col-xs-1">Nome:</label>
@@ -31,13 +31,13 @@
                                     </div>
 
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">Itens</div>
+                                        <div class="panel-heading">Conteúdo</div>
                                         <div class="panel-body">
                                             <div class="form-inline form-group">
+                                                <label for="titulo" class="control-label col-xs-1">Título:</label>
+                                                <input type="text" class="form-control col-xs-1" id="itemTitulo" placeholder="Título">
                                                 <label for="descricao" class="control-label col-xs-1">Descrição:</label>
-                                                <input type="text" class="form-control col-xs-1" id="itemDescricao" name="itemDescricao" placeholder="Descrição"  maxlength="50">
-                                                <label for="sigla" class="control-label col-xs-1">Sigla:</label>
-                                                <input type="text" class="form-control col-xs-1" id="itemSigla" placeholder="Sigla" maxlength="5">
+                                                <input type="text" class="form-control col-xs-1" id="itemDescricao" name="itemDescricao" placeholder="Descrição">                                                
                                                 <input type="button" class="btn btn-custom btn-custom-default col-xs-1" name="itemSigla" value="Adicionar" id="btn-add-item" />
                                             </div>
                                             <br>

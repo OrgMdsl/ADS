@@ -12,6 +12,7 @@ import com.ProjetoADS5.Business.GenericoBll;
 import com.ProjetoADS5.Business.GenericoItemBll;
 import com.ProjetoADS5.Business.Interface.IGenericoBll;
 import com.ProjetoADS5.Business.Interface.IGenericoItemBll;
+import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
 import com.ProjetoADS5.Web.Controller.Helpers.JsonHelper;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -95,5 +96,13 @@ public class GenericoRestController {
     public String AlterarStatusGenerico(@RequestParam Integer id) {
         String json = this.GenericoBll.ToggleStatus(id);
         return json;
+    }
+    
+    @RequestMapping(value = "ExcluirGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirGenerico(@RequestParam String id) {
+        Generico obj = new Generico();
+        obj.setId(Integer.valueOf(id));
+        return this.GenericoBll.ExcluirFisicamente(obj);
     }
 }

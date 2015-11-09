@@ -22,7 +22,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id_usuario")
 public class Professor extends Usuario implements Serializable {
 
-    @Column
+    @Column(unique = true)
     private String rm;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

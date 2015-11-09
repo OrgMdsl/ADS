@@ -61,8 +61,8 @@ public class LoginController {
 
     @RequestMapping(value = "FazerLogin", produces = "application/json; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> FazerLogin(
-            @RequestBody String obj,           
+    public ModelAndView FazerLogin(
+            @RequestBody String obj,
             HttpServletRequest request,
             HttpServletResponse response) {
         HttpSession sessao = request.getSession();
@@ -70,28 +70,26 @@ public class LoginController {
         String parametros
                 = "usuario=" + u.getUsuario()
                 + "&senha=" + u.getSenha();
-/*
-            Cookie c = new Cookie("usuarioCookie", u.getUsuario());
-            c.setMaxAge(60); // em segundos
-            response.addCookie(c);
 
-            c = new Cookie("senhaCookie", u.getSenha());
-            c.setMaxAge(60); // em segundos
-            response.addCookie(c);
-        */
-        
+        Cookie c = new Cookie("usuarioCookie", u.getUsuario());
+        c.setMaxAge(60); // em segundos
+        response.addCookie(c);
+
+        c = new Cookie("senhaCookie", u.getSenha());
+        c.setMaxAge(60); // em segundos
+        response.addCookie(c);
+
         ResponseEntity<String> retorno = WebServiceHelper.GetToJsonService("FazerLogin", parametros, String.class);
-        
+
         u = JsonHelper.FromJson(retorno.getBody(), Usuario.class);
-        
-        if(u == null)
+
+        if (u == null) {
             sessao.setAttribute(AttributesConst.LOGADO, false);
-        else
+        } else {
             sessao.setAttribute(AttributesConst.LOGADO, true);
-        
-        
-                
-        return retorno;
+        }
+
+        return new ModelAndView("index");
     }
 
 }

@@ -6,16 +6,8 @@
 package com.ProjetoADS5.Web.Controller;
 
 
-import com.ProjetoADS5.Business.Entity.Map.Professor;
-import com.ProjetoADS5.DataAccess.Hibernate.HibernateUtil;
-import com.ProjetoADS5.DataAccess.Utils.Helpers.DalHelper;
 import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
-import com.ProjetoADS5.Web.Controller.Helpers.JsonHelper;
 import com.ProjetoADS5.Web.Controller.Helpers.WebServiceHelper;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +28,7 @@ public class ProfessorController {
         ModelAndView mv = new ModelAndView("Professor/CadastrarProfessor");
         mv.addObject("ViewName", "Professor");
         return mv;
+        
     }
     
     @RequestMapping(value = "PaginaEditarProfessor" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")

@@ -98,8 +98,7 @@ var CadastrarDisciplina = (function () {
     }
 
     function cancelar() {
-        hiddenId.val("");
-        nome.val("");
+        abrirPaginaSemRefresh(window.location);
     }
 
     function TabelaEdicao(tabela, dados) {
@@ -119,6 +118,7 @@ var CadastrarDisciplina = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data":"acoes",
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }
@@ -137,6 +137,7 @@ var CadastrarDisciplina = (function () {
     }
 
     CadastrarDisciplina.carregarTabela = function () {
+        Componente.Loading.Show();
         nome.val("");
         hiddenId.val("");
         $.ajax({
@@ -147,7 +148,7 @@ var CadastrarDisciplina = (function () {
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText).modal("show");
+                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + jqXHR.responseText).modal("show");
                 Componente.Loading.Remove();
             }
         });
@@ -163,7 +164,7 @@ var CadastrarDisciplina = (function () {
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + erro.responseText);
+                Modais.Get.Erro("Erro ao carregar as informações: <br><br>" + jqXHR.responseText);
                 Componente.Loading.Remove();
             }
         });

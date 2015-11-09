@@ -23,23 +23,39 @@ $(document).ready(function () {
                 "columns": [
                     {
                         "title": "Id",
-                        "width": "40%"
+                        "width": "40%",
+                        "data": "id"
                     },
                     {
                         "width": '40%',
-                        "title": 'Nome'
+                        "title": 'Nome',
+                        "data": "nome"
                     },
                     {
                         "title": "Ações",
-                        "width": "20%"
+                        "width": "20%",
+                        "data": "acoes"
                     }
                 ]
             });
-            
+
             eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
         }
 
-        
+        $("#panelCadastro").hide(0);
+        $("#panelCadastroHead").click(function () {
+            $("#panelCadastro").toggle(200);
+        });
+
+        $("#panelListaHead").click(function () {
+            $("#panelLista").toggle(200);
+        });
+
+        $("#btn-novo").click(function () {
+            abrirPaginaSemRefresh(window.location);
+            $("#panelLista").hide(200);
+            $("#panelCadastro").show(200);
+        });
 
     });
 });
@@ -174,9 +190,7 @@ var CadastrarCurso = (function () {
     }
 
     function cancelar() {
-        hiddenId.val("");
-        nome.val("");
-        tabelaDisciplinaDT.destroy();
+        abrirPaginaSemRefresh(window.location);
     }
 
     function TabelaEdicao(tabela, dados) {
@@ -193,6 +207,7 @@ var CadastrarCurso = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }
@@ -227,7 +242,7 @@ var CadastrarCurso = (function () {
             Util.InputColor.Vermelho(disciplinas);
             validacoes.push("Selecione uma disciplina");
         }
-        
+
         if (select.val() !== '0') {
             var idx = tabelaDisciplinaDT
                     .columns()
@@ -251,15 +266,19 @@ var CadastrarCurso = (function () {
             Modais.Get.Erro(mensagem, "").modal("show");
             return false;
         }
+        tabelaDisciplinaDT.row.add(
+                {
+                    "id": select.val(),
+                    "nome": select.text(),
+                    "acoes": Componente.Icones.Excluir("")
+                }
+        ).draw();
 
-        tabelaDisciplinaDT.row.add([
-            select.val(),
-            select.text(),
-            Componente.Icones.Excluir("")
-        ]).draw(false);
+
     }
 
     CadastrarCurso.carregarTabela = function () {
+        Componente.Loading.Show();
         nome.val("");
         hiddenId.val("");
         $.ajax({
@@ -277,6 +296,7 @@ var CadastrarCurso = (function () {
 
     };
     CadastrarCurso.editarCurso = function (id) {
+        $("#panelCadastro").hide(200);
         isEdicao = true;
         hiddenId.val(id);
         $.ajax({
@@ -284,8 +304,11 @@ var CadastrarCurso = (function () {
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
                 $("#nome").val(data.nome);
+                $("#listagem-Disciplina").DataTable().destroy();
                 tabelaDisciplinaDT = TabelaEdicaoDisciplina($("#listagem-Disciplina"), data);
                 eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
+                $("#panelLista").hide(200);
+                $("#panelCadastro").show(200);
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -335,6 +358,7 @@ var CadastrarCurso = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return CadastrarCurso.montaAcoesDisciplinas(row);
                     }

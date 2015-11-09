@@ -27,7 +27,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
             Object controller) throws Exception {
         HttpSession sessao = request.getSession();
         String uri = request.getRequestURI();
-       /* System.out.println(":::::::::  " + sessao.getCreationTime());
+
         if (uri.toUpperCase().contains(AccessControlConst.RESTRITO)) {
             if (sessao.getAttribute(AttributesConst.LOGADO) == null
                     || (boolean) sessao.getAttribute(AttributesConst.LOGADO) == false) {
@@ -42,7 +42,7 @@ public class AccessControl extends HandlerInterceptorAdapter {
                 dispacher.forward(request, response);
                 return false;
             }
-        }*/
+        }
         return true;
     }
 

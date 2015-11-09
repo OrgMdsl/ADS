@@ -29,23 +29,38 @@ $(document).ready(function () {
                 "columns": [
                     {
                         "title": "Id",
-                        "width": "40%"
+                        "width": "40%",
+                        "data": "id"
                     },
                     {
                         "width": '40%',
-                        "title": 'Nome'
+                        "title": 'Nome',
+                        "data": "nome"
                     },
                     {
                         "title": "Ações",
-                        "width": "20%"
+                        "width": "20%",
+                        "data": "acoes"
                     }
                 ]
             });
-            
+
             eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
         }
-
+        $("#panelCadastro").hide(0);
+        $("#panelCadastroHead").click(function () {
+            $("#panelCadastro").toggle(200);
+        });
+                
+        $("#panelListaHead").click(function () {
+            $("#panelLista").toggle(200);
+        });
         
+        $("#btn-novo").click(function () {
+            abrirPaginaSemRefresh(window.location);
+            $("#panelLista").hide(200);
+            $("#panelCadastro").show(200);
+        });
 
     });
 });
@@ -55,8 +70,9 @@ function ProfessorDto() {
     ProfessorDto.nome;
     ProfessorDto.usuario;
     ProfessorDto.senha;
-    ProfessorDto.file;
+    ProfessorDto.imagem;
     ProfessorDto.disciplinas;
+    ProfessorDto.rm;
 }
 
 function DisciplinaDto() {
@@ -141,53 +157,74 @@ var CadastrarProfessor = (function () {
         objeto.nome = $('#nome').val();
         objeto.usuario = $("#usuario").val();
         objeto.senha = $("#senha").val();
-        objeto.disciplinas = null; //Impedir referencia circular
+        objeto.rm = $("#re").val();
 
-        //Impede referencia circular
-        var objetoAux = new ProfessorDto();
-        objetoAux = jQuery.extend(true, {}, objeto);
+        function getImagem(fileEl, callback) {
+            var file = fileEl.files[0];
+            var reader = new FileReader();
 
-        ListaProfessorDto.push(objetoAux);
+            reader.onloadend = function () {
+                callback(reader.result);
+            };
 
-        for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
-            var item = new DisciplinaDto();
-            item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
-            item.professores = ListaProfessorDto;
-            ListaDisciplinaDto.push(item);
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+            else
+            {
+                callback(null);
+            }
         }
 
-        objeto.disciplinas = ListaDisciplinaDto;
-        debugger;
-        var obj = JSON.stringify(objeto);
+        getImagem(document.getElementById("file"), function (imagem) {
+            objeto.disciplinas = null; //Impedir referencia circular
 
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: "CadastrarProfessor",
-            type: 'POST',
-            async: false,
-            cache: false,
-            processData: false,
-            data: obj,
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                Componente.Loading.Remove();
-                Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                Componente.Loading.Remove();
-                Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+            //Impede referencia circular
+            var objetoAux = new ProfessorDto();
+            objetoAux = jQuery.extend(true, {}, objeto);
+
+            ListaProfessorDto.push(objetoAux);
+
+            for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
+                var item = new DisciplinaDto();
+                item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
+                item.professores = ListaProfessorDto;
+                ListaDisciplinaDto.push(item);
             }
+
+            objeto.imagem = imagem !== null ? imagem : $("img#foto").attr("src");            
+            objeto.disciplinas = ListaDisciplinaDto;
+
+            var obj = JSON.stringify(objeto);
+
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: "CadastrarProfessor",
+                type: 'POST',
+                async: false,
+                cache: false,
+                processData: false,
+                data: obj,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    Componente.Loading.Remove();
+                    Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    Componente.Loading.Remove();
+                    Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                }
+            });
         });
+
 
     }
 
     function cancelar() {
-        hiddenId.val("");
-        nome.val("");
-        tabelaDisciplinaDT.destroy();
+        abrirPaginaSemRefresh(window.location);
     }
 
     function TabelaEdicao(tabela, dados) {
@@ -197,14 +234,25 @@ var CadastrarProfessor = (function () {
             "deferRender": true,
             "columns": [
                 {
-                    "title": "Nome do Professor",
+                    "title": "R.E.",
+                    "data": "rm",
+                    "width": "20%"
+                },
+                {
+                    "title": "Nome",
                     "data": "nome",
                     "width": "40%"
                 },
                 {
-                    "title": "Usuário do Professor",
-                    "data": "usuario",
-                    "width": "40%"
+                    "title": "Foto",
+                    "data": "imagem",
+                    "width": "5%",
+                    "render": function (data, type, row) {
+                        if (Util.IsEmpty(data))
+                            return '<img class="foto" src="images/sem-foto.jpg"/>';
+                        else
+                            return '<img class="foto" src="' + data + '"/>';
+                    }
                 },
                 {
                     "title": "Ações",
@@ -243,7 +291,7 @@ var CadastrarProfessor = (function () {
             Util.InputColor.Vermelho(disciplinas);
             validacoes.push("Selecione uma disciplina");
         }
-        
+
         if (select.val() !== '0') {
             var idx = tabelaDisciplinaDT
                     .columns()
@@ -268,14 +316,15 @@ var CadastrarProfessor = (function () {
             return false;
         }
 
-        tabelaDisciplinaDT.row.add([
-            select.val(),
-            select.text(),
-            Componente.Icones.Excluir("")
-        ]).draw(false);
+        tabelaDisciplinaDT.row.add({
+            "id": select.val(),
+            "nome": select.text(),
+            "acoes": Componente.Icones.Excluir("")
+        }).draw(false);
     }
 
     CadastrarProfessor.carregarTabela = function () {
+        Componente.Loading.Show();
         nome.val("");
         hiddenId.val("");
         $.ajax({
@@ -293,6 +342,7 @@ var CadastrarProfessor = (function () {
 
     };
     CadastrarProfessor.editarProfessor = function (id) {
+        $("#panelCadastro").hide(200);
         isEdicao = true;
         hiddenId.val(id);
         $.ajax({
@@ -300,8 +350,17 @@ var CadastrarProfessor = (function () {
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
                 $("#nome").val(data.nome);
+                $("#usuario").val(data.usuario);
+                $("#senha").val(data.senha);
+                $("#re").val(data.rm);
+                if (Util.IsEmpty(data.imagem))
+                    $('#foto').html('<img class="foto" src="images/sem-foto.jpg"/>');
+                else
+                    $('#foto').html('<img class="foto" id="foto" src="' + data.imagem + '"/>');
                 tabelaDisciplinaDT = TabelaEdicaoDisciplina($("#listagem-Disciplina"), data);
                 eventoExcluirItem($("#listagem-Disciplina"), tabelaDisciplinaDT);
+                $("#panelLista").hide(200);
+                $("#panelCadastro").show(200);
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -351,6 +410,7 @@ var CadastrarProfessor = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return CadastrarProfessor.montaAcoesDisciplinas(row);
                     }

@@ -55,5 +55,15 @@ var Util = (function () {
         return existe;
     };
 
+    Util.GetBase64Image = function (imgElem) {
+        var canvas = document.createElement("canvas");
+        canvas.width = imgElem.clientWidth;
+        canvas.height = imgElem.clientHeight;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(imgElem, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    };
+
     return Util;
 }());

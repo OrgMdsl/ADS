@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,26 +18,28 @@ import org.springframework.stereotype.Component;
 public class Usuario implements java.io.Serializable {
 
     @Id
-    @Column(name="id_usuario")
+    @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column
     private String nome;
-    
+
     @Column
     private String usuario;
-    
+
     @Column
     private String senha;
-    
+
     @Column
     private Boolean administrador;
+
+    @Column(columnDefinition = "text")
+    private String imagem;
 
     public Usuario() {
     }
 
-    
     public Integer getId() {
         return id;
     }
@@ -76,6 +79,13 @@ public class Usuario implements java.io.Serializable {
     public void setAdministrador(Boolean administrador) {
         this.administrador = administrador;
     }
- 
-    
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
 }

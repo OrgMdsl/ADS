@@ -192,3 +192,28 @@ input.red {
 tr td input {
     text-align: center;
 }
+
+.foto-container {   
+}
+
+.foto {
+    max-height: 100px;
+    max-width: 150px;
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+table .foto {
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+}
+
+table tr td, table th {
+    text-align: center;
+    vertical-align: middle;
+}

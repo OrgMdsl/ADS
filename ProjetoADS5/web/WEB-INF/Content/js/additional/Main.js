@@ -36,26 +36,32 @@ function abrirPaginaSemRefresh(url) {
 }
 
 function abrirPagina(url) {
-    $.ajax({
-        url: url,
-        contentType: "text/html; charset=utf-8",
-        success: function (data, textStatus, jqXHR) {
-            $("#page-wrapper").fadeOut(200, function () {
-                document.location.href = url;
-            });
-        },
-        erro: function () {
-            Componente.Loading.Remove();
-            Modais.Get.Erro("Não foi possível carregar essa página...", function (obj) {
-                fecharModal(obj.idModal);
-            }).modal("show");
-        }
+    $("#page-wrapper").fadeOut(200, function () {
+        document.location.href = url;
     });
 }
 
 function getNumero() {
     numero_aux_global++;
     return numero_aux_global;
+}
+
+function fazerLogout() {
+    $.ajax({
+        url: "FazerLogout",
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+            abrirPagina("home");
+        },
+        erro: function () {
+            Componente.Loading.Remove();
+            Modais.Get.Erro("Erro ao realizar operação...").modal("show");
+        }
+    });
+}
+
+function logout() {
+    Modais.Get.Confirmacao("Deseja realmente sair?", "javascript:fazerLogout()").modal("show");
 }
 
 function eventoExcluirItem(tabela, tabelaDT) {

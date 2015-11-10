@@ -53,7 +53,7 @@ var Login = (function () {
             Util.InputColor.Vermelho(inputs.senha);
             validacoes.push("Digite sua senha");
         }
-        
+
         if (validacoes.length > 0) {
             var mensagem = "<span class='mensagem_modal_erro red'><b>Preencha os campos corretamente:</b><br/><br/>";
             for (var i = 0; i < validacoes.length; i++) {
@@ -70,28 +70,41 @@ var Login = (function () {
         var objeto = new LoginDto();
         objeto.usuario = inputs.usuario.val();
         objeto.senha = inputs.senha.val();
-                
-        objeto.ativo = $("#ckLembraInfo").is(":checked"); //Neste caso é usado para levar a informação do CheckBox
+
+        if ($("#ckLembraInfo").is(":checked"))
+            objeto.chk = true;
+
         var obj = JSON.stringify(objeto);
 
-        Componente.Loading.Remove();
-       
-        
-        AjaxHelper.Post("FazerLogin", false, null, obj,
-                function (sucesso) {
-                    
-                    if(Util.IsNull(sucesso))
-                    {
-                        Modais.Get.Erro("Usuário e/ou senha incorretos").modal("show");
-                        return false;
-                    }
-                    
-                    Modais.Get.Basica("Seja bem-vindo").modal("show");
-                },
-                function (erro) {
-                    Modais.Get.Erro(erro.responseText).modal("show");
-                    return false;
-                });
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "FazerLogin",
+            type: 'POST',
+            data: obj,
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+
+                if (Util.IsNull(data))
+                {
+                    Modais.Get.Erro("Usuário e/ou senha incorretos").modal("show");
+                }
+                else
+                {
+                    if (window.location.href.indexOf("PaginaLogin") > -1)
+                        abrirPagina('home');
+                    else
+                        abrirPaginaSemRefresh(window.location);
+                }
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Erro("Verifique seus dados.").modal("show");
+                Componente.Loading.Remove();
+            }
+        });
     }
 
     return Login;

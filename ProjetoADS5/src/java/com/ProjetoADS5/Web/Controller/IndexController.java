@@ -19,7 +19,7 @@ public class IndexController {
     @RequestMapping("home")
     public ModelAndView Index() {
         ModelAndView mv = new ModelAndView("index");
-        mv.addObject("ViewName", "Home");
+        mv.addObject("ViewName", "Seja bem-vindo!");
         mv.addObject("ViewDescription", "Lista de chamados");
         return mv;
     }

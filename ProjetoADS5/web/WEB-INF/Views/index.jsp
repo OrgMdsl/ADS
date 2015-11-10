@@ -8,42 +8,10 @@
         <title>${ViewName}</title>
     </head>
     <body>
+        
         <div class="row">
-            <div class="col-lg-12" id="alertbar">
-                <div class="alert alert-info alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <i class="fa fa-info-circle"></i>  <strong>Mensagem</strong> Teste
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <div class="row">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel-body">
-                        <div class="table-condensed">
-                            <table class="table table-condensed table-hover table-responsive table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-sm-1">Nº</th>
-                                        <th class="col-sm-3">Solicitante</th>
-                                        <th class="col-sm-2">Titulo</th>
-                                        <th class="col-sm-2">Tipo</th>
-                                        <th class="col-sm-2">SLA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-right">
-                            <a href="#"><i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>    
+            <img src="images/livros.jpg" alt="" style="max-height:400px;"/>
+        </div>    
 
     </body>
 

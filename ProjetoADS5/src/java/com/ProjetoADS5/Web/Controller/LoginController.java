@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,35 +62,58 @@ public class LoginController {
 
     @RequestMapping(value = "FazerLogin", produces = "application/json; charset=UTF8")
     @ResponseBody
-    public ModelAndView FazerLogin(
+    public String FazerLogin(
             @RequestBody String obj,
             HttpServletRequest request,
             HttpServletResponse response) {
-        HttpSession sessao = request.getSession();
+        HttpSession sessao = request.getSession();        
         Usuario u = JsonHelper.FromJson(obj, Usuario.class);
         String parametros
                 = "usuario=" + u.getUsuario()
                 + "&senha=" + u.getSenha();
 
-        Cookie c = new Cookie("usuarioCookie", u.getUsuario());
-        c.setMaxAge(60); // em segundos
-        response.addCookie(c);
+        if(obj.contains("chk")) {
+            Cookie c = new Cookie("usuarioCookie", u.getUsuario());
+            c.setMaxAge(9999999); // em segundos
+            response.addCookie(c);
 
-        c = new Cookie("senhaCookie", u.getSenha());
-        c.setMaxAge(60); // em segundos
-        response.addCookie(c);
+            c = new Cookie("senhaCookie", u.getSenha());
+            c.setMaxAge(9999999); // em segundos
+            response.addCookie(c);
+        }
+        else
+        {
+            Cookie c = CookieHelper.obterCookie("usuarioCookie", request);
+            c.setMaxAge(1);
+            response.addCookie(c);
+            
+            Cookie c2 = CookieHelper.obterCookie("senhaCookie", request);
+            c2.setMaxAge(1);
+            response.addCookie(c2);
+        }
+        String retorno = WebServiceHelper.GetForObject("FazerLogin", parametros, String.class);
 
-        ResponseEntity<String> retorno = WebServiceHelper.GetToJsonService("FazerLogin", parametros, String.class);
-
-        u = JsonHelper.FromJson(retorno.getBody(), Usuario.class);
+        u = JsonHelper.FromJson(retorno, Usuario.class);
 
         if (u == null) {
             sessao.setAttribute(AttributesConst.LOGADO, false);
         } else {
             sessao.setAttribute(AttributesConst.LOGADO, true);
+            sessao.setAttribute("usuarioLogado", u);
         }
 
-        return new ModelAndView("index");
+        return retorno;
+    }
+
+    @RequestMapping(value = "FazerLogout", produces = "application/json; charset=UTF8")
+    @ResponseBody
+    public void FazerLogout(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        HttpSession sessao = request.getSession();
+
+        sessao.setAttribute(AttributesConst.LOGADO, false);
+        sessao.setAttribute("usuarioLogado", null);
     }
 
 }

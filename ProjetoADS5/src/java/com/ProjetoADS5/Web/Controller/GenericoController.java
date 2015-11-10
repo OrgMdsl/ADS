@@ -6,10 +6,7 @@
 package com.ProjetoADS5.Web.Controller;
 
 import com.ProjetoADS5.Web.Common.Const.AccessControlConst;
-import com.ProjetoADS5.Web.Controller.Helpers.JsonHelper;
 import com.ProjetoADS5.Web.Controller.Helpers.WebServiceHelper;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class GenericoController {
-
-    private final JsonHelper JsonHelper = new JsonHelper();
 
     @RequestMapping(value = "PaginaListarGenerico" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
     public ModelAndView PaginaListarGenerico() {
@@ -45,7 +40,7 @@ public class GenericoController {
     }
 
     @RequestMapping(value = "PaginaEditarGenerico" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
-    public ModelAndView PaginaCadastroGenerico(Integer id) {
+    public ModelAndView PaginaCadastroGenerico(@RequestParam Integer id) {
         ModelAndView mv = new ModelAndView("Generico/CadastrarGenerico");
         mv.addObject("ViewName", "Edição - Listas genéricas");
         mv.addObject("ObjId", id);
@@ -54,40 +49,40 @@ public class GenericoController {
 
     @RequestMapping(value = "BuscarGenerico", produces = "application/json; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscarGenerico(@RequestParam Integer id) {
+    public String BuscarGenerico(@RequestParam Integer id) {
         String parametros = "id=" + id;
-        ResponseEntity<String> retorno = WebServiceHelper.GetToJsonService("BuscarGenerico", parametros, String.class);
+        String retorno = WebServiceHelper.GetForObject("BuscarGenerico", parametros, String.class);
         return retorno;
     }
 
     @RequestMapping(value = "BuscarGenericoNome", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscarGenericoNome(@RequestParam String nome) {
+    public String BuscarGenericoNome(@RequestParam String nome) {
         String parametros = "nome=" + nome;
-        return WebServiceHelper.GetToJsonService("BuscarGenericoNome", parametros, String.class);
+        return WebServiceHelper.GetForObject("BuscarGenericoNome", parametros, String.class);
     }
 
     @RequestMapping(value = "ListarGenerico", produces = "application/json; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> ListarGenerico() {
-        ResponseEntity<String> retorno = WebServiceHelper.GetToJsonService("ListarGenerico", null, String.class);
+    public String ListarGenerico() {
+        String retorno = WebServiceHelper.GetForObject("ListarGenerico", null, String.class);
         return retorno;
     }
 
     @RequestMapping(value = "ListarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> ListarGenericoItem(@RequestParam Integer id) {
+    public String ListarGenericoItem(@RequestParam Integer id) {
         String parametros = "id=" + id;
-        return WebServiceHelper.GetToJsonService("ListarGenericoItem", parametros, String.class);
+        return WebServiceHelper.GetForObject("ListarGenericoItem", parametros, String.class);
     }
 
     @RequestMapping(value = "BuscarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public ResponseEntity<String> BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
+    public String BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
         String parametros
                 = "sigla=" + sigla
                 + "nomePai=" + nomePai;
-        return WebServiceHelper.GetToJsonService("BuscarGenericoItem", parametros, String.class);
+        return WebServiceHelper.GetForObject("BuscarGenericoItem", parametros, String.class);
     }
 
     @RequestMapping(value = "CadastrarGenerico" + AccessControlConst.RESTRITO,

@@ -202,7 +202,7 @@ var CadastrarCurso = (function () {
                 {
                     "title": "Nome da Curso",
                     "data": "nome",
-                    "width": "80%"
+                    "width": "70%"
                 },
                 {
                     "title": "Ações",

@@ -10,7 +10,7 @@
     <body>
         
         <div class="row">
-            <img src="images/livros.jpg" alt="" style="max-height:400px;"/>
+            <div style="height:400px;"></div>
         </div>    
 
     </body>

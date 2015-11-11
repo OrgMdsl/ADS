@@ -63,8 +63,9 @@ public class GenericoRestController {
 
     @RequestMapping(value = "BuscarGenericoItem" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
-        return JsonHelper.ToJson(this.GenericoItemBll.BuscarPorSigla(sigla, nomePai), false);
+    public String BuscarGenericoItem(@RequestParam Integer id) {
+        String retorno = JsonHelper.ToJson(this.GenericoItemBll.Buscar(id), true);
+        return retorno;
     }
 
     @RequestMapping(value = "CadastrarGenerico" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")

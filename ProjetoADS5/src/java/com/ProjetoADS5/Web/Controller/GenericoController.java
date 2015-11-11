@@ -78,11 +78,8 @@ public class GenericoController {
 
     @RequestMapping(value = "BuscarGenericoItem", produces = "text/html; charset=UTF8")
     @ResponseBody
-    public String BuscarGenericoItem(@RequestParam String sigla, @RequestParam String nomePai) {
-        String parametros
-                = "sigla=" + sigla
-                + "nomePai=" + nomePai;
-        return WebServiceHelper.GetForObject("BuscarGenericoItem", parametros, String.class);
+    public String BuscarGenericoItem(@RequestParam Integer id) {
+        return WebServiceHelper.GetForObject("BuscarGenericoItem", "id="+id, String.class);
     }
 
     @RequestMapping(value = "CadastrarGenerico" + AccessControlConst.RESTRITO,

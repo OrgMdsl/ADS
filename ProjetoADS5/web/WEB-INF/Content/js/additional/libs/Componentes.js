@@ -16,8 +16,8 @@ var Componente = (function () {
             });
         }
     };
-    
-    Componente.Validar = function(erros, callback) {
+
+    Componente.Validar = function (erros, callback) {
         if (erros.length > 0) {
             var mensagem = "<span class='mensagem_modal_erro red'><b>Corrija os seguintes erros:</b><br/><br/>";
             for (var i = 0; i < erros.length; i++) {
@@ -31,7 +31,7 @@ var Componente = (function () {
         }
         callback();
     };
-    
+
     Componente.Id = $("#hiddenId");
 
     Componente.Icones = {
@@ -110,8 +110,8 @@ var Componente = (function () {
         Checkbox: function (onclick, ativo, id) {
             return "<input type='checkbox' id='" + id + "' onclick='" + onclick + "' " + (ativo ? 'checked' : '') + "/>";
         },
-        Textbox: function (value, id) {
-            return "<input type='text' id='" + id + "' value='" + value + "'/>";
+        Textbox: function (value, id, adicional) {
+            return "<input type='text' id='" + id + "' value='" + value + "' " + adicional + "/>";
         }
     };
 

@@ -11,8 +11,7 @@
 <link href="css/sb-admin.css" rel="stylesheet" type="text/css">
 <link href="css/plugins/morris.css" rel="stylesheet" type="text/css">
 <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link type="text/css" href="css/jquery.dataTables.css"  rel="stylesheet" type="text/css">
-<link href="css/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css"/>
+<link href="css/dataTables.helpdesk.css"  rel="stylesheet" type="text/css">
 <link href="css/custom.css" rel="stylesheet" type="text/css">
 
 <script src="js/jquery.js" charset="utf8" type="text/javascript"></script>

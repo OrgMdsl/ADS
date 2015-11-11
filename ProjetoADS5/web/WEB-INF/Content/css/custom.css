@@ -30,7 +30,8 @@ small {
 }
 
 .custom-navbar {
-    background: #563D7C;
+    /*background: #563D7C;*/
+    background: #2e2e2e;
 }
 
 .custom-footer {
@@ -106,7 +107,8 @@ small {
     color: #000;
 }
 .btn-custom-primary {
-    background: #563D7C;
+    /*background: #563D7C;*/
+    background: #2e2e2e;
     color: #fff;
 }
 .btn-custom-danger {
@@ -139,12 +141,12 @@ label {
 }
 .panel-default > .panel-heading {
     background-image: none;
-    background: #563D7C;
-    color: #fff;
+    background: #d8d8d8;
+    color: #555;
 }
 
 .panel:hover > .panel-heading {
-    background: #563D7C;
+    /*background: #563D7C;*/
     font-weight: bold;
 }
 
@@ -188,7 +190,7 @@ input.red {
 .mensagem_modal_erro {
     font-size: 14px;
 }
-    
+
 tr td input {
     text-align: center;
 }

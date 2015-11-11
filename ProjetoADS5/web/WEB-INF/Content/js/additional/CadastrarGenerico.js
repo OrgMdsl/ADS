@@ -86,7 +86,7 @@ var CadastrarGenerico = (function () {
 
         if (Util.IsEmpty(titulo.val())) {
             Util.InputColor.Vermelho(titulo);
-            validacoes.push("Digite uma titulo;");
+            validacoes.push("Digite um Título;");
         }
         if (Util.IsEmpty(descricao.val())) {
             Util.InputColor.Vermelho(descricao);
@@ -102,7 +102,7 @@ var CadastrarGenerico = (function () {
 
             if (idx !== -1) {
                 Util.InputColor.Vermelho(titulo);
-                validacoes.push("A titulo ' " + titulo.val().toUpperCase() + " ' já foi adicionada.");
+                validacoes.push("O título ' " + titulo.val().toUpperCase() + " ' já foi adicionado.");
             }
         }
 
@@ -116,14 +116,16 @@ var CadastrarGenerico = (function () {
             Modais.Get.Erro(mensagem, "").modal("show");
             return false;
         }
-
-        tabelaDT.row.add([
-            $("#itemDescricao").val(),
-            $("#itemTitulo").val().toUpperCase(),
-            Componente.Icones.Editar("") +
-                    Componente.Icones.Desativar("item_" + getNumero()) +
-                    Componente.Icones.Excluir("")
-        ]).draw(false);
+        debugger;
+        tabelaDT.row.add(
+                {
+                    "descricao": $("#itemDescricao").val(),
+                    "titulo": $("#itemTitulo").val(),
+                    "acoes": Componente.Icones.Editar("") +
+                            Componente.Icones.Desativar("item_" + getNumero()) +
+                            Componente.Icones.Excluir("")
+                }
+        ).draw();
         titulos.push(titulo.val());
         $("#itemTitulo").val("");
         $("#itemDescricao").val("");
@@ -197,15 +199,18 @@ var CadastrarGenerico = (function () {
             columns: [
                 {
                     width: '40%',
-                    title: 'Descrição'
+                    title: 'Descrição',
+                    data:  'descricao'
                 },
                 {
                     width: '40%',
-                    title: 'Titulo'
+                    title: 'Titulo',
+                    data:  'titulo'
                 },
                 {
                     width: '20%',
-                    title: 'Ações'
+                    title: 'Ações',
+                    data:  'acoes'
                 }
             ]
         });
@@ -221,7 +226,7 @@ var CadastrarGenerico = (function () {
                     "data": "descricao",
                     "width": "40%",
                     "render": function (data) {
-                        return Componente.Input.Textbox(data);
+                        return Componente.Input.Textbox(data, null, "style='width: 100%; font-size: small; padding: 2px;' ");
                     }
                 },
                 {
@@ -229,12 +234,13 @@ var CadastrarGenerico = (function () {
                     "title": 'Título',
                     "data": "titulo",
                     "render": function (data) {
-                        return Componente.Input.Textbox(data);
+                        return Componente.Input.Textbox(data, null, "style='width: 100%; font-size: small; padding: 2px;' ");
                     }
                 },
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }
@@ -246,6 +252,9 @@ var CadastrarGenerico = (function () {
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
             var c = "";
+
+            c += Componente.Icones.Visualizar("javascript:CadastrarGenerico.visualizarConteudo(" + row.id + ")");
+
             if (!row.ativo)
                 c += Componente.Icones.Ativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
             else
@@ -254,7 +263,24 @@ var CadastrarGenerico = (function () {
         }
         return Const.Messages.ERRO_1;
     }
-    
+
+
+    CadastrarGenerico.visualizarConteudo = function (id) {
+        Componente.Loading.Show();
+        $.ajax({
+            url: "BuscarGenericoItem?id=" + id,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                Modais.Get.Basica("Titulo: " + data.titulo + "<br><br> Descrição: <br>" + data.descricao).modal("show");
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Erro("Erro ao carregar informações.").modal("show");
+                Componente.Loading.Remove();
+            }
+        });
+    };
+
     return CadastrarGenerico;
 }());
 

@@ -6,7 +6,7 @@
       <column name="id_generico_item"/>
       <generator class="identity"/>
     </id>
-    <many-to-one class="com.ProjetoADS5.Business.Entity.Map.Generico" fetch="select" name="generico">
+    <many-to-one cascade="all" class="com.ProjetoADS5.Business.Entity.Map.Generico" fetch="select" name="generico">
       <column name="id_generico"/>
     </many-to-one>
     <property name="descricao" type="string">

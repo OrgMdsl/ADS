@@ -4,7 +4,10 @@ var pageLoaded = false;
 var numero_aux_global = 0;
 $(document).ready(function () {
     if (!pageLoaded) {
-        $("#page-wrapper").fadeIn(500);
+        $("html").fadeIn(400, function () {
+            $("#page-wrapper").fadeIn(200);
+        });
+
         pageLoaded = true;
 
 
@@ -17,14 +20,17 @@ function abrirPaginaSemRefresh(url) {
         url: url,
         type: 'POST',
         async: false,
-        cache: false,
+        cache: true,
         contentType: "text/html; charset=utf-8",
         processData: false,
         success: function (data, textStatus, jqXHR) {
+
             document.open();
             document.write(data);
             document.close();
-            //Componente.Loading.Remove();
+            Componente.Loading.Remove();
+
+
         },
         erro: function () {
             Componente.Loading.Remove();
@@ -34,10 +40,12 @@ function abrirPaginaSemRefresh(url) {
         }
     });
 }
-
+function abrirPagina2(url) {
+    abrirPaginaSemRefresh(url);
+}
 function abrirPagina(url) {
-    $("#page-wrapper").fadeOut(200, function () {
-        document.location.href = url;
+    $("body").fadeOut(200, function () {
+        window.location.href = url;
     });
 }
 

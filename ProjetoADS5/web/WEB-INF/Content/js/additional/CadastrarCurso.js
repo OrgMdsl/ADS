@@ -144,7 +144,7 @@ var CadastrarCurso = (function () {
 
         var objeto = new CursoDto();
         if (isEdicao)
-            objeto.id = $("#hiddenId").val();
+            objeto.id = parseInt($("#hiddenId").val());
         objeto.nome = $('#nome').val();
         objeto.disciplinas = null; //Impedir referencia circular
 
@@ -154,15 +154,16 @@ var CadastrarCurso = (function () {
 
         ListaCursoDto.push(objetoAux);
 
-        for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
+        for (var i = 0; i < tabelaDisciplinaDT.rows().data().length; i++) {
+            var t = tabelaDisciplinaDT.row(i).data();
             var item = new DisciplinaDto();
-            item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
+            item.id = parseInt(t.id);
             item.cursos = objetoAux;
             ListaDisciplinaDto.push(item);
         }
 
         objeto.disciplinas = ListaDisciplinaDto;
-        debugger;
+
         var obj = JSON.stringify(objeto);
 
         $.ajax({
@@ -243,12 +244,14 @@ var CadastrarCurso = (function () {
             validacoes.push("Selecione uma disciplina");
         }
 
-        if (select.val() !== '0') {
+        var valorId = parseInt(select.val());
+
+        if (valorId !== 0) {
             var idx = tabelaDisciplinaDT
                     .columns()
                     .data()
                     .eq(0) // Reduce the 2D array into a 1D array of data
-                    .indexOf(select.val());
+                    .indexOf(valorId);
 
             if (idx !== -1) {
                 Util.InputColor.Vermelho(select);
@@ -266,13 +269,22 @@ var CadastrarCurso = (function () {
             Modais.Get.Erro(mensagem, "").modal("show");
             return false;
         }
-        tabelaDisciplinaDT.row.add(
-                {
-                    "id": select.val(),
-                    "nome": select.text(),
-                    "acoes": Componente.Icones.Excluir("")
-                }
-        ).draw();
+        var dadosAdd = null;
+        if (isEdicao) {
+            var dadosAdd = {
+                "id": valorId,
+                "nome": select.text(),
+                null: Componente.Icones.Excluir("", "")
+            };
+        }
+        else {
+            var dadosAdd = {
+                "id": valorId,
+                "nome": select.text(),
+                "acoes": Componente.Icones.Excluir("", "")
+            };
+        }
+        tabelaDisciplinaDT.row.add(dadosAdd).draw(false);
 
 
     }
@@ -358,7 +370,7 @@ var CadastrarCurso = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
-                    "data": "acoes",
+                    "data": null,
                     "render": function (data, type, row) {
                         return CadastrarCurso.montaAcoesDisciplinas(row);
                     }

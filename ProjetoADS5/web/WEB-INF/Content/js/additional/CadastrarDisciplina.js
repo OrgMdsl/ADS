@@ -68,7 +68,7 @@ var CadastrarDisciplina = (function () {
 
         var objeto = new DisciplinaDto();
         if (isEdicao)
-            objeto.id = $("#hiddenId").val();
+            objeto.id = parseInt($("#hiddenId").val());
         objeto.nome = $('#nome').val();
 
         var obj = JSON.stringify(objeto);
@@ -118,7 +118,7 @@ var CadastrarDisciplina = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
-                    "data":"acoes",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }
@@ -175,7 +175,7 @@ var CadastrarDisciplina = (function () {
     };
 
     CadastrarDisciplina.confirmaExcluir = function (id) {
-        
+
         $.ajax({
             url: "ExcluirDisciplina?id=" + id,
             type: 'POST',
@@ -184,7 +184,7 @@ var CadastrarDisciplina = (function () {
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                abrirPaginaSemRefresh(window.location);
+                Modais.Get.Basica("Esta disciplina não pode ser excluída porque já está sendo usada.").modal("show");
                 Componente.Loading.Remove();
             }
         });

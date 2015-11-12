@@ -51,11 +51,11 @@ $(document).ready(function () {
         $("#panelCadastroHead").click(function () {
             $("#panelCadastro").toggle(200);
         });
-                
+
         $("#panelListaHead").click(function () {
             $("#panelLista").toggle(200);
         });
-        
+
         $("#btn-novo").click(function () {
             abrirPaginaSemRefresh(window.location);
             $("#panelLista").hide(200);
@@ -185,14 +185,15 @@ var CadastrarProfessor = (function () {
 
             ListaProfessorDto.push(objetoAux);
 
-            for (var i = 1; i <= tabelaDisciplinaDT.rows().data().length; i++) {
+            for (var i = 0; i < tabelaDisciplinaDT.rows().data().length; i++) {
+                var t = tabelaDisciplinaDT.row(i).data();
                 var item = new DisciplinaDto();
-                item.id = $("table tr:nth-child(" + i + ") td").eq(0).html();
+                item.id = parseInt(t.id);
                 item.professores = ListaProfessorDto;
                 ListaDisciplinaDto.push(item);
             }
 
-            objeto.imagem = imagem !== null ? imagem : $("img#foto").attr("src");            
+            objeto.imagem = imagem !== null ? imagem : $("img#foto").attr("src");
             objeto.disciplinas = ListaDisciplinaDto;
 
             var obj = JSON.stringify(objeto);
@@ -211,11 +212,11 @@ var CadastrarProfessor = (function () {
                 dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                    Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(\"PaginaProfessor\" + Const.AccessControl.RESTRITO);").modal("show");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                    Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(\"PaginaProfessor\" + Const.AccessControl.RESTRITO);").modal("show");
                 }
             });
         });
@@ -224,7 +225,7 @@ var CadastrarProfessor = (function () {
     }
 
     function cancelar() {
-        abrirPaginaSemRefresh(window.location);
+        abrirPaginaSemRefresh("PaginaProfessor" + Const.AccessControl.RESTRITO);
     }
 
     function TabelaEdicao(tabela, dados) {
@@ -257,6 +258,7 @@ var CadastrarProfessor = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
+                    "data": "acoes",
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }
@@ -292,12 +294,14 @@ var CadastrarProfessor = (function () {
             validacoes.push("Selecione uma disciplina");
         }
 
-        if (select.val() !== '0') {
+        var valueId = parseInt(select.val());
+
+        if (valueId !== 0) {
             var idx = tabelaDisciplinaDT
                     .columns()
                     .data()
                     .eq(0) // Reduce the 2D array into a 1D array of data
-                    .indexOf(select.val());
+                    .indexOf(valueId);
 
             if (idx !== -1) {
                 Util.InputColor.Vermelho(select);
@@ -316,11 +320,26 @@ var CadastrarProfessor = (function () {
             return false;
         }
 
-        tabelaDisciplinaDT.row.add({
-            "id": select.val(),
-            "nome": select.text(),
-            "acoes": Componente.Icones.Excluir("")
-        }).draw(false);
+        var dadosAdd = null;
+        if (isEdicao) {
+            dadosAdd = {
+                "id": valueId,
+                "nome": select.text(),
+                null: Componente.Icones.Excluir("", "")
+            };
+        }
+        else
+        {
+            dadosAdd = {
+                "id": valueId,
+                "nome": select.text(),
+                "acoes": Componente.Icones.Excluir("", "")
+            };
+        }
+
+
+
+        tabelaDisciplinaDT.row.add(dadosAdd).draw(false);
     }
 
     CadastrarProfessor.carregarTabela = function () {
@@ -380,11 +399,11 @@ var CadastrarProfessor = (function () {
             url: "ExcluirProfessor?id=" + id,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
-                abrirPaginaSemRefresh(window.location);
+                abrirPaginaSemRefresh("PaginaProfessor" + Const.AccessControl.RESTRITO);
                 Componente.Loading.Remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                abrirPaginaSemRefresh(window.location);
+                abrirPaginaSemRefresh("PaginaProfessor" + Const.AccessControl.RESTRITO);
                 Componente.Loading.Remove();
             }
         });
@@ -410,7 +429,7 @@ var CadastrarProfessor = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
-                    "data": "acoes",
+                    "data": null,
                     "render": function (data, type, row) {
                         return CadastrarProfessor.montaAcoesDisciplinas(row);
                     }

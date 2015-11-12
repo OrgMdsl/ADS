@@ -45,7 +45,7 @@ var Util = (function () {
     };
 
     Util.ValueExist = function (strd) {
-        debugger;
+        
         existe = false;
         $('tr').each(function () {
             if ($('td:nth(1)', $(this)).html() === strd) {

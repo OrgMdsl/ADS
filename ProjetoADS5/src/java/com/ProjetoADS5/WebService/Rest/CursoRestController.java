@@ -39,7 +39,7 @@ public class CursoRestController {
     @RequestMapping(value = "CadastrarCurso" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String CadastrarCurso(@RequestBody String obj) {
-        Curso _obj = new JsonHelper().FromJson(obj, Curso.class);
+        Curso _obj = new JsonHelper().FromJson(obj, Curso.class, true);
         List<Disciplina> disciplinas = new ArrayList<Disciplina>();
         List<Curso> cursos = new ArrayList<Curso>();
         cursos.add(_obj);

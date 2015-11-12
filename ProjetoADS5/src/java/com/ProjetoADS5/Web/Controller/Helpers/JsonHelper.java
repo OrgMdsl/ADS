@@ -27,6 +27,16 @@ public class JsonHelper {
         return json;
     }
 
+    public <T> T FromJson(String json, Class<T> obj, boolean exclude) {
+        Gson gson = null;
+        if (exclude) {
+            gson = new GsonBuilder().serializeNulls().serializeSpecialFloatingPointValues().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+        } else {
+            gson = new GsonBuilder().serializeNulls().serializeSpecialFloatingPointValues().create();
+        }
+        return gson.fromJson(json, obj);
+    }
+    
     public <T> T FromJson(String json, Class<T> obj) {
         return new Gson().fromJson(json, obj);
     }

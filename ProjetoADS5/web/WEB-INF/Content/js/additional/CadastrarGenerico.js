@@ -116,16 +116,27 @@ var CadastrarGenerico = (function () {
             Modais.Get.Erro(mensagem, "").modal("show");
             return false;
         }
-        debugger;
-        tabelaDT.row.add(
-                {
-                    "descricao": $("#itemDescricao").val(),
-                    "titulo": $("#itemTitulo").val(),
-                    "acoes": Componente.Icones.Editar("") +
-                            Componente.Icones.Desativar("item_" + getNumero()) +
-                            Componente.Icones.Excluir("")
-                }
-        ).draw();
+        var dadosAdd = null;
+        if (isEdicao) {
+            dadosAdd = {
+                "descricao": $("#itemDescricao").val(),
+                "titulo": $("#itemTitulo").val(),
+                null: Componente.Icones.Editar("") +
+                        Componente.Icones.Desativar("item_" + getNumero()) +
+                        Componente.Icones.Excluir("")
+            };
+        }
+        else
+        {
+            dadosAdd = {
+                "descricao": $("#itemDescricao").val(),
+                "titulo": $("#itemTitulo").val(),
+                "acoes": Componente.Icones.Editar("") +
+                        Componente.Icones.Desativar("item_" + getNumero()) +
+                        Componente.Icones.Excluir("")
+            };
+        }
+        tabelaDT.row.add(dadosAdd).draw(false);
         titulos.push(titulo.val());
         $("#itemTitulo").val("");
         $("#itemDescricao").val("");
@@ -146,7 +157,7 @@ var CadastrarGenerico = (function () {
 
         var objeto = new GenericoDto();
         if (isEdicao)
-            objeto.id = $("#hiddenId").val();
+            objeto.id = parseInt($("#hiddenId").val());
         objeto.nome = $('#nome').val();
         objeto.descricao = $('#descricao').val();
         objeto.genericoItems = null; //Impedir referencia circular
@@ -157,10 +168,11 @@ var CadastrarGenerico = (function () {
         objetoAux = jQuery.extend(true, {}, objeto);
 
         if (!isEdicao) {
-            for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
+            for (var i = 0; i < tabelaDT.rows().data().length; i++) {
+                var t = tabelaDT.row(i).data();
                 var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td").eq(0).html();
-                item.titulo = $("table tr:nth-child(" + i + ") td").eq(1).html();
+                item.descricao = i.descricao;
+                item.titulo = i.titulo;
                 item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
                 item.generico = objetoAux;
                 ListaGenericoItemDto.push(item);
@@ -200,17 +212,17 @@ var CadastrarGenerico = (function () {
                 {
                     width: '40%',
                     title: 'Descrição',
-                    data:  'descricao'
+                    data: 'descricao'
                 },
                 {
                     width: '40%',
                     title: 'Titulo',
-                    data:  'titulo'
+                    data: 'titulo'
                 },
                 {
                     width: '20%',
                     title: 'Ações',
-                    data:  'acoes'
+                    data: 'acoes'
                 }
             ]
         });
@@ -240,7 +252,7 @@ var CadastrarGenerico = (function () {
                 {
                     "title": "Ações",
                     "width": "20%",
-                    "data": "acoes",
+                    "data": null,
                     "render": function (data, type, row) {
                         return montaAcoes(row);
                     }

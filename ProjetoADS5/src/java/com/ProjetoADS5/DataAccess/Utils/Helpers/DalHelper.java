@@ -50,6 +50,19 @@ public class DalHelper<T> implements IDalHelper<T> {
     }
 
     @Override
+    public T BuscarPorAtributo(String atributo, String valor) {
+        Session s = getSession();
+        Criteria crit = s.createCriteria(entityClass)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        try {
+            crit.add(Restrictions.eq(atributo, valor));
+            return (T) crit.uniqueResult();
+        } finally {
+            //s.close();
+        }
+    }
+
+    @Override
     public List<T> Pesquisar() {
         Session s = getSession();
         Criteria crit = s.createCriteria(entityClass)
@@ -87,11 +100,10 @@ public class DalHelper<T> implements IDalHelper<T> {
     }
 
     @Override
-    public String Inserir(T obj) {
+    public String Inserir(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
+
         Reflection.set(obj, "dataCadastro", DateTime.now().toDate());
         try {
             s.save(obj);
@@ -99,54 +111,50 @@ public class DalHelper<T> implements IDalHelper<T> {
             return MessagesConst.INSERIDO;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+            throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String Atualizar(T obj) {
+    public String Atualizar(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
         try {
             s.update(obj);
             t.commit();
             return MessagesConst.ATUALIZADO;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+            throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String InserirAtualizar(T obj) {
+    public String InserirAtualizar(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
+
         try {
             s.saveOrUpdate(obj);
             t.commit();
             return MessagesConst.INSERIDO;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+           throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String Excluir(T obj) {
+    public String Excluir(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
+
         Reflection.set(obj, "ativo", false);
         try {
             s.update(obj);
@@ -154,36 +162,32 @@ public class DalHelper<T> implements IDalHelper<T> {
             return MessagesConst.LIXEIRA;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+            throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String ExcluirFisicamente(T obj) {
+    public String ExcluirFisicamente(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
         try {
             s.delete(obj);
             t.commit();
             return MessagesConst.EXCLUÍDO;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+            throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String ToggleStatus(T obj) {
+    public String ToggleStatus(T obj) throws Exception {
         Session s = getSession();
         Transaction t = s.beginTransaction();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "text/html; charset=utf8");
         Boolean ativo = (Boolean) Reflection.get(obj, "ativo");
         if (ativo != null) {
             if (ativo) {
@@ -200,14 +204,14 @@ public class DalHelper<T> implements IDalHelper<T> {
             return MessagesConst.ATUALIZADO;
         } catch (Exception ex) {
             t.rollback();
-            return ex.getMessage();
+            throw new Exception(ex.getMessage());
         } finally {
             s.close();
         }
     }
 
     @Override
-    public String ToggleStatus(Integer id) {
+    public String ToggleStatus(Integer id) throws Exception {
         T obj = this.Buscar(id);
         return this.ToggleStatus(obj);
     }

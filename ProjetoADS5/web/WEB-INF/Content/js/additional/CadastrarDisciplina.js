@@ -86,18 +86,20 @@ var CadastrarDisciplina = (function () {
             data: obj,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
+                $("#panelLista").show(200);
                 Componente.Loading.Remove();
-                Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                Modais.Get.Basica(data, "abrirPaginaSemRefresh(window.location);").modal("show");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 Componente.Loading.Remove();
-                Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                Modais.Get.Basica("Já há uma disciplina cadastrada com esse nome.", "abrirPaginaSemRefresh(window.location);").modal("show");
             }
         });
 
     }
 
     function cancelar() {
+        $("#panelLista").show(200);
         abrirPaginaSemRefresh(window.location);
     }
 
@@ -129,8 +131,9 @@ var CadastrarDisciplina = (function () {
 
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
-            var c = Componente.Icones.Excluir("javascript:CadastrarDisciplina.excluirDisciplina(" + row.id + ")", "");
-            c += Componente.Icones.Editar("javascript:CadastrarDisciplina.editarDisciplina(" + row.id + ")", "");
+            var c = Componente.Icones.Editar("javascript:CadastrarDisciplina.editarDisciplina(" + row.id + ")", "");
+            c += Componente.Icones.Excluir("javascript:CadastrarDisciplina.excluirDisciplina(" + row.id + ")", "");
+
             return c;
         }
         return Const.Messages.ERRO_1;
@@ -154,6 +157,7 @@ var CadastrarDisciplina = (function () {
         });
     };
     CadastrarDisciplina.editarDisciplina = function (id) {
+        $("#panelLista").hide(200);
         isEdicao = true;
         hiddenId.val(id);
         $.ajax({

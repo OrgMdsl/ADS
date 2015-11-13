@@ -180,11 +180,12 @@ var CadastrarCurso = (function () {
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
                 Componente.Loading.Remove();
-                Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                Modais.Get.Basica(data, "abrirPaginaSemRefresh(window.location);").modal("show");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 Componente.Loading.Remove();
-                Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(window.location);").modal("show");
+                Util.InputColor.Vermelho($("#nome"));
+                Modais.Get.Basica("Já há um curso cadastrado com esse nome.").modal("show");
             }
         });
 

@@ -38,44 +38,51 @@ public class CursoRestController {
 
     @RequestMapping(value = "CadastrarCurso" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String CadastrarCurso(@RequestBody String obj) {
+    public String CadastrarCurso(@RequestBody String obj) throws Exception {
         Curso _obj = new JsonHelper().FromJson(obj, Curso.class, true);
         List<Disciplina> disciplinas = new ArrayList<Disciplina>();
         List<Curso> cursos = new ArrayList<Curso>();
         cursos.add(_obj);
-        
+
         _obj.getDisciplinas().stream().forEach((d) -> {
             Disciplina disciplina = new DalHelper<Disciplina>(Disciplina.class).Buscar(d.getId());
             disciplina.setCursos(cursos);
             disciplinas.add(disciplina);
-        });      
+        });
         _obj.setDisciplinas(disciplinas);
-        
+
         if (_obj.getId() == null) {
-            return new DalHelper<Curso>(Curso.class).Inserir(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Curso>(Curso.class).Inserir(_obj), true);
         } else {
-            return new DalHelper<Curso>(Curso.class).Atualizar(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Curso>(Curso.class).Atualizar(_obj), true);
         }
     }
 
     @RequestMapping(value = "ExcluirCurso" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String ExcluirCurso(@RequestParam String id) {
+    public String ExcluirCurso(@RequestParam String id) throws Exception {
         Curso obj = new Curso();
         obj.setId(Integer.valueOf(id));
-        return new DalHelper<Curso>(Curso.class).ExcluirFisicamente(obj);
+        return new JsonHelper().ToJson(new DalHelper<Curso>(Curso.class).ExcluirFisicamente(obj), false);
     }
 
     @RequestMapping(value = "BuscarCurso" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String BuscarCurso(@RequestParam String id) {
+    public String BuscarCurso(@RequestParam String id) throws Exception {
         Curso o = new DalHelper<Curso>(Curso.class).Buscar(Integer.parseInt(id));
         return new JsonHelper().ToJson(o, true);
     }
-
+    
+    @RequestMapping(value = "BuscarCursoNome" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String BuscarCursoNome(@RequestParam String nome) throws Exception {
+        Curso o = new DalHelper<Curso>(Curso.class).BuscarPorAtributo("nome",nome);
+        return new JsonHelper().ToJson(o, true);
+    }
+    
     @RequestMapping(value = "PesquisarCurso" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String PesquisarCurso() {
+    public String PesquisarCurso() throws Exception {
         Session s = HibernateUtil.getSession();
         Criteria crit = s.createCriteria(Curso.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

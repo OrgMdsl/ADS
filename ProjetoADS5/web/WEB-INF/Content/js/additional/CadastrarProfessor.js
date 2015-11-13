@@ -5,6 +5,7 @@ var hiddenId;
 var nome;
 var usuario;
 var senha;
+var re;
 var file;
 var tabelaDT;
 var tabela;
@@ -16,6 +17,7 @@ $(document).ready(function () {
     usuario = $("#usuario");
     senha = $("#senha");
     file = $("#file");
+    re = $("#re");
     isEdicao = Util.IsEmpty(hiddenId.val()) ? false : true;
 
     CadastrarProfessor.load(function () {
@@ -139,6 +141,21 @@ var CadastrarProfessor = (function () {
             Util.InputColor.Vermelho(nome);
             erros.push("Nome do curso não pode estar vazio");
         }
+        
+        if (Util.IsEmpty(usuario.val())) {
+            Util.InputColor.Vermelho(usuario);
+            erros.push("Usuário não pode estar vazio");
+        }
+        
+        if (Util.IsEmpty(re.val())) {
+            Util.InputColor.Vermelho(re);
+            erros.push("R.E. não pode estar vazio");
+        }
+        
+        if (Util.IsEmpty(senha.val())) {
+            Util.InputColor.Vermelho(senha);
+            erros.push("Senha não pode estar vazio");
+        }
 
         Componente.Validar(erros, function () {
             callback();
@@ -212,11 +229,11 @@ var CadastrarProfessor = (function () {
                 dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(data.responseText, "abrirPaginaSemRefresh(\"PaginaProfessor\" + Const.AccessControl.RESTRITO);").modal("show");
+                    Modais.Get.Basica(data, "abrirPaginaSemRefresh(window.location);").modal("show");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(jqXHR.responseText, "abrirPaginaSemRefresh(\"PaginaProfessor\" + Const.AccessControl.RESTRITO);").modal("show");
+                    Modais.Get.Basica("Verifique seu R.E. ou Usuário, um deles já está sendo utilizado.").modal("show");
                 }
             });
         });

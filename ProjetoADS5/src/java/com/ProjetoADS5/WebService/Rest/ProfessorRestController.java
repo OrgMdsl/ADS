@@ -38,7 +38,7 @@ public class ProfessorRestController {
 
     @RequestMapping(value = "CadastrarProfessor" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String CadastrarProfessor(@RequestBody String obj) {
+    public String CadastrarProfessor(@RequestBody String obj) throws Exception {
         Professor _obj = new JsonHelper().FromJson(obj, Professor.class);
         List<Disciplina> disciplinas = new ArrayList<Disciplina>();
         List<Professor> professores = new ArrayList<Professor>();
@@ -52,30 +52,30 @@ public class ProfessorRestController {
         _obj.setDisciplinas(disciplinas);
         
         if (_obj.getId() == null) {
-            return new DalHelper<Professor>(Professor.class).Inserir(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Professor>(Professor.class).Inserir(_obj), true);
         } else {
-            return new DalHelper<Professor>(Professor.class).Atualizar(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Professor>(Professor.class).Atualizar(_obj), true);
         }
     }
 
     @RequestMapping(value = "ExcluirProfessor" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String ExcluirProfessor(@RequestParam String id) {
+    public String ExcluirProfessor(@RequestParam String id) throws Exception {
         Professor obj = new Professor();
         obj.setId(Integer.valueOf(id));
-        return new DalHelper<Professor>(Professor.class).ExcluirFisicamente(obj);
+        return new JsonHelper().ToJson(new DalHelper<Professor>(Professor.class).ExcluirFisicamente(obj), true);
     }
 
     @RequestMapping(value = "BuscarProfessor" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String BuscarProfessor(@RequestParam String id) {
+    public String BuscarProfessor(@RequestParam String id) throws Exception {
         Professor o = new DalHelper<Professor>(Professor.class).Buscar(Integer.parseInt(id));
         return new JsonHelper().ToJson(o, true);
     }
 
     @RequestMapping(value = "PesquisarProfessor" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String PesquisarProfessor() {
+    public String PesquisarProfessor() throws Exception {
         Session s = HibernateUtil.getSession();
         Criteria crit = s.createCriteria(Professor.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

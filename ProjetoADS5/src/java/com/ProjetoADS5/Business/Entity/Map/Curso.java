@@ -28,7 +28,7 @@ public class Curso implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     
-    @Column
+    @Column(unique = true)
     String nome;
     
     

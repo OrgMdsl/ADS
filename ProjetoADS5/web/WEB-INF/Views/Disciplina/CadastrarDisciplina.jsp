@@ -29,7 +29,7 @@
 
                                     <div class="panel panel-default">
                                         <div class="panel-heading">Disciplinas</div>
-                                        <div class="panel-body">
+                                        <div class="panel-body" id="panelLista">
                                             <div>
                                                 <table id="listagem-Disciplina" class="table table-condensed table-hover table-responsive table-striped"> 
                                                 </table>

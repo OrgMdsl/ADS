@@ -37,34 +37,34 @@ public class DisciplinaRestController {
     
     @RequestMapping(value = "CadastrarDisciplina" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String CadastrarDisciplina(@RequestBody String obj) {
+    public String CadastrarDisciplina(@RequestBody String obj) throws Exception {
         Disciplina _obj = new JsonHelper().FromJson(obj, Disciplina.class);
         
         if (_obj.getId() == null) {
-            return new DalHelper<Disciplina>(Disciplina.class).Inserir(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Disciplina>(Disciplina.class).Inserir(_obj), true);
         } else {
-            return new DalHelper<Disciplina>(Disciplina.class).Atualizar(_obj);
+            return new JsonHelper().ToJson(new DalHelper<Disciplina>(Disciplina.class).Atualizar(_obj), true);
         }
     }
     
     @RequestMapping(value = "ExcluirDisciplina" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String ExcluirDisciplina(@RequestParam String id) {
+    public String ExcluirDisciplina(@RequestParam String id) throws Exception {
         Disciplina obj = new Disciplina();
         obj.setId(Integer.valueOf(id));
-        return new DalHelper<Disciplina>(Disciplina.class).ExcluirFisicamente(obj);
+        return new JsonHelper().ToJson(new DalHelper<Disciplina>(Disciplina.class).ExcluirFisicamente(obj), false);
     }
     
     @RequestMapping(value = "BuscarDisciplina" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String BuscarDisciplina(@RequestParam String id) {
+    public String BuscarDisciplina(@RequestParam String id) throws Exception {
         Disciplina o = new DalHelper<Disciplina>(Disciplina.class).Buscar(Integer.parseInt(id));    
         return new JsonHelper().ToJson(o, true);
     }
     
      @RequestMapping(value = "PesquisarDisciplina" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String PesquisarDisciplina() {
+    public String PesquisarDisciplina() throws Exception {
         Session s = HibernateUtil.getSession();
         Criteria crit = s.createCriteria(Disciplina.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

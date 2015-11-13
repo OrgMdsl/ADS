@@ -197,7 +197,7 @@ var CadastrarGenerico = (function () {
         AjaxHelper.Post("CadastrarGenerico", true, null, obj,
                 function (sucesso) {
                     Componente.Loading.Remove();
-                    Modais.Get.Basica(sucesso.responseText, "abrirPaginaSemRefresh(window.location);");
+                    Modais.Get.Basica(sucesso, "abrirPaginaSemRefresh(window.location);");
                 },
                 function (erro) {
                     Componente.Loading.Remove();

@@ -36,41 +36,41 @@ public class GenericoRestController {
 
     @RequestMapping(value = "BuscarGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String BuscarGenerico(@RequestParam Integer id) {
+    public String BuscarGenerico(@RequestParam Integer id) throws Exception {
         String json = JsonHelper.ToJson(this.GenericoBll.Buscar(id), true);
         return json;
     }
 
     @RequestMapping(value = "BuscarGenericoNome" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String BuscarGenericoNome(@RequestParam String nome) {
+    public String BuscarGenericoNome(@RequestParam String nome) throws Exception {
         return JsonHelper.ToJson(this.GenericoBll.BuscarPorNome(nome), true);
     }
 
     @RequestMapping(value = "ListarGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String ListarGenerico() {
+    public String ListarGenerico() throws Exception {
         String json = JsonHelper.ToJson(this.GenericoBll.PesquisarTodos(), true);
         return json;
     }
 
     @RequestMapping(value = "ListarGenericoItem" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String ListarGenericoItem(@RequestParam Integer id) {
+    public String ListarGenericoItem(@RequestParam Integer id) throws Exception {
         String json = JsonHelper.ToJson(this.GenericoItemBll.GetItens(id), false);
         return json;
     }
 
     @RequestMapping(value = "BuscarGenericoItem" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String BuscarGenericoItem(@RequestParam Integer id) {
+    public String BuscarGenericoItem(@RequestParam Integer id) throws Exception {
         String retorno = JsonHelper.ToJson(this.GenericoItemBll.Buscar(id), true);
         return retorno;
     }
 
     @RequestMapping(value = "CadastrarGenerico" + ActionsConst.WEB_SERVICE, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String CadastrarGenerico(@RequestBody String obj) {
+    public String CadastrarGenerico(@RequestBody String obj) throws Exception {
         Generico _obj = JsonHelper.FromJson(obj, Generico.class);
 
         Generico generico = new Generico();
@@ -86,24 +86,24 @@ public class GenericoRestController {
         generico.setGenericoItems(itens);
 
         if (_obj.getId() == null) {
-            return this.GenericoBll.Inserir(generico);
+            return JsonHelper.ToJson(this.GenericoBll.Inserir(generico),true);
         } else {
-            return this.GenericoBll.Atualizar(generico);
+            return JsonHelper.ToJson(this.GenericoBll.Atualizar(generico),true);
         }
     }
 
     @RequestMapping(value = "AlterarStatusGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=UTF8")
     @ResponseBody
-    public String AlterarStatusGenerico(@RequestParam Integer id) {
+    public String AlterarStatusGenerico(@RequestParam Integer id) throws Exception {
         String json = this.GenericoBll.ToggleStatus(id);
         return json;
     }
     
     @RequestMapping(value = "ExcluirGenerico" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String ExcluirGenerico(@RequestParam String id) {
+    public String ExcluirGenerico(@RequestParam String id) throws Exception {
         Generico obj = new Generico();
         obj.setId(Integer.valueOf(id));
-        return this.GenericoBll.ExcluirFisicamente(obj);
+        return JsonHelper.ToJson(this.GenericoBll.ExcluirFisicamente(obj), true);
     }
 }

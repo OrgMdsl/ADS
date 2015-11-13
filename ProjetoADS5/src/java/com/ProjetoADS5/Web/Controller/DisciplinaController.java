@@ -60,7 +60,8 @@ public class DisciplinaController {
     @RequestMapping(value = "ExcluirDisciplina", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String ExcluirDisciplina(@RequestParam String id) {
-        return WebServiceHelper.GetForObject("ExcluirDisciplina", "id="+id, String.class);
+        String retorno = WebServiceHelper.GetForObject("ExcluirDisciplina", "id="+id, String.class);
+        return retorno;
     }
     
     

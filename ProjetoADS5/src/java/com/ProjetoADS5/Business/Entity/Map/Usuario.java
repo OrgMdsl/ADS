@@ -25,7 +25,7 @@ public class Usuario implements java.io.Serializable {
     @Column
     private String nome;
 
-    @Column
+    @Column(unique = true)
     private String usuario;
 
     @Column

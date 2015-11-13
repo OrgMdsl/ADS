@@ -35,7 +35,7 @@ public class GenericoItemBll extends DalHelper<GenericoItem> implements IGeneric
     }
 
     @Override
-    public String AtivarDesativar(Integer id) {
+    public String AtivarDesativar(Integer id) throws Exception {
         GenericoItem obj = GenericoItemDal.Buscar(id);
         obj.setAtivo(!obj.getAtivo());      
         return GenericoItemDal.Atualizar(obj);         

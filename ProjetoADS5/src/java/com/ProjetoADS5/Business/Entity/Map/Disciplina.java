@@ -26,7 +26,7 @@ public class Disciplina implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     
-    @Column
+    @Column(unique = true)
     String nome;
     
     @ManyToMany

@@ -53,9 +53,7 @@ public class WebServiceHelper {
         return new JsonHelper().FromJson(resposta, obj);
     }
 
-    public static String PostCrud(String action, String obj, Map<String, String> vars) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json; charset=utf8");
+    public static String PostCrud(String action, String obj, Map<String, String> vars) {        
         String url = WebServiceHelper.GetWebServiceUrl(action, null);
         String t = "";
         if (vars != null) {

@@ -121,8 +121,8 @@ var CadastrarGenerico = (function () {
             dadosAdd = {
                 "descricao": $("#itemDescricao").val(),
                 "titulo": $("#itemTitulo").val(),
-                null: Componente.Icones.Editar("") +
-                        Componente.Icones.Desativar("item_" + getNumero()) +
+                null: //Componente.Icones.Editar("") +
+                        //Componente.Icones.Desativar("item_" + getNumero()) +
                         Componente.Icones.Excluir("")
             };
         }
@@ -131,8 +131,8 @@ var CadastrarGenerico = (function () {
             dadosAdd = {
                 "descricao": $("#itemDescricao").val(),
                 "titulo": $("#itemTitulo").val(),
-                "acoes": Componente.Icones.Editar("") +
-                        Componente.Icones.Desativar("item_" + getNumero()) +
+                "acoes": //Componente.Icones.Editar("") +
+                        //Componente.Icones.Desativar("item_" + getNumero()) +
                         Componente.Icones.Excluir("")
             };
         }
@@ -171,9 +171,9 @@ var CadastrarGenerico = (function () {
             for (var i = 0; i < tabelaDT.rows().data().length; i++) {
                 var t = tabelaDT.row(i).data();
                 var item = new GenericoItemDto();
-                item.descricao = i.descricao;
-                item.titulo = i.titulo;
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
+                item.descricao = t.descricao;
+                item.titulo = t.titulo;
+                item.ativo = true;//Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status"), "ativo");
                 item.generico = objetoAux;
                 ListaGenericoItemDto.push(item);
             }
@@ -182,9 +182,9 @@ var CadastrarGenerico = (function () {
         {
             for (var i = 1; i <= tabelaDT.rows().data().length; i++) {
                 var item = new GenericoItemDto();
-                item.descricao = $("table tr:nth-child(" + i + ") td input").eq(0).val();
-                item.titulo = $("table tr:nth-child(" + i + ") td input").eq(1).val();
-                item.ativo = Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
+                item.descricao = $("table tr:nth-child(" + i + ") td textarea").eq(0).val();
+                item.titulo = $("table tr:nth-child(" + i + ") td input").eq(0).val();
+                item.ativo = true;//Util.HasClass($("table tr:nth-child(" + i + ") td").eq(2).children(".ico_muda_status")[0], "ativo");
                 item.generico = objetoAux;
                 ListaGenericoItemDto.push(item);
             }
@@ -210,14 +210,14 @@ var CadastrarGenerico = (function () {
         return tabela.DataTable({
             columns: [
                 {
-                    width: '40%',
-                    title: 'Descrição',
-                    data: 'descricao'
-                },
-                {
-                    width: '40%',
+                    width: '30%',
                     title: 'Titulo',
                     data: 'titulo'
+                },
+                {
+                    width: '50%',
+                    title: 'Descrição',
+                    data: 'descricao'
                 },
                 {
                     width: '20%',
@@ -234,21 +234,21 @@ var CadastrarGenerico = (function () {
             "deferRender": true,
             "columns": [
                 {
-                    "title": "Descrição",
-                    "data": "descricao",
-                    "width": "40%",
-                    "render": function (data) {
-                        return Componente.Input.Textbox(data, null, "style='width: 100%; font-size: small; padding: 2px;' ");
-                    }
-                },
-                {
-                    "width": '40%',
+                    "width": '30%',
                     "title": 'Título',
                     "data": "titulo",
                     "render": function (data) {
                         return Componente.Input.Textbox(data, null, "style='width: 100%; font-size: small; padding: 2px;' ");
                     }
                 },
+                {
+                    "title": "Descrição",
+                    "data": "descricao",
+                    "width": "50%",
+                    "render": function (data) {
+                        return Componente.Input.Textarea(data, null, "style='width: 100%; height:50px;  font-size: small; padding: 2px;' ");
+                    }
+                },                
                 {
                     "title": "Ações",
                     "width": "20%",
@@ -265,12 +265,13 @@ var CadastrarGenerico = (function () {
         if (!Util.IsNull(row)) {
             var c = "";
 
-            c += Componente.Icones.Visualizar("javascript:CadastrarGenerico.visualizarConteudo(" + row.id + ")");
-
-            if (!row.ativo)
-                c += Componente.Icones.Ativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
-            else
-                c += Componente.Icones.Desativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
+            //c += Componente.Icones.Visualizar("javascript:CadastrarGenerico.visualizarConteudo(" + row.id + ")");
+            c += Componente.Icones.Excluir("", "");
+            /*if (!row.ativo)
+             c += Componente.Icones.Ativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
+             else
+             c += Componente.Icones.Desativar("", "AlterarStatusGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
+             */
             return c;
         }
         return Const.Messages.ERRO_1;
@@ -292,6 +293,28 @@ var CadastrarGenerico = (function () {
             }
         });
     };
+/*
+    CadastrarGenerico.excluirConteudo = function (id) {
+        CadastrarGenerico.confirmaExcluirItem(id);
+        //Modais.Get.Confirmacao("Deseja realmente excluir este item?", "CadastrarGenerico.confirmaExcluirItem(" + id + ")", null).modal("show");
+    };
+
+    CadastrarGenerico.confirmaExcluirItem = function (id) {
+
+        $.ajax({
+            url: "ExcluirGenericoItem?id=" + id,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                abrirPaginaSemRefresh(window.location);
+                Componente.Loading.Remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Modais.Get.Basica("Este conteúdo não pode ser excluído.").modal("show");
+                Componente.Loading.Remove();
+            }
+        });
+    };
+*/
 
     return CadastrarGenerico;
 }());

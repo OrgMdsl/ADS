@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Disciplina implements Serializable {
     String nome;
     
     @ManyToMany
-    private transient List<Generico>  conteudos;
+    private List<Generico> conteudos;
     
     @ManyToMany(mappedBy = "disciplinas")
     private transient List<Professor> professores;

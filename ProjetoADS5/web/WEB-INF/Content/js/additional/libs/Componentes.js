@@ -111,7 +111,10 @@ var Componente = (function () {
             return "<input type='checkbox' id='" + id + "' onclick='" + onclick + "' " + (ativo ? 'checked' : '') + "/>";
         },
         Textbox: function (value, id, adicional) {
-            return "<input type='text' id='" + id + "' value='" + value + "' " + adicional + "/>";
+            return "<input type='text' class='form-control' id='" + id + "' value='" + value + "' " + adicional + "/>";
+        },
+        Textarea: function (value, id, adicional) {
+            return "<textarea class='form-control' id='" + id + "' " + adicional + "/>" + value + "</textarea>";
         }
     };
 

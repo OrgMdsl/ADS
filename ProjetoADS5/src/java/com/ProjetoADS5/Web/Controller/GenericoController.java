@@ -101,4 +101,10 @@ public class GenericoController {
     public String ExcluirGenerico(@RequestParam String id) {
         return WebServiceHelper.GetForObject("ExcluirGenerico", "id="+id, String.class);
     }
+    
+    @RequestMapping(value = "ExcluirGenericoItem", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirGenericoItem(@RequestParam String id) {
+        return WebServiceHelper.GetForObject("ExcluirGenericoItem", "id="+id, String.class);
+    }
 }

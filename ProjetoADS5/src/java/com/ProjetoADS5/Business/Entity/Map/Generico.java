@@ -59,12 +59,13 @@ public class Generico implements java.io.Serializable {
         this.dataCadastro = dataCadastro;
     }
 
-    public List getGenericoItems() {
-        return this.genericoItems;
+    public List<GenericoItem> getGenericoItems() {
+        return genericoItems;
     }
 
-    public void setGenericoItems(List genericoItems) {
+    public void setGenericoItems(List<GenericoItem> genericoItems) {
         this.genericoItems = genericoItems;
     }
 
+    
 }

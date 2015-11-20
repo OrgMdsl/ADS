@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class catalog="GerenciadorConteudo1" name="com.ProjetoADS5.Business.Entity.Map.Generico" optimistic-lock="version" schema="dbo" table="Generico">
+  <class catalog="GerenciadorConteudo2" name="com.ProjetoADS5.Business.Entity.Map.Generico" optimistic-lock="version" schema="dbo" table="Generico">
     <id name="id" type="integer">
       <column name="id_generico"/>
       <generator class="identity"/>

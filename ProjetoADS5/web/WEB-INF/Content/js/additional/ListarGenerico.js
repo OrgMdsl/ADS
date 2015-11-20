@@ -48,7 +48,7 @@ var ListarGenerico = (function () {
 
     function montaAcoes(row) {
         if (!Util.IsNull(row)) {
-            var c = Componente.Icones.Visualizar("PaginaVisualizarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id) +
+            var c = //Componente.Icones.Visualizar("PaginaVisualizarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id) +
                     Componente.Icones.Editar("PaginaEditarGenerico" + Const.AccessControl.RESTRITO + "?id=" + row.id);
                 c += Componente.Icones.Excluir("javascript:ListarGenerico.excluiGenerico(" + row.id + ")", "");
             return c;

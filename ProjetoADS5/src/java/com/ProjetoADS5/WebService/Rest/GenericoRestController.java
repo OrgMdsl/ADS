@@ -106,4 +106,12 @@ public class GenericoRestController {
         obj.setId(Integer.valueOf(id));
         return JsonHelper.ToJson(this.GenericoBll.ExcluirFisicamente(obj), true);
     }
+    
+    @RequestMapping(value = "ExcluirGenericoItem" + ActionsConst.WEB_SERVICE, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String ExcluirGenericoItem(@RequestParam String id) throws Exception {
+        GenericoItem obj = new GenericoItem();
+        obj.setId(Integer.valueOf(id));
+        return JsonHelper.ToJson(this.GenericoItemBll.ExcluirFisicamente(obj), true);
+    }
 }

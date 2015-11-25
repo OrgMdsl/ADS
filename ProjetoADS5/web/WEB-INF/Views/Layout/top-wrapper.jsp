@@ -10,7 +10,7 @@
             <i class="fa fa-bars"></i>
         </button>
 
-        <a class="navbar-brand" href="index"><strong>Gerenciador de Conteúdos</strong> - <small> LZ Systems </small></a>
+        <a class="navbar-brand" href="home"><strong>Gerenciador de Conteúdos</strong> - <small> LZ Systems </small></a>
 
     </div>
     <!-- Top Menu Items -->

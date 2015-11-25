@@ -42,7 +42,7 @@ public class GenericoController {
     @RequestMapping(value = "PaginaEditarGenerico" + AccessControlConst.RESTRITO, produces = "text/html; charset=UTF8")
     public ModelAndView PaginaCadastroGenerico(@RequestParam Integer id) {
         ModelAndView mv = new ModelAndView("Generico/CadastrarGenerico");
-        mv.addObject("ViewName", "Edição - Listas genéricas");
+        mv.addObject("ViewName", "Edição - Conteúdos");
         mv.addObject("ObjId", id);
         return mv;
     }

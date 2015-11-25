@@ -5,6 +5,7 @@
  */
 package com.ProjetoADS5.Web.Controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,10 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @RequestMapping("home")
-    public ModelAndView Index() {
+    public ModelAndView Index(HttpSession sessao) {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("ViewName", "Seja bem-vindo!");
         mv.addObject("ViewDescription", "Lista de chamados");
+        if((Boolean)sessao.getAttribute("logado") != null && (Boolean)sessao.getAttribute("logado") == true)
+            mv.addObject("AdminLogado", true);
+        else
+            mv.addObject("AdminLogado", false);
         return mv;
     }
     

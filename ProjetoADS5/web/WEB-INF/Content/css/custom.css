@@ -4,6 +4,8 @@ body {
 
 #page-wrapper {
     display: none;
+    background: url("../images/bg3.jpg") no-repeat fixed;
+    background-size: 100% 100%;
 }
 
 table th {
@@ -35,7 +37,7 @@ small {
 }
 
 .custom-footer {
-    color: #777;
+    color: #ddd;
     text-align: center;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -218,4 +220,28 @@ table .foto {
 table tr td, table th {
     text-align: center;
     vertical-align: middle;
+}
+
+.page-header {
+    color: #eee;
+}
+
+.botoes_inicio {
+    width: 300px; 
+    height: 300px; 
+    border-radius: 3px; 
+    float: left;
+    margin: 20px; 
+    box-shadow: #111 0px 5px 20px 0px;    
+    text-align: center;
+    padding-top: 70px;
+    color: #fff;
+    cursor: pointer;
+}
+.botoes_inicio:hover {
+    box-shadow: #111 0px 0px 5px 0px; 
+    zoom: 0.99;
+}
+.botoes_inicio i {
+    font-size: 150px;
 }

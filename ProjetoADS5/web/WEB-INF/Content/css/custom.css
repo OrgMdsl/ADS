@@ -227,21 +227,21 @@ table tr td, table th {
 }
 
 .botoes_inicio {
-    width: 300px; 
-    height: 300px; 
+    width: 150px; 
+    height: 150px; 
     border-radius: 3px; 
     float: left;
     margin: 20px; 
-    box-shadow: #111 0px 5px 20px 0px;    
+    box-shadow: #111 0px 0px 5px 0px;    
     text-align: center;
-    padding-top: 70px;
+    padding-top: 20px;
     color: #fff;
     cursor: pointer;
 }
 .botoes_inicio:hover {
-    box-shadow: #111 0px 0px 5px 0px; 
-    zoom: 0.99;
+    box-shadow: #111 0px 5px 20px 0px; 
+    zoom: 1.01;
 }
 .botoes_inicio i {
-    font-size: 150px;
+    font-size: 100px;
 }

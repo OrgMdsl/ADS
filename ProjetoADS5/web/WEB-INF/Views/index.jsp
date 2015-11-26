@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <div class="row">
+        <div class="row" style="min-height:400px">
             <c:if test="${usuarioLogado != null}">
                 <c:if test="${usuarioLogado.administrador}">
                     <div onclick="abrirPagina('PaginaDisciplina' + Const.AccessControl.RESTRITO);" title="Disciplinas" style="background: #3e8f3e;" class="botoes_inicio">
@@ -20,7 +20,7 @@
                         <i class="fa fa-cubes fa-inverse"></i>
                         <div>Cursos</div>
                     </div>
-                    <div onclick="abrirPagina('PaginaProfessor' + Const.AccessControl.RESTRITO);" title="Professores" style="background: #1b6d85;" class="botoes_inicio">
+                    <div onclick="abrirPagina('PaginaProfessor' + Const.AccessControl.RESTRITO);" title="Professores" style="background: #222;" class="botoes_inicio">
                         <i class="fa fa-graduation-cap fa-inverse"></i>
                         <div>Professores</div>
                     </div>

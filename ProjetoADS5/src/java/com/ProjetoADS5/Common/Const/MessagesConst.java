@@ -11,9 +11,9 @@ package com.ProjetoADS5.Common.Const;
  */
 public class MessagesConst {
 
-    public static final String INSERIDO = "Inserído com sucesso!",
+    public static final String INSERIDO = "Inser&iacute;do com sucesso!",
             ATUALIZADO = "Atualizado com sucesso!",
-            EXCLUÍDO = "Excluído com sucesso!",
+            EXCLUÍDO = "Exclu&iacute;do com sucesso!",
             LIXEIRA = "Item movido para a lixera.",
             ERRO = "Ocorreu um erro...",
             SUCESSO = "Sucesso";

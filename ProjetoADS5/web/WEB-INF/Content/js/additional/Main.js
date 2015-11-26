@@ -10,8 +10,8 @@ $(document).ready(function () {
 
         pageLoaded = true;
 
-
-    }
+    }    
+    
 });
 
 function abrirPaginaSemRefresh(url) {
